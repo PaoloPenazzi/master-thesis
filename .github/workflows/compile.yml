@@ -1,0 +1,32 @@
+name: compile
+on:
+  push:
+    branches:
+      - main
+      - master
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          submodules: recursive
+          
+      - name: Compile latex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: main.tex
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode -shell-escape
+
+# choose the pdf name
+      - name: Rename report file
+        run: mv main.pdf report.pdf
+        
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          npm install
+          npx semantic-release
