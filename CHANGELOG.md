@@ -1,3 +1,28 @@
+## 1.0.0 (2023-10-10)
+
+
+### Features
+
+* define thesis structure and remove template examples ([d840ec3](https://github.com/PaoloPenazzi/master-thesis/commit/d840ec359ec38d4ba72a475feefb1411894ada88))
+
+
+### Dependency updates
+
+* **deps:** update actions/checkout action to v4 ([77bfd4a](https://github.com/PaoloPenazzi/master-thesis/commit/77bfd4af3c168da11425cada1344f6c58ab65194))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.68 ([bb979a5](https://github.com/PaoloPenazzi/master-thesis/commit/bb979a5f9955db5ad1eaf8d9b10cabbbdc91b725))
+* **deps:** update node.js to 18.18 ([05c24b6](https://github.com/PaoloPenazzi/master-thesis/commit/05c24b6b88782b49b428ac239f1294df31bd13d7))
+* **deps:** update xu-cheng/latex-action action to v3 ([156cbeb](https://github.com/PaoloPenazzi/master-thesis/commit/156cbebe41146e0a395b9507482c9b9fe0feb5d3))
+
+
+### Bug Fixes
+
+* add missing usepackage for comments ([98cbd59](https://github.com/PaoloPenazzi/master-thesis/commit/98cbd590aaed8574100624a6e6f0e869409e1ab4))
+
+
+### General maintenance
+
+* update renovate configuration to automerge minor version updates ([7e94cad](https://github.com/PaoloPenazzi/master-thesis/commit/7e94cad70626009d1c2e5e9b4a9a8ec078592811))
+
 ## [1.2.0](https://github.com/PaoloPenazzi/latex-template/compare/1.1.0...1.2.0) (2023-10-06)
 
 
