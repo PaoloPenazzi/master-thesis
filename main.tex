@@ -5,7 +5,8 @@
 \usepackage{notes}
 \usepackage{shortcuts}
 \usepackage{acronym}
-\usepackage{comment}
+\usepackage{comment} % for multi-line comments
+\usepackage{booktabs} % for better tables
 
 \school{\unibo}
 \programme{Corso di Laurea Magistrale in Ingegneria e Scienze Informatiche}
@@ -81,18 +82,22 @@ you may need both \ac{vm} and \acp{vm}.
 
 To better understand the problem domain and to avoid misunderstandings, a ubiquitous language was defined.
 
-\begin{table}[]
-    \begin{tabular}{|l|l|}
-    \hline
-    \multicolumn{1}{|c|}{\textbf{Term}} & \multicolumn{1}{c|}{\textbf{Meaning}}                                                                                                                                                               \\ \hline
-    Testing                             & The overall process carried out to verify and validate a system, according to requirements, to promote the desired internal and external quality and to mitigate risks in development and products. \\ \hline
-    Testbed                             & A platform for rigorous transparent and replicable environment for experimentation and testing TODO Cite                                                                                            \\ \hline
-    Solution                            & Consist of a set of algorithms leading to achieving goals and overcoming the problem posted                                                                                                         \\ \hline
-    Scenario                            & Contains all the information about the test execution: the simulation platform, the metrics, the input parameters                                                                                             \\ \hline
-    Simulator                           & A software that allows the user to see how its program would behave in a real environment                                                                                                                     \\ \hline
-    Parser                              & Component of the Testbed responsible for the read of the input file                                                                                                                                           \\ \hline
-    Listener                            & Component of the Testbed responsible for the read of the output of the simulator                                                                                                                              \\ \hline
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|l|p{8cm}|}
+    \toprule
+    \textbf{Term} & \textbf{Meaning} \\
+    \midrule                                                                                                                                                              
+    Testing & The overall process carried out to verify and validate a system, according to requirements, to promote the desired internal and external quality and to mitigate risks in development and products. \\ \hline
+    Testbed & A platform for rigorous transparent and replicable environment for experimentation and testing TODO Cite \\ \hline
+    Solution & Consist of a set of algorithms leading to achieving goals and overcoming the problem posted \\ \hline
+    Scenario & Contains all the information about the test execution: the simulation platform, the metrics, the input parameters \\ \hline
+    Simulator & A software that allows the user to see how its program would behave in a real environment \\ \hline
+    Parser & Component of the Testbed responsible for the read of the input file \\ \hline
+    Listener & Component of the Testbed responsible for the read of the output of the simulator \\ \hline
+    \bottomrule
     \end{tabular}
+    \caption{Domain Ubiquitous Language}
     \end{table}
 
 \section{Technologies}
