@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/PaoloPenazzi/master-thesis/compare/1.2.0...1.2.1) (2023-10-12)
+
+
+### Bug Fixes
+
+* fix ubiquitous language display ([820c20d](https://github.com/PaoloPenazzi/master-thesis/commit/820c20dee08007f2a00d47eb9dc6bc87721e067d))
+
 ## [1.2.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.1.0...1.2.0) (2023-10-12)
 
 
