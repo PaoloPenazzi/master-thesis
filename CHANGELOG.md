@@ -1,3 +1,20 @@
+## [1.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.0.0...1.1.0) (2023-10-12)
+
+
+### Features
+
+* add containerization and language analysis sections ([3de58ee](https://github.com/PaoloPenazzi/master-thesis/commit/3de58eeb32022a6187eb4adfbb485b5e1ce01922))
+
+
+### Bug Fixes
+
+* remove broken references ([48dcc7a](https://github.com/PaoloPenazzi/master-thesis/commit/48dcc7acd9ad5c9fd5235cde6e4ba08b844d209d))
+
+
+### General maintenance
+
+* add README file with some notes in it ([f3d495d](https://github.com/PaoloPenazzi/master-thesis/commit/f3d495da53ce6cecf74df3b25126b2225580594e))
+
 ## 1.0.0 (2023-10-10)
 
 
