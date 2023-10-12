@@ -77,6 +77,54 @@ you may need both \ac{vm} and \acp{vm}.
 \chapter{Analysis}
 %----------------------------------------------------------------------------------------
 
+\section{Ubiquitous Language}
+
+\section{Technologies}
+
+\subsection{Containerization}
+% What is containerization
+Containerization is a lightweight alternative to full-machine virtualization that involves encapsulating 
+an application in a container with its own operating environment.
+% Why containerization is needed
+The main reason for using containerization is to create a consistent, isolated environment for applications to run in.
+By doing so, the user can be sure that the application will always run the same way, regardless of the user's machine configuration. 
+Further, this allows the user to focus solely on the application itself, without having to worry about dependencies, software updates, compatibility and things like this.
+% Choice of Docker as containerization technology
+When choosing a containerization technology, the choice was between the two most popular solution in this field: Docker and Kubernetes.
+Ultimately, Docker was chosen because it is more lightweight and easier to use than Kubernetes.
+% How Docker works
+Docker is a platform for building, running, and shipping applications in containers.
+Docker containers wrap up a piece of software in a complete filesystem that contains everything it needs to run:
+code, runtime, system tools, system libraries – anything you can install on a server.
+To create a container, a Dockerfile is needed, which is a text document that contains all the 
+
+
+\subsection{Language}
+Different languages were considered for the implementation of the system.
+
+\paragraph*{Scala}
+Scala is a strong statically typed high-level general-purpose programming language that supports both object-oriented 
+programming and functional programming. 
+Designed to be concise, scalable and safe. Many of Scala's design decisions are aimed at addressing criticisms of Java.
+[https://en.wikipedia.org/wiki/Scala_(programming_language)]
+One weakness of Scala is its steep learning curve, which makes it difficult to learn for new users.
+
+\paragraph*{Kotlin}
+Kotlin is a cross-platform, statically typed, general-purpose high-level programming language with type inference. 
+Kotlin is designed to interoperate fully with Java.
+Support for multiplatform programming is one of Kotlin’s key benefits. It reduces time spent writing and maintaining 
+the same code for different platforms while retaining the flexibility and benefits of native programming.
+[https://github.com/JetBrains/kotlin]
+
+\paragraph*{Rust}
+Rust is a multi-paradigm programming language designed for performance and safety, especially safe concurrency.
+It has been designed to be a "safe, concurrent, practical language", supporting functional and imperative-procedural paradigms.
+It is considered the modern version of C and C++.
+
+\paragraph*{Final choice}
+After a brief analysis, it was clear that both Kotlin and Scala were suitable candidates for the implementation of the system.
+In the end, the choice fell on Scala, because the author had previous experience with it.
+
 %----------------------------------------------------------------------------------------
 \chapter{Design}
 %----------------------------------------------------------------------------------------

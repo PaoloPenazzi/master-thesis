@@ -14,7 +14,7 @@ Scala:
 - Slow compile time
 - JVM dependent
 
-Kotlin:
+Kotlin: (https://github.com/DanySK/Template-for-Kotlin-Multiplatform-Projects)
 + Multiplatform (JVM, Native, JS which could be useful)
 + Widespread
 + Scala's features but faster compile time
