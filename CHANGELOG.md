@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.1.0...1.2.0) (2023-10-12)
+
+
+### Features
+
+* add first iteration of the UL ([f6599ab](https://github.com/PaoloPenazzi/master-thesis/commit/f6599abc3bf059cc89d6554b328717350d63ac78))
+
 ## [1.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.0.0...1.1.0) (2023-10-12)
 
 
