@@ -1,3 +1,20 @@
+## [1.3.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.2.1...1.3.0) (2023-10-15)
+
+
+### Features
+
+* add system architecture ([f05c961](https://github.com/PaoloPenazzi/master-thesis/commit/f05c9619fe4d337c247681a03b1061e8c2295ce9))
+
+
+### General maintenance
+
+* add first version of architecture image ([c54ef92](https://github.com/PaoloPenazzi/master-thesis/commit/c54ef92a3c53f37a7045fa509310405db360bceb))
+
+
+### Refactoring
+
+* solve some warning and change UL table width ([670a989](https://github.com/PaoloPenazzi/master-thesis/commit/670a9890324e746daa396652ee1b84e59d4029c2))
+
 ## [1.2.1](https://github.com/PaoloPenazzi/master-thesis/compare/1.2.0...1.2.1) (2023-10-12)
 
 
