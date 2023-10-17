@@ -5,6 +5,7 @@
 \usepackage{notes}
 \usepackage{shortcuts}
 \usepackage{acronym}
+\usepackage{hyperref} % links
 \usepackage{comment} % for multi-line comments
 \usepackage{booktabs} % for better tables
 
@@ -163,6 +164,25 @@ section{Architecture}
     \caption{Architecture of the system (v0.1)}
     \label{fig:random-image}
 \end{figure}
+
+\paragraph*{User Interaction} From an early analysis the better choice seems to be to deploy the framework online.
+This means that the user doesn't have to install anything, but can use the framework by visiting the webpage.
+(A step further would be using \href{https://kotlinlang.org/docs/multiplatform.html#kotlin-multiplatform-use-cases}{Kotlin Multiplatform} to deploy the framework for different platforms)
+
+\paragraph*{Frontend} The frontend consists of a web page that allow the user to interact with the software. 
+A minimum interface has a button to load an input file (YAML), a button to start the simulation, and a box to show the results.
+
+\paragraph*{Volume} A persistent data storage volume to keep all the input and output files in memory.
+
+\paragraph*{Controller} When the user start the simulation, it uses a parser to read the input file, create the simulation properties,
+and starts the simulator-specific executor.
+
+\paragraph*{Parser} Read the input file to create the simulation configuration specified by the user.
+
+\paragraph*{Executor} The executor is responsible of the start of the simulation. It should be able to drive different simulators.
+
+\paragraph*{Listener} The listener read the output of the simulation and send it to the frontend.
+(In the image it is created by the executor but actually it may be the controller that creates the listener)
 
 %----------------------------------------------------------------------------------------
 \chapter{Implementation}
