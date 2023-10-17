@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.3.0...1.4.0) (2023-10-17)
+
+
+### Features
+
+* add architecture image explanation ([6e4c544](https://github.com/PaoloPenazzi/master-thesis/commit/6e4c544e0d34bd480e43f9693694564e2af28193))
+
 ## [1.3.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.2.1...1.3.0) (2023-10-15)
 
 
