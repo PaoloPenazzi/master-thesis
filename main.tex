@@ -26,6 +26,7 @@
 % Definition of acronyms
 \acrodef{CAS}{Collective Adaptive System}
 \acrodef{vm}[VM]{Virtual Machine}
+\acrodef{SUT}{System Under Test}
 
 
 \mainlinespacing{1.241} % line spacing in main matter, comment to default (1)
@@ -77,6 +78,38 @@ you may need both \ac{vm} and \acp{vm}.
 %----------------------------------------------------------------------------------------
 \chapter{Motivation, Background and Related Work}
 %----------------------------------------------------------------------------------------
+
+In every field of engineering, testing is a fundamental part of the development process.
+It is used to verify that the system meets the requirements and to assure that it has the desired quality. 
+
+A \textit{testbed} is a platform for for experimentation and testing. It provides a rigorous, transparent and replicable environment for testing.
+Testbed often makes use of simulators, which are software that allows the user to see how its program would behave in a real environment.
+
+A \textit{benchmark} is a reference against which a system can be compared.
+
+In computer science research, is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
+This allows to understand whether a newly developed solutions is better than an existing one in a certain scenario.
+
+Unfortunately, there is a lack of platform to perform tests and benchmarks to compare to.
+
+This work targets a specifing category of systems, called \ac{CAS}.
+
+% Definition of CAS
+\ac{CAS} are composed of a large number of entities that interact with each other and with the environment to achieve a common goal.
+
+% Example of CAS both in nature and in artificial systems
+Examples of \ac{CAS} can be found both in nature and in artificial systems.
+In nature, a colony of ants is a \ac{CAS}, where each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. Other examples are bird flocks, fish shoals, animal herds, human crowd etc.
+Regarding artificial systems, some examples are cars on streets, drone swarms, and many more. \cite{2}
+
+% Characteristics of CAS
+All these systems share some common characteristics:
+% Decentralization
+% Self-organization
+% Adaptivity
+\begin{itemize}
+    \item Adaptation to the environment is not carried out by a single component, but rather emerges by the interaction of several entities. \cite{3}
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 \chapter{Analysis}
@@ -132,7 +165,7 @@ Different languages were considered for the implementation of the system.
 Scala is a strong statically typed high-level general-purpose programming language that supports both object-oriented 
 programming and functional programming. 
 Designed to be concise, scalable and safe, many of Scala's design decisions are aimed at addressing criticisms of Java.
-\cite{enwiki:1179700699}
+\cite{1}
 One weakness of Scala is its steep learning curve, which makes it difficult to learn for new users.
 
 \paragraph*{Kotlin}
@@ -156,11 +189,11 @@ In the end, the choice fell on Scala, because the author had previous experience
 \chapter{Design}
 %----------------------------------------------------------------------------------------
 
-section{Architecture}
+\section{Architecture}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=.8\linewidth]{figures/architecture.png}
+    \includegraphics[width=\textwidth]{figures/architecture.png}
     \caption{Architecture of the system (v0.1)}
     \label{fig:random-image}
 \end{figure}
