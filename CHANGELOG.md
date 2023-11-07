@@ -1,3 +1,10 @@
+## [1.5.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.4.0...1.5.0) (2023-11-07)
+
+
+### Features
+
+* add first iteration of background and motivations ([ba5f9f4](https://github.com/PaoloPenazzi/master-thesis/commit/ba5f9f4dd5cf4027b2a9856d6f7c279b9dad37fd))
+
 ## [1.4.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.3.0...1.4.0) (2023-10-17)
 
 
