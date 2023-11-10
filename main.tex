@@ -8,6 +8,18 @@
 \usepackage{hyperref} % links
 \usepackage{comment} % for multi-line comments
 \usepackage{booktabs} % for better tables
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstdefinestyle{yaml}{
+     basicstyle=\color{blue}\footnotesize,
+     rulecolor=\color{black},
+     string=[s]{'}{'},
+     stringstyle=\color{blue},
+     comment=[l]{:},
+     commentstyle=\color{black},
+     morecomment=[l]{-}
+ }
 
 \showboxdepth=5
 \showboxbreadth=5
@@ -80,39 +92,41 @@ you may need both \ac{vm} and \acp{vm}.
 %----------------------------------------------------------------------------------------
 
 In every field of engineering, testing is a fundamental part of the development process.
-It is used to verify that the system meets the requirements and to assure that it has the desired quality. 
+It is used to verify that the system meets the requirements and to assure that it has the desired quality.
 
-A \textit{testbed} is a platform for for experimentation and testing. It provides a rigorous, transparent and replicable environment for testing.
+A \textit{testbed} is a platform for experimentation and testing. 
+It provides a rigorous, transparent and replicable environment for testing.
 Testbed often makes use of simulators, which are software that allows the user to see how its program would behave in a real environment.
 
-A \textit{benchmark} is a reference against which a system can be compared.
-
 In computer science research, is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
-This allows to understand whether a newly developed solutions is better than an existing one in a certain scenario.
+This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario.
 
-Unfortunately, there is a lack of platform to perform tests and benchmarks to compare to.
+To make this comparison \textit{benchmarks} are used. A benchmark is a reference against which a solution can be compared.
 
-This work targets a specifing category of systems, called \ac{CAS}.
+This work targets a specific category of systems, called \ac{CAS}.
 
 % Definition of CAS
-\ac{CAS} are composed of a large number of entities that interact with each other and with the environment to achieve a common goal.
+A \ac{CAS} is composed of a large number of entities that interact with each other and with the environment to achieve a common goal.
+They are part of a wider category of systems called \textit{Self-Adaptive Systems}.
 
 % Example of CAS both in nature and in artificial systems
 Examples of \ac{CAS} can be found both in nature and in artificial systems.
-In nature, a colony of ants is a \ac{CAS}, where each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. Other examples are bird flocks, fish shoals, animal herds, human crowd etc.
+In nature, a colony of ants is a \ac{CAS}, where each ant is an autonomous entity that interacts with other ants and with the environment 
+to achieve the common goal of the colony. 
+Other examples are bird flocks, fish shoals, animal herds, human crowds etc.
 Regarding artificial systems, some examples are cars on streets, drone swarms, and many more. \cite{2}
 
 % Characteristics of CAS
 All these systems share some common characteristics:
-% Decentralization
-% Self-organization
-% Adaptivity
 \begin{itemize}
-    \item Adaptation to the environment is not carried out by a single component, but rather emerges by the interaction of several entities. \cite{3}
+    \item \textbf{Self-Adaptive:} The system can adapt to changes in the environment without requiring an outside entity to control it.
+    \item Adaptation to the environment is not carried out by a single entity - but rather emerges by the interaction of several entities. \cite{3}
 \end{itemize}
 
+We are interested in the different properties of these systems. Most of these can be measured by carrying out tests.
+
 %----------------------------------------------------------------------------------------
-\chapter{Analysis}
+\chapter{Domain Analysis}
 %----------------------------------------------------------------------------------------
 
 \section{Ubiquitous Language}
@@ -129,6 +143,7 @@ To better understand the problem domain and to avoid misunderstandings, a ubiqui
     Testbed & A platform for rigorous transparent and replicable environment for experimentation and testing TODO Cite \\ \hline
     Solution & A set of algorithms leading to achieving goals and overcoming the problem posted \\ \hline
     Scenario & Contains all the information about the test execution: the simulation platform, the metrics, the input parameters \\ \hline
+    Program & TODO \\ \hline
     Simulator & A software that allows the user to see how its program would behave in a real environment \\ \hline
     Parser & Component of the Testbed responsible for the read of the input file \\ \hline
     Listener & Component of the Testbed responsible for the read of the output of the simulator \\ \hline
@@ -183,7 +198,7 @@ It is considered the modern version of C and C++.
 
 \paragraph*{Final choice}
 After a brief analysis, it was clear that both Kotlin and Scala were suitable candidates for the implementation of the system.
-In the end, the choice fell on Scala, because the author had previous experience with it.
+In the end, the choice fell on Kotlin.
 
 %----------------------------------------------------------------------------------------
 \chapter{Design}
@@ -210,12 +225,52 @@ A minimum interface has a button to load an input file (YAML), a button to start
 \paragraph*{Controller} When the user start the simulation, it uses a parser to read the input file, create the simulation properties,
 and starts the simulator-specific executor.
 
-\paragraph*{Parser} Read the input file to create the simulation configuration specified by the user.
+\subsection{Parser} 
+The parser is responsible for reading the input file and creating the simulation model.
 
 \paragraph*{Executor} The executor is responsible of the start of the simulation. It should be able to drive different simulators.
 
 \paragraph*{Listener} The listener read the output of the simulation and send it to the frontend.
 (In the image it is created by the executor but actually it may be the controller that creates the listener)
+
+\subsection{Input Files}
+
+One of the main challenges of this work is to create a flexible system that can be extended to support different simulators.
+This means that the input file structure should take into account the possibility of being extended, without breaking the existing structure.
+
+This is an input file example, which will be used to explain the structure of the input file.
+
+\begin{lstlisting}[style=yaml]
+strategy:
+  multiThreaded: false
+  executionOrder:
+    - grid-random
+    - grid-gradient
+
+simulators:
+  - name: Alchemist
+    version: "28.0.1"
+    scenarios:
+      - name: grid
+        description: A tutorial to Alchemist and Protelis incarnation
+        scenarioConfiguration: "src/main/yaml/grid.yml"
+        programs:
+          - name: gradient
+            description: A gradient program
+            input: "src/main/yaml/gradient.yml"
+
+          - name: random
+            description: A random program
+            input: "src/main/yaml/random.yml"
+\end{lstlisting}
+
+\subsection{Model}
+The testbed model should follow the input file structure. 
+This allows the Parser to convert the YAML file directly into the testbed model.
+
+TODO add image
+
+As can be seen from the image, the model is 1:1 with the input file.
 
 %----------------------------------------------------------------------------------------
 \chapter{Implementation}
