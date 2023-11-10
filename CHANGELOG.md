@@ -1,3 +1,10 @@
+## [1.6.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.5.0...1.6.0) (2023-11-10)
+
+
+### Features
+
+* add input file example ([045f801](https://github.com/PaoloPenazzi/master-thesis/commit/045f8019f2f03e0f505ac1093ae5aca1115875b2))
+
 ## [1.5.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.4.0...1.5.0) (2023-11-07)
 
 
