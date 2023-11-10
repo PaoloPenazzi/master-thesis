@@ -264,6 +264,57 @@ simulators:
             input: "src/main/yaml/random.yml"
 \end{lstlisting}
 
+\paragraph*{Strategy} The strategy section contains generic information about the testbed configuration. None of these 
+are simulator-specific instructions.
+All the keywords in this section are optional, and if not specified the default value is used: the execution will be
+single-threaded and the execution order will be random.
+
+\paragraph*{Simulators} The simulators section contains the configuration of each simulator used in the testbed.
+Each simulator has a name, a version, and a list of scenarios. The name is mandatory, while the version is optional 
+and is currently not used. The testbed will always use the latest version.
+
+The scenario configuration is more complex, as each simulator has different ways to configure the scenario.
+When adding support for a new simulator, it is mandatory to specify how its configuration should be written in the input file.
+
+At the moment, Alchemist is the only simulator officially supported by the testbed.
+The yaml file structure for Alchemist require to specify a list of scenarios, each with a name, a description, and a path to the input file.
+This input file contains all the information needed to run the simulation.
+
+The user in some cases may want to run the same scenario with different programs.
+To do so, the user can specify a scenario configuration and a list of programs, each with a name, a description, and a path to the input file.
+
+The testbed will then generate a new yaml file, by combining the scenario configuration and the program input file. 
+The name of the generated file will be \textit{scenarioName-programName.yml}.
+
+Here are some examples of input files for Alchemist.
+
+\begin{lstlisting}[style=yaml, caption={Two programs to be tested in the same scenario}]
+  simulators:
+    - name: Alchemist
+      version: "28.0.1"
+      scenarios:
+        - name: grid
+          description: A tutorial to Alchemist and Protelis incarnation
+          scenarioConfiguration: "src/main/yaml/grid.yml"
+          programs:
+            - name: gradient
+              description: A gradient program
+              input: "src/main/yaml/gradient.yml"
+  
+            - name: random
+              description: A random program
+              input: "src/main/yaml/random.yml"
+  \end{lstlisting}
+
+\begin{lstlisting}[style=yaml, caption={One scenario and one program. Both specified in the same input file.}]
+- name: Alchemist
+  version: "28.0.1"
+  scenarios:
+    - name: Alchemist-Sapere
+      description: A tutorial to Alchemist and Sapere incarnation
+      input: "src/main/yaml/tutorial.yml"
+\end{lstlisting}
+
 \subsection{Model}
 The testbed model should follow the input file structure. 
 This allows the Parser to convert the YAML file directly into the testbed model.
