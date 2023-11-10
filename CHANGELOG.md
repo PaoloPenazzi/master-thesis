@@ -1,3 +1,10 @@
+## [1.7.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.6.0...1.7.0) (2023-11-10)
+
+
+### Features
+
+* add yaml input file structure explanation ([29974cd](https://github.com/PaoloPenazzi/master-thesis/commit/29974cdbfdda79309508e6ac7ea7cbffddd398dd))
+
 ## [1.6.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.5.0...1.6.0) (2023-11-10)
 
 
