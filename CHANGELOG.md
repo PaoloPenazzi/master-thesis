@@ -1,3 +1,10 @@
+## [1.8.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.7.0...1.8.0) (2023-11-14)
+
+
+### Features
+
+* add some background informations ([c12a46a](https://github.com/PaoloPenazzi/master-thesis/commit/c12a46a24903f13534854a351110fdb96ec5a0b4))
+
 ## [1.7.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.6.0...1.7.0) (2023-11-10)
 
 
