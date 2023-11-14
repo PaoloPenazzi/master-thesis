@@ -10,16 +10,8 @@
 \usepackage{booktabs} % for better tables
 \usepackage{xcolor}
 \usepackage{listings}
-
-\lstdefinestyle{yaml}{
-     basicstyle=\color{blue}\footnotesize,
-     rulecolor=\color{black},
-     string=[s]{'}{'},
-     stringstyle=\color{blue},
-     comment=[l]{:},
-     commentstyle=\color{black},
-     morecomment=[l]{-}
- }
+\usepackage{caption}
+\usepackage{subcaption}
 
 \showboxdepth=5
 \showboxbreadth=5
@@ -64,32 +56,14 @@ Max 2000 characters, strict.
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
 
-\begin{comment} 
-Write your intro here.
-\sidenote{Add sidenotes in this way. They are named after the author of the thesis}
+% Testing
+% Importance of Testing
+% Benchamark
+% Testing and Benchmarking in Computer Science
+\paragraph*{Motivation}
 
-You can use acronyms that you defined previously,
-such as \ac{IoT}.
-%
-If you use acronyms twice,
-they will be written in full only once
-(indeed, you can mention the \ac{IoT} now without it being fully explained).
-%
-In some cases, you may need a plural form of the acronym.
-%
-For instance,
-that you are discussing \acp{vm},
-you may need both \ac{vm} and \acp{vm}.
-
-\paragraph{Structure of the Thesis}
-
-\note{At the end, describe the structure of the paper}
-
-\end{comment}
-
-%----------------------------------------------------------------------------------------
-\chapter{Motivation, Background and Related Work}
-%----------------------------------------------------------------------------------------
+\begin{comment}
+  
 
 In every field of engineering, testing is a fundamental part of the development process.
 It is used to verify that the system meets the requirements and to assure that it has the desired quality.
@@ -105,29 +79,81 @@ To make this comparison \textit{benchmarks} are used. A benchmark is a reference
 
 This work targets a specific category of systems, called \ac{CAS}.
 
-% Definition of CAS
-A \ac{CAS} is composed of a large number of entities that interact with each other and with the environment to achieve a common goal.
-They are part of a wider category of systems called \textit{Self-Adaptive Systems}.
 
-% Example of CAS both in nature and in artificial systems
-Examples of \ac{CAS} can be found both in nature and in artificial systems.
-In nature, a colony of ants is a \ac{CAS}, where each ant is an autonomous entity that interacts with other ants and with the environment 
-to achieve the common goal of the colony. 
-Other examples are bird flocks, fish shoals, animal herds, human crowds etc.
-Regarding artificial systems, some examples are cars on streets, drone swarms, and many more. \cite{2}
-
-% Characteristics of CAS
-All these systems share some common characteristics:
-\begin{itemize}
-    \item \textbf{Self-Adaptive:} The system can adapt to changes in the environment without requiring an outside entity to control it.
-    \item Adaptation to the environment is not carried out by a single entity - but rather emerges by the interaction of several entities. \cite{3}
-\end{itemize}
 
 We are interested in the different properties of these systems. Most of these can be measured by carrying out tests.
+
+\end{comment}
+
+\paragraph*{Objectives}
+
+\paragraph*{Thesis Structure}
+
+%----------------------------------------------------------------------------------------
+\chapter{Background}
+%----------------------------------------------------------------------------------------
+
+\section{Collective Adaptive Systems}
+
+Collective Adaptive Systems refer to a form of complex systems where a large number of heterogeneous entities interact without specific external or internal central control, 
+adapt their behavior to environmental settings in pursuit of an individual or collective goal.
+CAS often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18}
+
+A colony of ants is an example of CAS in nature: each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. 
+Bird flocks, fish shoals, animal herds and human crowds are also examples of CAS.
+
+These systems have been studied and modeled in different fields, such as computer science.
+CASs have some interesting properties that make them suitable for many applications:
+
+\begin{itemize}
+  \item \textit{fault-tolerance} Each entity carries out a simple task, by doing so they are less prone to errors.
+  \item \textit{scalability} Adding or removing an entity does not affect the system's behavior or performance.
+  \item \textit{robustness} The failure of one or more entities does not affect the system's behavior or performance.
+\end{itemize}
+
+Drone swarms tasked with monitoring an area, wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic, are all examples of artificial CAS. \cite{2}
+
+\begin{figure*}[t]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=0.7\textwidth]{figures/swarm2.jpeg}
+  \end{subfigure}
+
+  \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=0.6\textwidth]{figures/crowd.png}
+  \end{subfigure}
+  \caption{Some examples of CAS.}
+\end{figure*}
+
+\section{Aggregate Computing}
+
+\section{Simulation}
+
+In computer science, simulation is the process of executing software in a controlled environment to evaluate its behavior. 
+Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario. 
+The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions. 
+This cannot be done without a simulator, which is software that provides the user with all the tools needed to run the simulation. \cite[]{argun2021simulation, bagrodia1998parsec}
+
+The importance of simulators and simulation becomes clear when testing CASs. 
+It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program. 
+Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior.
+
+The reference simulator for this work is Alchemist, a meta-simulator.
+
 
 %----------------------------------------------------------------------------------------
 \chapter{Domain Analysis}
 %----------------------------------------------------------------------------------------
+
+\begin{comment}
+  STATE OF THE ART
+  UBIQUITOUS LANGUAGE
+  TECHNOLOGIES
+      Containerization
+      Language
+\end{comment}
 
 \section{Ubiquitous Language}
 
@@ -217,20 +243,20 @@ In the end, the choice fell on Kotlin.
 This means that the user doesn't have to install anything, but can use the framework by visiting the webpage.
 (A step further would be using \href{https://kotlinlang.org/docs/multiplatform.html#kotlin-multiplatform-use-cases}{Kotlin Multiplatform} to deploy the framework for different platforms)
 
-\paragraph*{Frontend} The frontend consists of a web page that allow the user to interact with the software. 
+\paragraph*{Frontend} The frontend consists of a GUI that allows the user to interact with the software. 
 A minimum interface has a button to load an input file (YAML), a button to start the simulation, and a box to show the results.
 
 \paragraph*{Volume} A persistent data storage volume to keep all the input and output files in memory.
 
-\paragraph*{Controller} When the user start the simulation, it uses a parser to read the input file, create the simulation properties,
+\paragraph*{Controller} When the user starts the simulation, it uses a parser to read the input file, create the simulation properties,
 and starts the simulator-specific executor.
 
 \subsection{Parser} 
 The parser is responsible for reading the input file and creating the simulation model.
 
-\paragraph*{Executor} The executor is responsible of the start of the simulation. It should be able to drive different simulators.
+\paragraph*{Executor} The executor is responsible for the start of the simulation. It should be able to drive different simulators.
 
-\paragraph*{Listener} The listener read the output of the simulation and send it to the frontend.
+\paragraph*{Listener} The listener reads the output of the simulation and sends it to the GUI.
 (In the image it is created by the executor but actually it may be the controller that creates the listener)
 
 \subsection{Input Files}
@@ -277,13 +303,13 @@ The scenario configuration is more complex, as each simulator has different ways
 When adding support for a new simulator, it is mandatory to specify how its configuration should be written in the input file.
 
 At the moment, Alchemist is the only simulator officially supported by the testbed.
-The yaml file structure for Alchemist require to specify a list of scenarios, each with a name, a description, and a path to the input file.
+The Yaml file structure for Alchemist requires specifying a list of scenarios, each with a name, a description, and a path to the input file.
 This input file contains all the information needed to run the simulation.
 
 The user in some cases may want to run the same scenario with different programs.
 To do so, the user can specify a scenario configuration and a list of programs, each with a name, a description, and a path to the input file.
 
-The testbed will then generate a new yaml file, by combining the scenario configuration and the program input file. 
+The testbed will then generate a new Yaml file, by combining the scenario configuration and the program input file. 
 The name of the generated file will be \textit{scenarioName-programName.yml}.
 
 Here are some examples of input files for Alchemist.
@@ -319,7 +345,12 @@ Here are some examples of input files for Alchemist.
 The testbed model should follow the input file structure. 
 This allows the Parser to convert the YAML file directly into the testbed model.
 
-TODO add image
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/model.png}
+  \caption{Model of the system (v0.1)}
+  \label{fig:model}
+\end{figure}
 
 As can be seen from the image, the model is 1:1 with the input file.
 
@@ -335,36 +366,15 @@ As can be seen from the image, the model is 1:1 with the input file.
 \chapter{Conclusion and Future Work}
 %----------------------------------------------------------------------------------------
 
-\begin{comment}
-
-I suggest referencing stuff as follows: \cref{fig:random-image} or \Cref{fig:random-image}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.8\linewidth]{figures/random-image.pdf}
-    \caption{Some random image}
-    \label{fig:random-image}
-\end{figure}
-
-\section{Some cool topic}
-
-You may also put some code snippet (which is NOT float by default), eg: \cref{lst:random-code}.
-
-\lstinputlisting[float,language=Java,label={lst:random-code}]{listings/HelloWorld.java}
-
-\section{Fancy formulas here}
-
-\end{comment}
-
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
 \backmatter
 
-\nocite{*} % comment this to only show the referenced entries from the .bib file
+%\nocite{*} % comment this to only show the referenced entries from the .bib file
 
-\bibliographystyle{alpha}
+\bibliographystyle{plain}
 \bibliography{bibliography}
 
 \end{document}
