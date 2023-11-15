@@ -117,12 +117,12 @@ Drone swarms tasked with monitoring an area, wearable devices to manage crowd co
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=0.7\textwidth]{figures/swarm2.jpeg}
+      \includegraphics[width=0.9\textwidth]{figures/swarm2.jpeg}
   \end{subfigure}
 
   \begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=0.6\textwidth]{figures/crowd.png}
+      \includegraphics[width=0.8\textwidth]{figures/crowd.png}
   \end{subfigure}
   \caption{Some examples of CAS.}
 \end{figure*}
@@ -134,13 +134,17 @@ Drone swarms tasked with monitoring an area, wearable devices to manage crowd co
 In computer science, simulation is the process of executing software in a controlled environment to evaluate its behavior. 
 Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario. 
 The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions. 
-This cannot be done without a simulator, which is software that provides the user with all the tools needed to run the simulation. \cite[]{argun2021simulation, bagrodia1998parsec}
+This cannot be done without a simulator, which is software that provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec}
 
 The importance of simulators and simulation becomes clear when testing CASs. 
 It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program. 
 Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior.
 
-The reference simulator for this work is Alchemist, a meta-simulator.
+The reference simulator for this work is Alchemist. \cite{Pianini_2013}
+
+Alchemist is a meta-simulator for pervasive, aggregate, and nature-inspired computing. 
+
+It supports different incarnations, such as Protelis, SAPERE and ScaFi. \cite{DBLP:conf/sac/PianiniVB15, DBLP:conf/saso/CastelliMRZ11, DBLP:journals/softx/CasadeiVAP22}
 
 
 %----------------------------------------------------------------------------------------
