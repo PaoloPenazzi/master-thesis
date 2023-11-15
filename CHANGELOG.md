@@ -1,3 +1,15 @@
+## [1.9.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.8.0...1.9.0) (2023-11-15)
+
+
+### Features
+
+* add testing background section ([4050e1f](https://github.com/PaoloPenazzi/master-thesis/commit/4050e1fd802002d086c5219c48099e87acba59d0))
+
+
+### Refactoring
+
+* add some missing references ([59daa0f](https://github.com/PaoloPenazzi/master-thesis/commit/59daa0f0d522cac7e901409bc3ac43c77f62a511))
+
 ## [1.8.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.7.0...1.8.0) (2023-11-14)
 
 
