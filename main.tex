@@ -56,38 +56,11 @@ Max 2000 characters, strict.
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
 
-% Testing
-% Importance of Testing
-% Benchamark
-% Testing and Benchmarking in Computer Science
-\paragraph*{Motivation}
+\paragraph{Motivation}
 
-\begin{comment}
-  
+\paragraph{Objectives}
 
-In every field of engineering, testing is a fundamental part of the development process.
-It is used to verify that the system meets the requirements and to assure that it has the desired quality.
-
-A \textit{testbed} is a platform for experimentation and testing. 
-It provides a rigorous, transparent and replicable environment for testing.
-Testbed often makes use of simulators, which are software that allows the user to see how its program would behave in a real environment.
-
-In computer science research, is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
-This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario.
-
-To make this comparison \textit{benchmarks} are used. A benchmark is a reference against which a solution can be compared.
-
-This work targets a specific category of systems, called \ac{CAS}.
-
-
-
-We are interested in the different properties of these systems. Most of these can be measured by carrying out tests.
-
-\end{comment}
-
-\paragraph*{Objectives}
-
-\paragraph*{Thesis Structure}
+\paragraph{Thesis Structure}
 
 %----------------------------------------------------------------------------------------
 \chapter{Background}
@@ -95,15 +68,15 @@ We are interested in the different properties of these systems. Most of these ca
 
 \section{Collective Adaptive Systems}
 
-Collective Adaptive Systems refer to a form of complex systems where a large number of heterogeneous entities interact without specific external or internal central control, 
+\ac{CAS} refers to a form of complex systems where a large number of heterogeneous entities interact without specific external or internal central control, 
 adapt their behavior to environmental settings in pursuit of an individual or collective goal.
-CAS often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18}
+\ac{CAS} often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18}
 
-A colony of ants is an example of CAS in nature: each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. 
-Bird flocks, fish shoals, animal herds and human crowds are also examples of CAS.
+A colony of ants is an example of \ac{CAS} in nature: each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. 
+Bird flocks, fish shoals, animal herds and human crowds are also examples of \ac{CAS}.
 
 These systems have been studied and modeled in different fields, such as computer science.
-CASs have some interesting properties that make them suitable for many applications:
+\ac{CAS} have some interesting properties that make them suitable for many applications:
 
 \begin{itemize}
   \item \textit{fault-tolerance} Each entity carries out a simple task, by doing so they are less prone to errors.
@@ -129,14 +102,16 @@ Drone swarms tasked with monitoring an area, wearable devices to manage crowd co
 
 \section{Aggregate Computing}
 
+
+
 \section{Simulation}
 
 In computer science, simulation is the process of executing software in a controlled environment to evaluate its behavior. 
 Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario. 
 The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions. 
-This cannot be done without a simulator, which is software that provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec}
+This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec}
 
-The importance of simulators and simulation becomes clear when testing CASs. 
+The importance of simulators becomes clear when testing \ac{CAS}. 
 It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program. 
 Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior.
 
@@ -144,8 +119,17 @@ The reference simulator for this work is Alchemist. \cite{Pianini_2013}
 
 Alchemist is a meta-simulator for pervasive, aggregate, and nature-inspired computing. 
 
-It supports different incarnations, such as Protelis, SAPERE and ScaFi. \cite{DBLP:conf/sac/PianiniVB15, DBLP:conf/saso/CastelliMRZ11, DBLP:journals/softx/CasadeiVAP22}
+It supports various incarnations, such as Protelis, SAPERE and ScaFi. \cite{DBLP:conf/sac/PianiniVB15, DBLP:conf/saso/CastelliMRZ11, DBLP:journals/softx/CasadeiVAP22}
 
+\section{Testing}
+
+In every field of engineering, testing is a fundamental part of the development process.
+Testing refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
+
+In every research field, It is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
+This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario.
+
+Having a set of benchmarks available permits to do so: compare the \ac{SUT} against other solutions.
 
 %----------------------------------------------------------------------------------------
 \chapter{Domain Analysis}
@@ -161,7 +145,7 @@ It supports different incarnations, such as Protelis, SAPERE and ScaFi. \cite{DB
 
 \section{Ubiquitous Language}
 
-To better understand the problem domain and to avoid misunderstandings, a ubiquitous language was defined.
+To better understand the problem domain and to avoid misunderstandings, a ubiquitous language has been defined.
 
 \begin{table}[h]
     \centering
@@ -210,7 +194,6 @@ Different languages were considered for the implementation of the system.
 Scala is a strong statically typed high-level general-purpose programming language that supports both object-oriented 
 programming and functional programming. 
 Designed to be concise, scalable and safe, many of Scala's design decisions are aimed at addressing criticisms of Java.
-\cite{1}
 One weakness of Scala is its steep learning curve, which makes it difficult to learn for new users.
 
 \paragraph*{Kotlin}
@@ -250,7 +233,7 @@ This means that the user doesn't have to install anything, but can use the frame
 \paragraph*{Frontend} The frontend consists of a GUI that allows the user to interact with the software. 
 A minimum interface has a button to load an input file (YAML), a button to start the simulation, and a box to show the results.
 
-\paragraph*{Volume} A persistent data storage volume to keep all the input and output files in memory.
+\paragraph*{Volume} A persistent data storage volume to keep all the input and output files in memory. 
 
 \paragraph*{Controller} When the user starts the simulation, it uses a parser to read the input file, create the simulation properties,
 and starts the simulator-specific executor.
