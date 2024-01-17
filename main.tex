@@ -68,7 +68,7 @@ Max 2000 characters, strict.
 
 \section{Collective Adaptive Systems}
 
-\ac{CAS} refers to a form of complex systems where a large number of heterogeneous entities interact without specific external or internal central control, 
+\ac{CAS} refers to a form of complex systems where a large number of heterogeneous entities interact without specific external or internal central control and
 adapt their behavior to environmental settings in pursuit of an individual or collective goal.
 \ac{CAS} often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18}
 
@@ -100,7 +100,19 @@ Drone swarms tasked with monitoring an area, wearable devices to manage crowd co
   \caption{Some examples of CAS.}
 \end{figure*}
 
-\section{Aggregate Computing}
+\section{Aggregate Programming}
+
+In recent years, we have witnessed a shift in the production of computing devices: moving from a few large and powerful devices to a large number of small and lightweight devices. 
+There is often talk about the Internet of Things and how technology has become pervasive, impacting every aspect of our lives with electronic devices.
+
+This trend has led to a change in the way we compute data: no longer focusing on a single machine performing heavy computation, but rather on a distributed network of devices communicating and collaborating to achieve a result. 
+Computation is thus divided and distributed across various devices in the network. This has posed several challenges:
+
+Todo
+Todo
+
+Aggregate computing is a macro programming model based on field calculus that aims to simplify the programming of these distributed networks of devices.
+
 
 
 
@@ -132,16 +144,31 @@ This allows us to understand whether a newly developed solution is better than a
 Having a set of benchmarks available permits to do so: compare the \ac{SUT} against other solutions.
 
 %----------------------------------------------------------------------------------------
-\chapter{Domain Analysis}
+\chapter{Requirements}
 %----------------------------------------------------------------------------------------
 
-\begin{comment}
-  STATE OF THE ART
-  UBIQUITOUS LANGUAGE
-  TECHNOLOGIES
-      Containerization
-      Language
-\end{comment}
+\section*{Domain analysis}
+
+In the context of collective adaptive systems and aggregate programming, there is a lack of a framework that allows users to perform repeated tests in a single environment. 
+To better understand what is being referred to, one can look at the Phoronix Test Suite (TODO cite): a framework for testing computer hardware.
+Therefore, the goal is to create a framework that provides users with a way to define and execute various simulations using different simulators.
+We can deduce some of the features that this testbed must have:
+
+\begin{itemize}
+  \item It must be easily extendable to allow the addition of other simulators without compromising the functionality of the already supported simulators.
+  \item It should not limit the user in any way, allowing them to test what they want, to the extent that specific simulators permit.
+  \item It should facilitate the user in testing collective adaptive systems.
+\end{itemize}
+
+So at an abstract level, the testbed is a framework that allows the user to define a benchmark, that will be executed under the hood, before returning the results to the user.
+The following image shows the abstract architecture of the testbed.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/architecture-high-level.png}
+  \caption{Abstract architecture of the testbed}
+\end{figure}
+
 
 \section{Ubiquitous Language}
 
@@ -154,38 +181,15 @@ To better understand the problem domain and to avoid misunderstandings, a ubiqui
     \textbf{Term} & \textbf{Meaning} \\
     \midrule                                                                                                                                                              
     Testing & The overall process carried out to verify and validate a system, according to requirements, to promote the desired internal and external quality and to mitigate risks in development and products. \\ \hline
-    Testbed & A platform for rigorous transparent and replicable environment for experimentation and testing TODO Cite \\ \hline
+    Testbed & A platform for rigorous, transparent and replicable environment for experimentation and testing TODO Cite \\ \hline
     Solution & A set of algorithms leading to achieving goals and overcoming the problem posted \\ \hline
     Scenario & Contains all the information about the test execution: the simulation platform, the metrics, the input parameters \\ \hline
-    Program & TODO \\ \hline
     Simulator & A software that allows the user to see how its program would behave in a real environment \\ \hline
-    Parser & Component of the Testbed responsible for the read of the input file \\ \hline
-    Listener & Component of the Testbed responsible for the read of the output of the simulator \\ \hline
     \end{tabular}
     \caption{Domain Ubiquitous Language}
     \end{table}
 
 \section{Technologies}
-
-\subsection{Containerization}
-
-% What is containerization
-Containerization is a lightweight alternative to full-machine virtualization that involves encapsulating an application in a container with its operating environment.
-
-% Why containerization is needed
-The main reason for using containerization is to create a consistent, isolated environment for applications to run in.
-By doing so, the user can be sure that the application will always run the same way, regardless of the user's machine configuration. 
-Further, this allows the user to focus solely on the application itself, without having to worry about dependencies, software updates, compatibility and things like this.
-
-% Choice of Docker as containerization technology
-When choosing a containerization technology, the choice was between the two most popular solutions in this field: Docker and Kubernetes.
-Ultimately, Docker was chosen because it is more lightweight and easier to use than Kubernetes.
-
-% How Docker works
-Docker is a platform for building, running, and shipping applications in containers.
-Docker containers wrap up a piece of software in a complete filesystem that contains everything it needs to run:
-code, runtime, system tools, system libraries - anything you can install on a server.
-To create a container, a Dockerfile is needed, which is a text document that contains all the information to deploy the application.
 
 \subsection{Language}
 Different languages were considered for the implementation of the system.
@@ -219,6 +223,16 @@ In the end, the choice fell on Kotlin.
 
 \section{Architecture}
 
+The Testbed is composed by different components, each with a specific role.
+The main component is the Controller which is responsible for the entire execution of the benchmark. It takes in input a configuration file, which is forwarded, after a few integrity checks, to the Parser.
+The Parser reads the input file and returns a benchmark model. The Benchmark Model is a representation of the input file, and it contains all the information needed to execute the benchmark.
+The controller then creates and runs a specific Executor for each scenario to be executed. The Executor type depends on the simulator used in the scenario.
+The executor handles the execution of the scenario, by launching the simulator with the correct parameters.
+After each simulation is completed, a Listener is created to read the simulation output. The output is stored in a data structure inside the Testbed.
+Once all the simulations are completed, the output is processed, and a view component is created to display the results to the user.
+
+The following image shows the architecture of the system.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/architecture.png}
@@ -226,56 +240,19 @@ In the end, the choice fell on Kotlin.
     \label{fig:random-image}
 \end{figure}
 
-\paragraph*{User Interaction} From an early analysis the better choice seems to be to deploy the framework online.
-This means that the user doesn't have to install anything, but can use the framework by visiting the webpage.
-(A step further would be using \href{https://kotlinlang.org/docs/multiplatform.html#kotlin-multiplatform-use-cases}{Kotlin Multiplatform} to deploy the framework for different platforms)
+In the following diagram is shown a detailed view of the benchmark execution.
 
-\paragraph*{Frontend} The frontend consists of a GUI that allows the user to interact with the software. 
-A minimum interface has a button to load an input file (YAML), a button to start the simulation, and a box to show the results.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
+  \caption{Architecture of the system (v0.1)}
+  \label{fig:random-image}
+\end{figure}
 
-\paragraph*{Volume} A persistent data storage volume to keep all the input and output files in memory. 
+\subsection{Benchmark Model}
 
-\paragraph*{Controller} When the user starts the simulation, it uses a parser to read the input file, create the simulation properties,
-and starts the simulator-specific executor.
-
-\subsection{Parser} 
-The parser is responsible for reading the input file and creating the simulation model.
-
-\paragraph*{Executor} The executor is responsible for the start of the simulation. It should be able to drive different simulators.
-
-\paragraph*{Listener} The listener reads the output of the simulation and sends it to the GUI.
-(In the image it is created by the executor but actually it may be the controller that creates the listener)
-
-\subsection{Input Files}
-
-One of the main challenges of this work is to create a flexible system that can be extended to support different simulators.
-This means that the input file structure should take into account the possibility of being extended, without breaking the existing structure.
-
-This is an input file example, which will be used to explain the structure of the input file.
-
-\begin{lstlisting}[style=yaml]
-strategy:
-  multiThreaded: false
-  executionOrder:
-    - grid-random
-    - grid-gradient
-
-simulators:
-  - name: Alchemist
-    version: "28.0.1"
-    scenarios:
-      - name: grid
-        description: A tutorial to Alchemist and Protelis incarnation
-        scenarioConfiguration: "src/main/yaml/grid.yml"
-        programs:
-          - name: gradient
-            description: A gradient program
-            input: "src/main/yaml/gradient.yml"
-
-          - name: random
-            description: A random program
-            input: "src/main/yaml/random.yml"
-\end{lstlisting}
+The benchmark model is the core of the system. It contains all the information about the benchmark execution.
+Here is a brief description of the main classes.
 
 \paragraph*{Strategy} The strategy section contains generic information about the testbed configuration. None of these 
 are simulator-specific instructions.
@@ -289,43 +266,53 @@ and is currently not used. The testbed will always use the latest version.
 The scenario configuration is more complex, as each simulator has different ways to configure the scenario.
 When adding support for a new simulator, it is mandatory to specify how its configuration should be written in the input file.
 
-At the moment, Alchemist is the only simulator officially supported by the testbed.
-The Yaml file structure for Alchemist requires specifying a list of scenarios, each with a name, a description, and a path to the input file.
-This input file contains all the information needed to run the simulation.
+\paragraph*{Scenario}
+The scenario section contains all the information regarding the execution of the simulation.
+It contains:
+\begin{itemize}
+    \item \textbf{name} the name used to identify the simulation run. Mandatory.
+    \item \textbf{description} a brief explanation of the scenario. Optional.
+    \item \textbf{input} the path of the file used as input for the simulator. Optional.
+    \item \textbf{modelFilePath} TODO
+    \item \textbf{repetitions} the number of times that the scenario should be run. Optional, default is 1.
+    \item \textbf{duration} the duration of the simulation. This parameter can be used to overwrite the value present in the simulator-specific configuration file.
+\end{itemize}
 
-The user in some cases may want to run the same scenario with different programs.
-To do so, the user can specify a scenario configuration and a list of programs, each with a name, a description, and a path to the input file.
+One of the main challenges of this work is to create a flexible system that can be extended to support different simulators.
+This means that the input file structure should take into account the possibility of being extended, without breaking the existing structure.
 
-The testbed will then generate a new Yaml file, by combining the scenario configuration and the program input file. 
-The name of the generated file will be \textit{scenarioName-programName.yml}.
+This is an input file example, which will be used to explain the structure of the input file.
 
-Here are some examples of input files for Alchemist.
+\begin{lstlisting}[style=yaml]
+strategy:
+  executionOrder:
+    - Alchemist-sapere-tutorial
+    - NetLogo-tutorial
+    - Alchemist-protelis-tutorial
 
-\begin{lstlisting}[style=yaml, caption={Two programs to be tested in the same scenario}]
-  simulators:
-    - name: Alchemist
-      version: "28.0.1"
-      scenarios:
-        - name: grid
-          description: A tutorial to Alchemist and Protelis incarnation
-          scenarioConfiguration: "src/main/yaml/grid.yml"
-          programs:
-            - name: gradient
-              description: A gradient program
-              input: "src/main/yaml/gradient.yml"
-  
-            - name: random
-              description: A random program
-              input: "src/main/yaml/random.yml"
-  \end{lstlisting}
+simulators:
+  - name: NETLOGO
+    simulatorPath: "./NetLogo 6.4.0/"
+    scenarios:
+      - name: NetLogo-tutorial
+        description: A tutorial to NetLogo
+        input: "../src/main/resources/netlogo/netlogo-tutorial.xml"
+        modelPath: "./models/IABM Textbook/chapter 4/Wolf Sheep Simple 5.nlogo"
+        repetitions: 3
 
-\begin{lstlisting}[style=yaml, caption={One scenario and one program. Both specified in the same input file.}]
-- name: Alchemist
-  version: "28.0.1"
-  scenarios:
-    - name: Alchemist-Sapere
-      description: A tutorial to Alchemist and Sapere incarnation
-      input: "src/main/yaml/tutorial.yml"
+  - name: Alchemist
+    simulatorPath: "./"
+    scenarios:
+      - name: Alchemist-protelis-tutorial
+        description: A tutorial to Alchemist and Protelis incarnation
+        input: "src/main/resources/alchemist/protelis-tutorial.yml"
+        repetitions: 1
+        duration: 10
+      - name: Alchemist-sapere-tutorial
+        description: A tutorial to Alchemist and Sapere incarnation
+        input: "src/main/resources/alchemist/sapere-tutorial.yml"
+        repetitions: 1
+        duration: 100
 \end{lstlisting}
 
 \subsection{Model}
