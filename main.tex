@@ -12,6 +12,7 @@
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{svg}
 
 \showboxdepth=5
 \showboxbreadth=5
@@ -70,7 +71,7 @@ Max 2000 characters, strict.
 
 \ac{CAS} are a complex type of distributed network, composed of a large number of heterogeneous entities.
 The two main characteristics that distinguish these systems are the ability to adapt their behavior to dynamically changing open-ended environments
-and the pursuit of a collective goal, achieved through interaction without specific external or internal central control. \cite{DBLP:series/lncs/HolzlRW08} \cite{DBLP:journals/corr/abs-1108-5643}
+and the pursuit of a collective goal, achieved through interaction without specific external or internal central control. \cite{DBLP:series/lncs/HolzlRW08, DBLP:journals/corr/abs-1108-5643}
 It is important to note that \ac{CAS} can be composed of heterogeneous entities, each with its capabilities and goals.
 To achieve the collective goal without central control, \ac{CAS} often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18} \\
 
@@ -78,7 +79,7 @@ Nowadays, many systems are adaptive and collective: drone swarms tasked with mon
 wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic, 
 are all examples of CAS. \cite{DBLP:journals/sttt/NicolaJW20}
 
-\begin{figure*}[t]
+\begin{figure*}[ht]
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
       \centering
@@ -118,9 +119,9 @@ Computation is thus divided and distributed across various devices in the networ
 This has introduced an additional level of complexity in programming these systems as it is necessary to consider issues such as communication between devices, 
 concurrency, or failures. Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable. \cite{DBLP:conf/ecoop/CasadeiV16} \\
 
-Aggregate programming is a new approach to developing complex distributed systems that abstracts from individual devices, focusing on programming the collective. 
+Aggregate programming is a new approach to developing complex distributed systems that abstract from individual devices, focusing on programming the collective. 
 Through a layer that handles and hides some problematic aspects of these networks, such as communication between devices and details of individual entities, 
-it is possible to simplify the design and maintenance of these systems. \cite{DBLP:journals/computer/BealPV15} \cite{DBLP:conf/sfm/BealV16} \\
+it is possible to simplify the design and maintenance of these systems. \cite{DBLP:journals/computer/BealPV15, DBLP:conf/sfm/BealV16} \\
 
 Aggregate programming is based on the concept of a computational field, which is a global map associating each device in the network with its local value, 
 and on that of field calculus, a minimal core that provides basic constructs for working with fields. \cite{DBLP:journals/corr/ViroliADPB16}
@@ -130,17 +131,40 @@ and on that of field calculus, a minimal core that provides basic constructs for
 In computer science, simulation is the process of executing software in a controlled environment to evaluate its behavior. 
 Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario. 
 The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions. 
-This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec}
-
+This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec} \\
 The importance of simulators becomes clear when testing \ac{CAS}. 
-It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program. 
-Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior.
+It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program.
+Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior. \\
 
 The reference simulator for this work is Alchemist. \cite{Pianini_2013}
+Alchemist is a meta-simulator, open-source, for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions. The meta-model of Alchemist is inspired by biochemistry and consists of various entities.
 
-Alchemist is a meta-simulator for pervasive, aggregate, and nature-inspired computing. 
+A molecule is a data item. A molecule is associated to a value called concentration. 
+Molecules and concentrations are contained in a node, localized within an environment. 
+Each node has relations with other nodes based on linking rules. 
+There are also reactions triggered by a time distribution, only if a set of conditions is met. 
+These reactions produce actions, which are changes in the environment.
 
-It supports various incarnations, such as Protelis, SAPERE and ScaFi. \cite{DBLP:conf/sac/PianiniVB15, DBLP:conf/saso/CastelliMRZ11, DBLP:journals/softx/CasadeiVAP22}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/alchemist-model.png}
+  \caption{Alchemist meta-model}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/alchemist-reaction.png}
+  \caption{Alchemist reaction}
+\end{figure}
+
+An incarnation maps this generic chemical abstraction to a specific use case.
+Alchemist supports four incarnations: 
+SAPERE \cite{DBLP:conf/saso/CastelliMRZ11}, the first supported incarnation, based on the concept of Live Semantic Annotation (LSA), 
+ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library and framework for Aggregate Programming, 
+Protelis \cite{DBLP:conf/sac/PianiniVB15}, a programming language for aggregate computing, and 
+Biochemistry incarnation.
+
+
 
 \section{Testing}
 
