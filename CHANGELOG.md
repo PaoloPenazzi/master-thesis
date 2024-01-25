@@ -1,3 +1,10 @@
+## [1.11.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.10.0...1.11.0) (2024-01-25)
+
+
+### Features
+
+* add image for Alchemist section ([0f3ecd8](https://github.com/PaoloPenazzi/master-thesis/commit/0f3ecd85f3813775c9375a4674445f8890a5e397))
+
 ## [1.10.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.9.0...1.10.0) (2024-01-25)
 
 
