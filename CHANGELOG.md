@@ -1,3 +1,17 @@
+## [1.10.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.9.0...1.10.0) (2024-01-25)
+
+
+### Features
+
+* add background paragraph ([9807711](https://github.com/PaoloPenazzi/master-thesis/commit/980771199b7cf21e34d93b605be537f68b512ceb))
+* add execution sequence diagram and description ([d0f00b4](https://github.com/PaoloPenazzi/master-thesis/commit/d0f00b40c3f820ae92a5b5ccd82fd6dcd0c005c6))
+
+
+### Build and continuous integration
+
+* update node version ([8bf2b72](https://github.com/PaoloPenazzi/master-thesis/commit/8bf2b724994c3768b1ae41a50c1006b9c48bbb18))
+* update package.json ([ffc3e75](https://github.com/PaoloPenazzi/master-thesis/commit/ffc3e75e02acdce71bcbff02c9eeec45dfbe0952))
+
 ## [1.9.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.8.0...1.9.0) (2023-11-15)
 
 
