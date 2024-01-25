@@ -23,7 +23,9 @@ jobs:
 # choose the pdf name
       - name: Rename report file
         run: mv main.pdf report.pdf
-        
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.11.0'
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
