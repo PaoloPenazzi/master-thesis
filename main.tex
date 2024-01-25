@@ -28,7 +28,7 @@
 \academicyear{2022-2023}
 
 % Definition of acronyms
-\acrodef{CAS}{Collective Adaptive System}
+\acrodef{CAS}{Collective Adaptive Systems}
 \acrodef{vm}[VM]{Virtual Machine}
 \acrodef{SUT}{System Under Test}
 
@@ -68,23 +68,15 @@ Max 2000 characters, strict.
 
 \section{Collective Adaptive Systems}
 
-\ac{CAS} refers to a form of complex systems where a large number of heterogeneous entities interact without specific external or internal central control and
-adapt their behavior to environmental settings in pursuit of an individual or collective goal.
-\ac{CAS} often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18}
+\ac{CAS} are a complex type of distributed network, composed of a large number of heterogeneous entities.
+The two main characteristics that distinguish these systems are the ability to adapt their behavior to dynamically changing open-ended environments
+and the pursuit of a collective goal, achieved through interaction without specific external or internal central control. \cite{DBLP:series/lncs/HolzlRW08} \cite{DBLP:journals/corr/abs-1108-5643}
+It is important to note that \ac{CAS} can be composed of heterogeneous entities, each with its capabilities and goals.
+To achieve the collective goal without central control, \ac{CAS} often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18} \\
 
-A colony of ants is an example of \ac{CAS} in nature: each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. 
-Bird flocks, fish shoals, animal herds and human crowds are also examples of \ac{CAS}.
-
-These systems have been studied and modeled in different fields, such as computer science.
-\ac{CAS} have some interesting properties that make them suitable for many applications:
-
-\begin{itemize}
-  \item \textit{fault-tolerance} Each entity carries out a simple task, by doing so they are less prone to errors.
-  \item \textit{scalability} Adding or removing an entity does not affect the system's behavior or performance.
-  \item \textit{robustness} The failure of one or more entities does not affect the system's behavior or performance.
-\end{itemize}
-
-Drone swarms tasked with monitoring an area, wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic, are all examples of artificial CAS. \cite{2}
+Nowadays, many systems are adaptive and collective: drone swarms tasked with monitoring an area, 
+wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic, 
+are all examples of CAS. \cite{DBLP:journals/sttt/NicolaJW20}
 
 \begin{figure*}[t]
   \centering
@@ -100,21 +92,38 @@ Drone swarms tasked with monitoring an area, wearable devices to manage crowd co
   \caption{Some examples of CAS.}
 \end{figure*}
 
+
+%
+%Usually, since these devices don't have significant computational capacity, they aren't used individually but form a distributed network.
+%\ac{CAS} are a subgroup of these large distributed networks. 
+
+%A colony of ants is an example of \ac{CAS} in nature: each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. 
+%Bird flocks, fish shoals, animal herds and human crowds are also examples of \ac{CAS}.
+
+%These systems have been studied and modeled in different fields, such as computer science.
+%\ac{CAS} has some interesting properties that make them suitable for many applications:
+
+%\begin{itemize}
+%  \item \textit{scalability} Adding or removing an entity does not affect the system's behavior or performance.
+%  \item \textit{fault-tolerance} The failure of one or more entities does not affect the system's behavior or performance.
+%\end{itemize}
+
+
 \section{Aggregate Programming}
 
 In recent years, we have witnessed a shift in the production of computing devices: moving from a few large and powerful devices to a large number of small and lightweight devices. 
 There is often talk about the Internet of Things and how technology has become pervasive, impacting every aspect of our lives with electronic devices.
-
 This trend has led to a change in the way we compute data: no longer focusing on a single machine performing heavy computation, but rather on a distributed network of devices communicating and collaborating to achieve a result. 
-Computation is thus divided and distributed across various devices in the network. This has posed several challenges:
+Computation is thus divided and distributed across various devices in the network. 
+This has introduced an additional level of complexity in programming these systems as it is necessary to consider issues such as communication between devices, 
+concurrency, or failures. Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable. \cite{DBLP:conf/ecoop/CasadeiV16} \\
 
-Todo
-Todo
+Aggregate programming is a new approach to developing complex distributed systems that abstracts from individual devices, focusing on programming the collective. 
+Through a layer that handles and hides some problematic aspects of these networks, such as communication between devices and details of individual entities, 
+it is possible to simplify the design and maintenance of these systems. \cite{DBLP:journals/computer/BealPV15} \cite{DBLP:conf/sfm/BealV16} \\
 
-Aggregate computing is a macro programming model based on field calculus that aims to simplify the programming of these distributed networks of devices.
-
-
-
+Aggregate programming is based on the concept of a computational field, which is a global map associating each device in the network with its local value, 
+and on that of field calculus, a minimal core that provides basic constructs for working with fields. \cite{DBLP:journals/corr/ViroliADPB16}
 
 \section{Simulation}
 
@@ -223,7 +232,7 @@ In the end, the choice fell on Kotlin.
 
 \section{Architecture}
 
-The Testbed is composed by different components, each with a specific role.
+The Testbed is composed of different components, each with a specific role.
 The main component is the Controller which is responsible for the entire execution of the benchmark. It takes in input a configuration file, which is forwarded, after a few integrity checks, to the Parser.
 The Parser reads the input file and returns a benchmark model. The Benchmark Model is a representation of the input file, and it contains all the information needed to execute the benchmark.
 The controller then creates and runs a specific Executor for each scenario to be executed. The Executor type depends on the simulator used in the scenario.
@@ -233,16 +242,16 @@ Once all the simulations are completed, the output is processed, and a view comp
 
 The following image shows the architecture of the system.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/architecture.png}
     \caption{Architecture of the system (v0.1)}
     \label{fig:random-image}
 \end{figure}
 
-In the following diagram is shown a detailed view of the benchmark execution.
+The following diagram shows a detailed view of the benchmark execution.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
   \caption{Architecture of the system (v0.1)}
