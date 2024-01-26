@@ -80,7 +80,7 @@ Nowadays, many systems are adaptive and collective: drone swarms tasked with mon
 wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic, 
 are all examples of CAS. \cite{DBLP:journals/sttt/NicolaJW20}
 
-\begin{figure*}[ht]
+\begin{figure*}[H]
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
       \centering
@@ -167,11 +167,15 @@ Biochemistry incarnation.
 
 In every field of engineering, testing is a fundamental part of the development process.
 Testing refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
+It is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
+This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario. \\
 
-In every research field, It is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
-This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario.
-
-Having a set of benchmarks available permits to do so: compare the \ac{SUT} against other solutions.
+The testing of adaptive systems introduces a series of challenges and difficulties, many of which stem from the intrinsic nature of these systems. 
+Given the complexity of these systems, using a single simulator is not sufficient to test all their features. 
+It is often necessary to use multiple simulators and combine the results obtained to understand the system's behavior. 
+This technique is termed co-simulation and introduces various issues, such as communication delays, approximations, and difficulties in synchronizing simulators. \cite{DBLP:journals/simpra/ThuleLGML19}
+Since these systems are adaptive and react to changes in their environment, it is natural to want to support the injection of changes. \cite{DBLP:conf/icac/BrownHHLLSY04}
+A complete testbed must, therefore, be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety.
 
 %----------------------------------------------------------------------------------------
 \chapter{Requirements}
@@ -179,7 +183,7 @@ Having a set of benchmarks available permits to do so: compare the \ac{SUT} agai
 
 \section{Domain}
 
-In the context of collective adaptive systems, there is a lack of a framework that allows the user to conduct a series of tests, utilizing different simulators, in a unified environment. 
+In the context of collective adaptive systems, there is a lack of frameworks that allow the user to conduct a series of tests, utilizing different simulators, in a unified environment. 
 The approach proposed in this work aims to create a framework that enables repeated testing on various simulators, process the results to evaluate and compare the solution.
 
 A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. A Ubiquitous Language was defined, containing the key concepts of this domain and their definitions. 
