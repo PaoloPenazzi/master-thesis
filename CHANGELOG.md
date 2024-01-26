@@ -1,3 +1,16 @@
+## [1.12.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.11.0...1.12.0) (2024-01-26)
+
+
+### Features
+
+* add alchemist meta-model ([7c0d762](https://github.com/PaoloPenazzi/master-thesis/commit/7c0d7622476dc094c19cbf701e066de95e15b33a))
+* add domain, requirements and user stories sections ([34c7b10](https://github.com/PaoloPenazzi/master-thesis/commit/34c7b105d2139a781b5124b5a6dd7706fec2ebb9))
+
+
+### Bug Fixes
+
+* update two images ([62683d7](https://github.com/PaoloPenazzi/master-thesis/commit/62683d7d0cb5a6bdd5945f1261e4e97eef2b1068))
+
 ## [1.11.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.10.0...1.11.0) (2024-01-25)
 
 
