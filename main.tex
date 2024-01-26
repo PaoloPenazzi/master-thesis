@@ -93,23 +93,6 @@ are all examples of CAS. \cite{DBLP:journals/sttt/NicolaJW20}
   \caption{Some examples of CAS.}
 \end{figure*}
 
-
-%
-%Usually, since these devices don't have significant computational capacity, they aren't used individually but form a distributed network.
-%\ac{CAS} are a subgroup of these large distributed networks. 
-
-%A colony of ants is an example of \ac{CAS} in nature: each ant is an autonomous entity that interacts with other ants and with the environment to achieve the common goal of the colony. 
-%Bird flocks, fish shoals, animal herds and human crowds are also examples of \ac{CAS}.
-
-%These systems have been studied and modeled in different fields, such as computer science.
-%\ac{CAS} has some interesting properties that make them suitable for many applications:
-
-%\begin{itemize}
-%  \item \textit{scalability} Adding or removing an entity does not affect the system's behavior or performance.
-%  \item \textit{fault-tolerance} The failure of one or more entities does not affect the system's behavior or performance.
-%\end{itemize}
-
-
 \section{Aggregate Programming}
 
 In recent years, we have witnessed a shift in the production of computing devices: moving from a few large and powerful devices to a large number of small and lightweight devices. 
@@ -166,12 +149,18 @@ Here is the visual representation of the Alchemist meta-model.
   \caption{Alchemist reaction}
 \end{figure}
 
-The key of the Alchemist extensibility is the very generic interpratation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
+The key of the Alchemist extensibility is the very generic interpretation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
 Alchemist supports four incarnations: 
 SAPERE \cite{DBLP:conf/saso/CastelliMRZ11}, the first supported incarnation, based on the concept of Live Semantic Annotation (LSA), 
 ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library and framework for Aggregate Programming, 
 Protelis \cite{DBLP:conf/sac/PianiniVB15}, a programming language for aggregate computing, and 
 Biochemistry incarnation.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/alchemist.png}
+  \caption{A grid of nodes in Alchemist}
+\end{figure}
 
 \section{Testing}
 
@@ -275,7 +264,7 @@ The following image shows the architecture of the system.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{figures/architecture.png}
+    \includegraphics[width=\textwidth]{figures/testbed-architecture.png}
     \caption{Architecture of the system (v0.1)}
     \label{fig:random-image}
 \end{figure}
