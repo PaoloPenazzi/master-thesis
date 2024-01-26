@@ -136,14 +136,23 @@ The importance of simulators becomes clear when testing \ac{CAS}.
 It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program.
 Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior. \\
 
-The reference simulator for this work is Alchemist. \cite{Pianini_2013}
-Alchemist is a meta-simulator, open-source, for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions. The meta-model of Alchemist is inspired by biochemistry and consists of various entities.
+\section{Alchemist}
 
-A molecule is a data item. A molecule is associated to a value called concentration. 
-Molecules and concentrations are contained in a node, localized within an environment. 
-Each node has relations with other nodes based on linking rules. 
-There are also reactions triggered by a time distribution, only if a set of conditions is met. 
-These reactions produce actions, which are changes in the environment.
+The reference simulator for this work is Alchemist. \cite{Pianini_2013}
+Alchemist is a meta-simulator, open-source, for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions. 
+The meta-model of Alchemist is inspired by biochemistry and consists of various entities:
+\begin{itemize}
+  \item \textbf{Molecule} The name of a data item.
+  \item \textbf{Concentration} The value associated with a molecule.
+  \item \textbf{Node} A container of molecules and concentrations. Disposed inside the environment.
+  \item \textbf{Environment} The abstraction for the space. It contains nodes and can tell the position of a node in the space and the distance between two nodes.
+  \item \textbf{Linking Rule} A rule that defines the relation between nodes.
+  \item \textbf{Reaction} Events fired according to a time distribution and set of conditions.
+  \item \textbf{Condition} A function that takes the current environment as input and outputs a boolean and a number. The output influences the execution of the corresponding reaction.
+  \item \textbf{Action} Models a change in the environment.
+\end{itemize}
+
+Here is the visual representation of the Alchemist meta-model.
 
 \begin{figure}[h]
   \centering
@@ -157,14 +166,12 @@ These reactions produce actions, which are changes in the environment.
   \caption{Alchemist reaction}
 \end{figure}
 
-An incarnation maps this generic chemical abstraction to a specific use case.
+The key of the Alchemist extensibility is the very generic interpratation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
 Alchemist supports four incarnations: 
 SAPERE \cite{DBLP:conf/saso/CastelliMRZ11}, the first supported incarnation, based on the concept of Live Semantic Annotation (LSA), 
 ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library and framework for Aggregate Programming, 
 Protelis \cite{DBLP:conf/sac/PianiniVB15}, a programming language for aggregate computing, and 
 Biochemistry incarnation.
-
-
 
 \section{Testing}
 
