@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{disi-thesis}
 \usepackage{code-lstlistings}
+\usepackage{float}
 \usepackage{notes}
 \usepackage{shortcuts}
 \usepackage{acronym}
@@ -137,13 +138,13 @@ The meta-model of Alchemist is inspired by biochemistry and consists of various 
 
 Here is the visual representation of the Alchemist meta-model.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-model.png}
   \caption{Alchemist meta-model}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-reaction.png}
   \caption{Alchemist reaction}
@@ -156,7 +157,7 @@ ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library an
 Protelis \cite{DBLP:conf/sac/PianiniVB15}, a programming language for aggregate computing, and 
 Biochemistry incarnation.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist.png}
   \caption{A grid of nodes in Alchemist}
@@ -190,7 +191,7 @@ User Stories were also defined, helpful in understanding what users need and thu
 
 To better understand the problem domain and to avoid misunderstandings, a ubiquitous language has been defined.
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|p{0.8\textwidth}|}
     \toprule
@@ -224,7 +225,7 @@ To better understand the problem domain and to avoid misunderstandings, a ubiqui
 At an abstract level, the testbed is a framework that allows the user to define a benchmark, that will be executed under the hood, before returning the results to the user.
 The following image shows the abstract architecture of the testbed.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/architecture-high-level.png}
   \caption{Abstract architecture of the testbed}
@@ -240,7 +241,7 @@ Once all the simulations are completed, the output is processed, and a view comp
 
 The following image shows the architecture of the system.
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/testbed-architecture.png}
     \caption{Architecture of the system (v0.1)}
@@ -249,7 +250,7 @@ The following image shows the architecture of the system.
 
 The following diagram shows a detailed view of the benchmark execution.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
   \caption{Architecture of the system (v0.1)}
@@ -326,7 +327,7 @@ simulators:
 The testbed model should follow the input file structure. 
 This allows the Parser to convert the YAML file directly into the testbed model.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{figures/model.png}
   \caption{Model of the system (v0.1)}
