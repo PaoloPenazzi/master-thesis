@@ -1,3 +1,16 @@
+## [1.13.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.12.0...1.13.0) (2024-01-26)
+
+
+### Features
+
+* add testing background ([0847439](https://github.com/PaoloPenazzi/master-thesis/commit/08474392a2f9f65069053b6cf26909394c59a3cb))
+* add thesis title ([d82a9da](https://github.com/PaoloPenazzi/master-thesis/commit/d82a9da383cf828716dde9c3ad5bb94e6001b15e))
+
+
+### Bug Fixes
+
+* change images position ([cbb4ad6](https://github.com/PaoloPenazzi/master-thesis/commit/cbb4ad663c934dc7880380f4e6cda96a6b5a719e))
+
 ## [1.12.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.11.0...1.12.0) (2024-01-26)
 
 
