@@ -73,13 +73,14 @@ In the context of distributed systems, there is no standard approach to benchmar
 The existence of distributed systems of different natures, combined with the difficulty of defining precise evaluation metrics, 
 has made the comparison between different solutions to the same problem even more challenging.
 
-\paragraph*{Objectives}:
+\paragraph{Objectives}
 
 This thesis aims to partially fill this gap by creating a framework for benchmarking a specific type of distributed systems: collective adaptive systems. 
 The framework should make it easy for the user to define a benchmark and execute it, 
 allowing them or other users to develop new solutions related to a specific problem and compare them with existing ones. 
 The key to this framework is its extensibility: given the numerous aspects a user might want to evaluate, 
-it is essential that the framework is designed so that adding new simulators is possible without compromising the functionality of already supported simulators.
+the framework must be designed so that adding new simulators is possible without compromising the functionality of already supported simulators.
+
 %----------------------------------------------------------------------------------------
 \chapter{Background}
 %----------------------------------------------------------------------------------------
@@ -125,6 +126,20 @@ it is possible to simplify the design and maintenance of these systems. \cite{DB
 
 Aggregate programming is based on the concept of a computational field, which is a global map associating each device in the network with its local value, 
 and on that of field calculus, a minimal core that provides basic constructs for working with fields. \cite{DBLP:journals/corr/ViroliADPB16}
+
+\section{Testing}
+
+In every field of engineering, testing is a fundamental part of the development process.
+Testing refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
+It is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
+This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario. \\
+
+The testing of adaptive systems introduces a series of challenges and difficulties, many of which stem from the intrinsic nature of these systems. 
+Given the complexity of these systems, using a single simulator is not sufficient to test all their features. 
+It is often necessary to use multiple simulators and combine the results obtained to understand the system's behavior. 
+This technique is termed co-simulation and introduces various issues, such as communication delays, approximations, and difficulties in synchronizing simulators. \cite{DBLP:journals/simpra/ThuleLGML19}
+Since these systems are adaptive and react to changes in their environment, it is natural to want to support the injection of changes. \cite{DBLP:conf/icac/BrownHHLLSY04}
+A complete testbed must, therefore, be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety.
 
 \section{Simulation}
 
@@ -179,37 +194,18 @@ Biochemistry incarnation.
   \caption{A grid of nodes in Alchemist}
 \end{figure}
 
-\section{Testing}
-
-In every field of engineering, testing is a fundamental part of the development process.
-Testing refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
-It is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
-This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario. \\
-
-The testing of adaptive systems introduces a series of challenges and difficulties, many of which stem from the intrinsic nature of these systems. 
-Given the complexity of these systems, using a single simulator is not sufficient to test all their features. 
-It is often necessary to use multiple simulators and combine the results obtained to understand the system's behavior. 
-This technique is termed co-simulation and introduces various issues, such as communication delays, approximations, and difficulties in synchronizing simulators. \cite{DBLP:journals/simpra/ThuleLGML19}
-Since these systems are adaptive and react to changes in their environment, it is natural to want to support the injection of changes. \cite{DBLP:conf/icac/BrownHHLLSY04}
-A complete testbed must, therefore, be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety.
-
 %----------------------------------------------------------------------------------------
-\chapter{Requirements}
+\chapter{Analysis}
 %----------------------------------------------------------------------------------------
 
 \section{Domain}
 
-In the context of collective adaptive systems, there is a lack of frameworks that allow the user to conduct a series of tests, utilizing different simulators, in a unified environment. 
-The approach proposed in this work aims to create a framework that enables repeated testing on various simulators, process the results to evaluate and compare the solution.
+A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. 
 
-A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. A Ubiquitous Language was defined, containing the key concepts of this domain and their definitions. 
-These concepts were then utilized in the framework development and can be found in the implementation.
-
-User Stories were also defined, helpful in understanding what users need and thus what features the framework should support.
-
-\section{Ubiquitous Language}
+\paragraph{Ubiquitous Language}
 
 To better understand the problem domain and to avoid misunderstandings, a ubiquitous language has been defined.
+These concepts were then utilized in the framework development and can be found in the implementation.
 
 \begin{table}[H]
     \centering
@@ -218,7 +214,7 @@ To better understand the problem domain and to avoid misunderstandings, a ubiqui
     \textbf{Term} & \textbf{Meaning} \\
     \midrule                                                                                                                                                              
     Testing & The overall process carried out to verify and validate a system, according to requirements, to promote the desired internal and external quality and to mitigate risks in development and products. \\ \hline
-    Testbed & A platform for rigorous, transparent and replicable environment for experimentation and testing TODO Cite \\ \hline
+    Testbed & A platform for rigorous, transparent and replicable environment for experimentation and testing \\ \hline
     Solution & A set of algorithms leading to achieving goals and overcoming the problem posted \\ \hline
     Scenario & Contains all the information about the test execution: the simulation platform, the metrics, the input parameters \\ \hline
     Simulator & A software that allows the user to see how its program would behave in a real environment \\ \hline
@@ -227,6 +223,25 @@ To better understand the problem domain and to avoid misunderstandings, a ubiqui
     \end{table}
 
 \section{User Stories}
+
+User Stories were also defined, helpful in understanding what users need and thus what features the framework should support.
+
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|p{\textwidth}|}
+  \toprule
+  \textbf{User Story} \\
+  \midrule                                                                                                                                                              
+  \textit{...As a user, I want to be able to create a benchmark.} \\ \hline
+  \textit{...As a user, I want to be able to use different simulators.} \\ \hline
+  \textit{...As a user, I want to be able to define and execute different scenarios.} \\ \hline
+  \textit{...As a user, I want to be able to define a solution.} \\ \hline
+  \textit{...As a user, I want to be able to define how the output of the benchmark will be processed.} \\ \hline
+  \textit{...As a user, I want to be able to compare the my solution to other's.} \\ \hline
+  \end{tabular}
+  \caption{Domain Ubiquitous Language}
+\end{table}
 
 \section{Requirements}
 
