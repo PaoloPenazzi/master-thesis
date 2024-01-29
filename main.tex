@@ -57,13 +57,29 @@ Max 2000 characters, strict.
 \chapter{Introduction}
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
+\paragraph{Background and Motivation}
 
-\paragraph{Motivation}
+In computer science, or more generally in engineering, testing and benchmarking are two fundamental activities. 
+The ability to validate a solution, assessing its correctness, performance, and behavior in specific scenarios, is crucial for creating new reliable systems. 
+Even more important is the ability to compare a new solution with those already existing in the literature, 
+to understand if the new approach is better, either overall or in some aspects, compared to the existing ones.
 
-\paragraph{Objectives}
+The field of machine learning represents excellence in this regard within the computer science domain. 
+It is possible to know the results obtained by the best solution in a specific task. 
+At this point, one can create their solution, train it on the same data as the reference solution, and validate it. 
+If a positive result is achieved, e.g., improved accuracy, then it can be asserted that the new solution is and will be considered as a reference.
 
-\paragraph{Thesis Structure}
+In the context of distributed systems, there is no standard approach to benchmarking. 
+The existence of distributed systems of different natures, combined with the difficulty of defining precise evaluation metrics, 
+has made the comparison between different solutions to the same problem even more challenging.
 
+\paragraph*{Objectives}:
+
+This thesis aims to partially fill this gap by creating a framework for benchmarking a specific type of distributed systems: collective adaptive systems. 
+The framework should make it easy for the user to define a benchmark and execute it, 
+allowing them or other users to develop new solutions related to a specific problem and compare them with existing ones. 
+The key to this framework is its extensibility: given the numerous aspects a user might want to evaluate, 
+it is essential that the framework is designed so that adding new simulators is possible without compromising the functionality of already supported simulators.
 %----------------------------------------------------------------------------------------
 \chapter{Background}
 %----------------------------------------------------------------------------------------
