@@ -1,3 +1,10 @@
+## [1.16.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.15.0...1.16.0) (2024-01-29)
+
+
+### Features
+
+* add requirements ([e76f460](https://github.com/PaoloPenazzi/master-thesis/commit/e76f460852cf7683a21b891ca4a4eeacc91b4a26))
+
 ## [1.15.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.14.0...1.15.0) (2024-01-29)
 
 
