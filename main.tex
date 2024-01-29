@@ -202,7 +202,7 @@ Biochemistry incarnation.
 
 A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. 
 
-\paragraph{Ubiquitous Language}
+\subsection*{Ubiquitous Language}
 
 To better understand the problem domain and to avoid misunderstandings, a ubiquitous language has been defined.
 These concepts were then utilized in the framework development and can be found in the implementation.
@@ -222,14 +222,14 @@ These concepts were then utilized in the framework development and can be found 
     \caption{Domain Ubiquitous Language}
     \end{table}
 
-\section{User Stories}
+\subsection*{User Stories}
 
 User Stories were also defined, helpful in understanding what users need and thus what features the framework should support.
 
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|p{\textwidth}|}
+  \begin{tabular}{|p{0.8\textwidth}|}
   \toprule
   \textbf{User Story} \\
   \midrule                                                                                                                                                              
@@ -245,10 +245,43 @@ User Stories were also defined, helpful in understanding what users need and thu
 
 \section{Requirements}
 
+\subsection*{User Requirements}
+These requirements express the needs of the user and identify which actions the user should be able to perform.
+The following requirements are extracted from the previous domain analysis:
 \begin{itemize}
-  \item It must be easily extendable to allow the addition of other simulators without compromising the functionality of the already supported simulators.
-  \item It should not limit the user in any way, allowing them to test what they want, to the extent that specific simulators permit.
-  \item It should facilitate the user in testing collective adaptive systems.
+  \item It should be possible to define a \emph{benchmark}.
+  \item It should be possible to define a \emph{scenario}.
+  \item It should be possible to apply a \emph{solution} to an existing scenario.
+  \item It should be possible to download and use different \emph{simulators}.
+  \item It should be possible to execute a benchmark.
+  \item It should be possible to define which \emph{metric} to extract from the benchmark's output.
+  \item It should be possible to compare the results of different solutions.
+  \item It should be possible to extend the framework to support new simulators.
+\end{itemize}
+
+\subsection*{Functional Requirements}
+Functional requirements define what are the features and functions of the framework.
+These are derived from the user requirements.
+
+\begin{itemize}
+  \item The framework should allow the user to define a benchmark.
+  \item The framework should allow the user to define a scenario.
+  \item The framework should allow the user to run a scenario with any solution.
+  \item The framework should allow the user to use different simulators, providing a way to download them.
+  \item The framework should allow the user to execute a benchmark.
+  \item The framework should allow the user to define which metric to extract from the benchmark's output.
+  \item The framework should allow the user to compare the results of different solutions.
+  \item The framework should allow the user to add support for new simulators.
+\end{itemize}
+
+\subsection*{Non-Functional Requirements}
+Non-functional requirements define the quality attributes of the framework.
+
+\begin{itemize}
+  \item The framework should facilitate the user in testing collective adaptive systems.
+  \item The framework should not limit the user in any way, to the extent that specific simulators permit.
+  \item The framework must provide an easy and clean way to define a benchmark and all its components.
+  \item The framework must provide an easy and clean API to add support for new simulators.
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
