@@ -1,3 +1,10 @@
+## [1.15.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.14.0...1.15.0) (2024-01-29)
+
+
+### Features
+
+* add user stories ([6177e96](https://github.com/PaoloPenazzi/master-thesis/commit/6177e962fb56d4e7009579f2f5ca2bff0bf36987))
+
 ## [1.14.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.13.0...1.14.0) (2024-01-29)
 
 
