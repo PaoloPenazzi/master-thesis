@@ -116,13 +116,14 @@ are all examples of CAS. \cite{DBLP:journals/sttt/NicolaJW20}
 In recent years, we have witnessed a shift in the production of computing devices: moving from a few large and powerful devices to a large number of small and lightweight devices. 
 There is often talk about the Internet of Things and how technology has become pervasive, impacting every aspect of our lives with electronic devices.
 This trend has led to a change in the way we compute data: no longer focusing on a single machine performing heavy computation, but rather on a distributed network of devices communicating and collaborating to achieve a result. 
-Computation is thus divided and distributed across various devices in the network. 
+Computation is thus divided and distributed across various devices in the network.
+
 This has introduced an additional level of complexity in programming these systems as it is necessary to consider issues such as communication between devices, 
-concurrency, or failures. Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable. \cite{DBLP:conf/ecoop/CasadeiV16} \\
+concurrency, or failures. Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable. \cite{DBLP:conf/ecoop/CasadeiV16}
 
 Aggregate programming is a new approach to developing complex distributed systems that abstract from individual devices, focusing on programming the collective. 
 Through a layer that handles and hides some problematic aspects of these networks, such as communication between devices and details of individual entities, 
-it is possible to simplify the design and maintenance of these systems. \cite{DBLP:journals/computer/BealPV15, DBLP:conf/sfm/BealV16} \\
+it is possible to simplify the design and maintenance of these systems. \cite{DBLP:journals/computer/BealPV15, DBLP:conf/sfm/BealV16}
 
 Aggregate programming is based on the concept of a computational field, which is a global map associating each device in the network with its local value, 
 and on that of field calculus, a minimal core that provides basic constructs for working with fields. \cite{DBLP:journals/corr/ViroliADPB16}
@@ -200,7 +201,7 @@ Biochemistry incarnation.
 
 \section{Domain}
 
-A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. 
+%A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. 
 
 \subsection*{Ubiquitous Language}
 
@@ -325,7 +326,7 @@ The following diagram shows a detailed view of the benchmark execution.
   \label{fig:random-image}
 \end{figure}
 
-\subsection{Benchmark Model}
+\subsection*{Benchmark Model}
 
 The benchmark model is the core of the system. It contains all the information about the benchmark execution.
 Here is a brief description of the main classes.
@@ -391,7 +392,7 @@ simulators:
         duration: 100
 \end{lstlisting}
 
-\subsection{Model}
+\subsection*{Model}
 The testbed model should follow the input file structure. 
 This allows the Parser to convert the YAML file directly into the testbed model.
 
@@ -410,7 +411,7 @@ As can be seen from the image, the model is 1:1 with the input file.
 
 \section{Technologies}
 
-\subsection{Language}
+\subsection*{Language}
 Different languages were considered for the implementation of the system.
 
 \paragraph*{Scala}
