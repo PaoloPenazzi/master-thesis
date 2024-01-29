@@ -1,3 +1,15 @@
+## [1.14.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.13.0...1.14.0) (2024-01-29)
+
+
+### Features
+
+* add Introduction section ([8c50523](https://github.com/PaoloPenazzi/master-thesis/commit/8c50523feb2db796e1a7c2b7fc8bc38eab2b5580))
+
+
+### General maintenance
+
+* update README.md ([102d508](https://github.com/PaoloPenazzi/master-thesis/commit/102d508cac583597d719d0f0a37ab24b62c9968d))
+
 ## [1.13.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.12.0...1.13.0) (2024-01-26)
 
 
