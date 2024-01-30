@@ -1,3 +1,10 @@
+## [1.18.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.17.0...1.18.0) (2024-01-30)
+
+
+### Features
+
+* add yaml section and input file design ([4ae18e8](https://github.com/PaoloPenazzi/master-thesis/commit/4ae18e8d6398841898f9f1c66f98466d1c848e3e))
+
 ## [1.17.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.16.0...1.17.0) (2024-01-30)
 
 
