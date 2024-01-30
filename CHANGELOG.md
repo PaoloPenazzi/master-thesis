@@ -1,3 +1,15 @@
+## [1.17.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.16.0...1.17.0) (2024-01-30)
+
+
+### Features
+
+* add benchmark execution description ([47b40cf](https://github.com/PaoloPenazzi/master-thesis/commit/47b40cfbf1dbba5bb1faae3aa4f3da7aed35e167))
+
+
+### Refactoring
+
+* remove subsections from table of contents ([b1115e9](https://github.com/PaoloPenazzi/master-thesis/commit/b1115e91a8d2fddf05c43155ae10888b5bcffa55))
+
 ## [1.16.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.15.0...1.16.0) (2024-01-29)
 
 
