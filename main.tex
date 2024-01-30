@@ -65,7 +65,7 @@ Even more important is the ability to compare a new solution with those already 
 to understand if the new approach is better, either overall or in some aspects, compared to the existing ones.
 
 The field of machine learning represents excellence in this regard within the computer science domain. 
-It is possible to know the results obtained by the best solution in a specific task. 
+It is possible to know the results obtained by the best solution for a specific task. 
 At this point, one can create their solution, train it on the same data as the reference solution, and validate it. 
 If a positive result is achieved, e.g., improved accuracy, then it can be asserted that the new solution is and will be considered as a reference.
 
@@ -75,11 +75,14 @@ has made the comparison between different solutions to the same problem even mor
 
 \paragraph{Objectives}
 
-This thesis aims to partially fill this gap by creating a framework for benchmarking a specific type of distributed systems: collective adaptive systems. 
-The framework should make it easy for the user to define a benchmark and execute it, 
-allowing them or other users to develop new solutions related to a specific problem and compare them with existing ones. 
+This thesis aims to partially fill this gap by creating a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20} for a specific type of distributed systems: collective adaptive systems.
+These systems are characterized by their ability to adapt to the environment in which they are immersed and interact with it. \cite{DBLP:conf/birthday/BucchiaroneM19}
+There is no central entity, either internal or external, that coordinates the devices in the network; instead, they collaborate with each other to achieve a goal. 
+The properties and behavior of these systems make them particularly challenging to test and evaluate their performance. \cite{DBLP:conf/srds/AlmeidaMV10}
+This work aims to create a framework to make it easy for the user to define a benchmark and execute it, 
+allowing him or others to develop new solutions related to a specific problem and compare them with existing ones. 
 The key to this framework is its extensibility: given the numerous aspects a user might want to evaluate, 
-the framework must be designed so that adding new simulators is possible without compromising the functionality of already supported simulators.
+the framework must be designed so that adding new simulators is possible without compromising the functionality of already supported simulators. \cite{DBLP:conf/mascots/Dujmovic99}
 
 %----------------------------------------------------------------------------------------
 \chapter{Background}
@@ -146,7 +149,7 @@ A complete testbed must, therefore, be able to command different existing tools,
 
 In computer science, simulation is the process of executing software in a controlled environment to evaluate its behavior. 
 Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario. 
-The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions. 
+The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions. \cite{DBLP:journals/cacm/CollbergP16}
 This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec} \\
 The importance of simulators becomes clear when testing \ac{CAS}. 
 It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program.
@@ -291,8 +294,7 @@ Non-functional requirements define the quality attributes of the framework.
 
 \section{Architecture}
 
-At an abstract level, the testbed is a framework that allows the user to define a benchmark, that will be executed under the hood, before returning the results to the user.
-The following image shows the abstract architecture of the testbed.
+The following image shows the architecture of the testbed at the highest level.
 
 \begin{figure}[H]
   \centering
@@ -300,24 +302,28 @@ The following image shows the abstract architecture of the testbed.
   \caption{Abstract architecture of the testbed}
 \end{figure}
 
-The Testbed is composed of different components, each with a specific role.
-The main component is the Controller which is responsible for the entire execution of the benchmark. It takes in input a configuration file, which is forwarded, after a few integrity checks, to the Parser.
-The Parser reads the input file and returns a benchmark model. The Benchmark Model is a representation of the input file, and it contains all the information needed to execute the benchmark.
-The controller then creates and runs a specific Executor for each scenario to be executed. The Executor type depends on the simulator used in the scenario.
-The executor handles the execution of the scenario, by launching the simulator with the correct parameters.
-After each simulation is completed, a Listener is created to read the simulation output. The output is stored in a data structure inside the Testbed.
-Once all the simulations are completed, the output is processed, and a view component is created to display the results to the user.
+The testbed is basically a framework that sits between the user and the various simulators. 
+The user specifies which benchmark to run. 
+The execution of the benchmark is then handled by the testbed, which takes care of running the various scenarios in the respective simulators and collecting the results.
 
+Diving deeper into the architecture, we can see that the testbed is composed of different components, each with a specific role.
 The following image shows the architecture of the system.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/testbed-architecture.png}
-    \caption{Architecture of the system (v0.1)}
-    \label{fig:random-image}
+  \centering
+  \includegraphics[width=\textwidth]{figures/testbed-architecture.png}
+  \caption{Architecture of the system (v0.1)}
+  \label{fig:random-image}
 \end{figure}
 
-The following diagram shows a detailed view of the benchmark execution.
+The main component of the Testbed is the controller, which is the entry point of the framework and handles the entire benchmark execution. 
+The Parser is the component responsible for translating user-written specifications in YAML into a data structure that represents the benchmark model. 
+If there are manipulations to be made on a configuration file, they will be performed by a Parser component, specific to each simulator, before the actual parsing. 
+The Executor is responsible for starting the simulator and generating the correct command to invoke the simulator. 
+For each started simulator, the corresponding Listener is then launched, which reads the simulator's output, cleans the file from unnecessary elements, and saves it in a data structure. 
+Once the benchmark execution is complete, a post-processing function is applied to the benchmark output to obtain a result of interest, and it is displayed to the user by the View.
+
+To better understand the architecture, it is useful to analyze the execution of a benchmark.
 
 \begin{figure}[H]
   \centering
@@ -325,6 +331,17 @@ The following diagram shows a detailed view of the benchmark execution.
   \caption{Architecture of the system (v0.1)}
   \label{fig:random-image}
 \end{figure}
+
+The configuration file is given as input to the controller, which performs some checks on the file's integrity. 
+Once passed, the controller hands the configuration file to the parser, which, after modifying the file (if necessary), returns to the controller a data structure called BenchmarkModel.
+The model contains all the information about the benchmark to be executed. 
+At this point, each scenario defined by the user must be launched. 
+The execution is carried out in the order specified by the user.
+For each scenario, a command to start the simulator is generated and launched. 
+The framework then waits for the simulation to finish. 
+Once it's done, it reads the results returned in output by the simulator and saves them in a data structure. 
+When the data from all scenarios has been collected, a user-defined transformation is applied to extract results of interest. 
+These results are finally displayed to the user, either through the console or in a GUI.
 
 \subsection*{Benchmark Model}
 
