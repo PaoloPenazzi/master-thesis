@@ -204,9 +204,7 @@ Biochemistry incarnation.
 
 \section{Domain}
 
-%A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. 
-
-\subsection*{Ubiquitous Language}
+A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs. 
 
 To better understand the problem domain and to avoid misunderstandings, a ubiquitous language has been defined.
 These concepts were then utilized in the framework development and can be found in the implementation.
@@ -226,10 +224,7 @@ These concepts were then utilized in the framework development and can be found 
     \caption{Domain Ubiquitous Language}
     \end{table}
 
-\subsection*{User Stories}
-
 User Stories were also defined, helpful in understanding what users need and thus what features the framework should support.
-
 
 \begin{table}[H]
   \centering
@@ -246,6 +241,9 @@ User Stories were also defined, helpful in understanding what users need and thu
   \end{tabular}
   \caption{Domain Ubiquitous Language}
 \end{table}
+
+It is important to note that the expected users of the framework are researchers and developers,
+who are people with a strong technical background and knowledge of the domain.
 
 \section{Requirements}
 
@@ -343,37 +341,39 @@ Once it's done, it reads the results returned in output by the simulator and sav
 When the data from all scenarios has been collected, a user-defined transformation is applied to extract results of interest. 
 These results are finally displayed to the user, either through the console or in a GUI.
 
-\subsection*{Benchmark Model}
+\section{Benchmark Configuration}
 
-The benchmark model is the core of the system. It contains all the information about the benchmark execution.
-Here is a brief description of the main classes.
+The design of the input file system is a crucial aspect of the framework.
+It should allow the user to define a benchmark simply and intuitively, without limiting the user in any way.
+It also needs to be flexible enough to allow the addition of new simulators without breaking the existing structure.
 
-\paragraph*{Strategy} The strategy section contains generic information about the testbed configuration. None of these 
-are simulator-specific instructions.
-All the keywords in this section are optional, and if not specified the default value is used: the execution will be
-single-threaded and the execution order will be random.
+The input file is composed of two main sections: strategy and simulators.
 
-\paragraph*{Simulators} The simulators section contains the configuration of each simulator used in the testbed.
-Each simulator has a name, a version, and a list of scenarios. The name is mandatory, while the version is optional 
-and is currently not used. The testbed will always use the latest version.
+\paragraph*{Strategy} 
+The strategy section contains generic information about the testbed configuration. 
+None of these are simulator-specific instructions, but rather general instructions on how the framework will handle the benchmark execution.
+At the moment, the only information present in this section is the execution order of the scenarios, 
+a list that defines the order in which the scenarios will be executed. This is a mandatory parameter.
+Other strategy parameters could be added in the future, to enable features such as multi-threaded execution.
 
-The scenario configuration is more complex, as each simulator has different ways to configure the scenario.
-When adding support for a new simulator, it is mandatory to specify how its configuration should be written in the input file.
+\paragraph*{Simulators} 
+The simulators section contains the configuration of each simulator used for the benchmark.
+Each simulator has a name, a path and a list of scenarios. 
+The name is mandatory and must be written exactly as it appears in the testbed documentation.
+The path is optional and is used to specify the path of the simulator executable. 
+If not specified, the framework will assume that the simulator is in the same directory as the testbed.
 
 \paragraph*{Scenario}
-The scenario section contains all the information regarding the execution of the simulation.
-It contains:
+The scenario configuration is more complex, as each simulator has different ways to configure the scenario.
+This section contains:
 \begin{itemize}
-    \item \textbf{name} the name used to identify the simulation run. Mandatory.
+    \item \textbf{name} the name of the scenario. It is mandatory and should match the name in the 
     \item \textbf{description} a brief explanation of the scenario. Optional.
     \item \textbf{input} the path of the file used as input for the simulator. Optional.
     \item \textbf{modelFilePath} the path of the NetLogo model file. Optional.
     \item \textbf{repetitions} the number of times that the scenario should be run. Optional, default is 1.
     \item \textbf{duration} the duration of the simulation. This parameter can be used to overwrite the value present in the simulator-specific configuration file.
 \end{itemize}
-
-One of the main challenges of this work is to create a flexible system that can be extended to support different simulators.
-This means that the input file structure should take into account the possibility of being extended, without breaking the existing structure.
 
 This is an input file example, which will be used to explain the structure of the input file.
 
@@ -410,6 +410,8 @@ simulators:
 \end{lstlisting}
 
 \subsection*{Model}
+The benchmark model is the core of the system. It contains all the information about the benchmark execution.
+Here is a brief description of the main classes.
 The testbed model should follow the input file structure. 
 This allows the Parser to convert the YAML file directly into the testbed model.
 
@@ -422,11 +424,49 @@ This allows the Parser to convert the YAML file directly into the testbed model.
 
 As can be seen from the image, the model is 1:1 with the input file.
 
+\section{Estensibility}
+
+One of the main goals of this work is to create a flexible system that can be extended to support different simulators.
+The architecture was designed considering this characteristic. 
+Each component of the system has a general behavior, independent of the simulator but incomplete. 
+This will then be integrated with the specific behavior related to the simulator defined in a subclass.
+
+A user who wants to add support for a new simulator must do the following steps:
+\begin{itemize}
+  \item Implement the \emph{Executor} interface.
+  \item Implement the \emph{Listener} interface.
+  \item If some manipulations on the input file are needed, implement the \emph{ConfigFileHandler} interface.
+  \item Extend the \emph{SupportedSimulator} enum by adding the new simulator.
+  \item Update the \emph{Controller} to take into account the new simulator.
+\end{itemize}
+
 %----------------------------------------------------------------------------------------
 \chapter{Implementation}
 %----------------------------------------------------------------------------------------
 
 \section{Technologies}
+
+\subsection{YAML}
+The specifications of the input file are written in YAML, a human-readable data serialization language.
+YAML is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
+
+YAML is used as configuration language in many projects, such as Kubernetes, Docker, GitHub Actions, and many more.
+
+Some of the advantages of YAML compared to JSON are:
+\begin{itemize}
+  \item It is easier to read.
+  \item Possibility to concatenate multiple files.
+  \item Possibility to self reference.
+  \item Support for complex data structures.
+  \item It is more flexible.
+\end{itemize}
+
+It also has some disadvantages:
+\begin{itemize}
+  \item Less concise.
+  \item Difficult to learn and write.
+  \item Less used than JSON.
+\end{itemize}
 
 \subsection*{Language}
 Different languages were considered for the implementation of the system.
