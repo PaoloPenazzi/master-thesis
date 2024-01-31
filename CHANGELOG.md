@@ -1,3 +1,10 @@
+## [1.19.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.18.0...1.19.0) (2024-01-31)
+
+
+### Features
+
+* add NetLogo background ([bfcb6c0](https://github.com/PaoloPenazzi/master-thesis/commit/bfcb6c00c9ee13e44c90142ae3414e52da351666))
+
 ## [1.18.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.17.0...1.18.0) (2024-01-30)
 
 
