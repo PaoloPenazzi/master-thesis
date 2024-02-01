@@ -1,3 +1,10 @@
+## [1.20.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.19.0...1.20.0) (2024-02-01)
+
+
+### Features
+
+* add benchmark result section ([9ebd4a3](https://github.com/PaoloPenazzi/master-thesis/commit/9ebd4a3e5df96cc50a3d3b558df60c3c97174ce5))
+
 ## [1.19.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.18.0...1.19.0) (2024-01-31)
 
 
