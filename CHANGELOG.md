@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.20.0...2.0.0) (2024-02-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* refactor introduction and add output implementation
+
+### Features
+
+* refactor introduction and add output implementation ([41de280](https://github.com/PaoloPenazzi/master-thesis/commit/41de280ab3b5f39e2f27704b1b254183c63f8138))
+
 ## [1.20.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.19.0...1.20.0) (2024-02-01)
 
 
