@@ -58,24 +58,18 @@
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
 \paragraph{Background and Motivation}
+One aspect that guides scientific research is the discovery of new solutions that improve what is defined as the state of the art. 
 
-In computer science, or more generally in engineering, testing and benchmarking are two fundamental activities.
-The ability to validate a solution, assessing its correctness, performance, and behavior in specific scenarios, is crucial for creating new reliable systems.
-Even more important is the ability to compare a new solution with those already existing in the literature,
-to understand if the new approach is better, either overall or in some aspects, compared to the existing ones.
+This implies that at some point, it is necessary to compare two solutions and have a clear metric to understand which solution performs better. 
+Another fundamental aspect is to have a standard test protocol to compare two algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments. 
 
-The field of machine learning represents excellence in this regard within the computer science domain.
-It is possible to know the results obtained by the best solution for a specific task.
-At this point, one can create their solution, train it on the same data as the reference solution, and validate it.
-If a positive result is achieved, e.g., improved accuracy, then it can be asserted that the new solution is and will be considered as a reference.
-
-In the context of distributed systems, there is no standard approach to benchmarking.
-The existence of distributed systems of different natures, combined with the difficulty of defining precise evaluation metrics,
-has made the comparison between different solutions to the same problem even more challenging.
+In many aspects of computer science, the reproducibility of scientific publications is questioned \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}, which makes the creation of a benchmarking and testing framework necessary. 
+In some application domains, such as security \cite{DBLP:conf/bdet/Es-SamaaliOBMK21}, IoT \cite{DBLP:conf/IEEEares/RuckGWLN23} and many more, \cite{DBLP:journals/ral/CollinsRYSJP24, DBLP:journals/corr/abs-2401-01275} tools have been developed for benchmarking. 
+In other fields, like autonomic, organic computing, and collective adaptive systems, such frameworks have not yet been created. \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}
 
 \paragraph{Objectives}
 
-This thesis aims to partially fill this gap by creating a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20} for a specific type of distributed systems: collective adaptive systems.
+This thesis aims to partially fill this gap by creating a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20} for a specific type of distributed systems: collective adaptive systems. \cite{DBLP:journals/sttt/NicolaJW20}
 These systems are characterized by their ability to adapt to the environment in which they are immersed and interact with it. \cite{DBLP:conf/birthday/BucchiaroneM19}
 There is no central entity, either internal or external, that coordinates the devices in the network; instead, they collaborate with each other to achieve a goal.
 The properties and behavior of these systems make them particularly challenging to test and evaluate their performance. \cite{DBLP:conf/srds/AlmeidaMV10}
@@ -483,7 +477,7 @@ In this chapter, we will dive deeper into the implementation of the framework.
 The benchmark model is the data structure that represents the benchmark to be executed.
 It must match the structure of the input file to allow easy parsing.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/benchmark-model.png}
   \caption{Benchmark Model}
@@ -503,7 +497,20 @@ data class BenchmarkModel(
 
 \paragraph*{Output and Result}
 
+The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as type alias in Kotlin, which is a way to define a new type without creating a new class.
+The concept of \emph{Scenario Result} is implemented as a data class.
 
+\begin{lstlisting}[language=Kotlin]
+  typealias ScenarioOutput = Map<String, List<Any>>
+  typealias BenchmarkOutput = Map<String, ScenarioOutput>
+  typealias BenchmarkResult = List<ScenarioResult>
+
+  data class ScenarioResult(
+    val description: String,
+    val value: List<Any>,
+    val visualisationType: VisualisationType,
+)
+\end{lstlisting}
 
 \section{Technologies}
 
