@@ -551,9 +551,7 @@ Kotlin is designed to interoperate fully with Java.
 Support for multiplatform programming is one of Kotlin’s key benefits. It reduces time spent writing and maintaining
 the same code for different platforms while retaining the flexibility and benefits of native programming.
 
-
 \paragraph*{Rust}
-
 Rust is a multi-paradigm programming language designed for performance and safety, especially safe concurrency. \\
 It has been designed to be a safe, concurrent, practical language, supporting functional and imperative-procedural paradigms.
 It is considered the modern version of C and C++.
@@ -565,6 +563,71 @@ In the end, the choice fell on Kotlin.
 %----------------------------------------------------------------------------------------
 \chapter{Testing}
 %----------------------------------------------------------------------------------------
+
+\subsection{Unit Testing}
+
+Unit testing is a software testing method to test individual units or components of software.
+In this work, we use it to test the behavior of the various components of the framework.
+
+Given the nature of the work, most components require human judgment to be tested. 
+This is the case for the \emph{Executor} and \emph{Listener} components, which are responsible for starting the simulator and reading its output, respectively.
+The tests on this component where conducted by repeatedly running the framework with different scenarios and checking the output manually.
+The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
+
+\begin{lstlisting}[language=Kotlin]
+  class ParserTest : FreeSpec({
+    "The parser" - {
+        val parser: Parser = ParserImpl()
+        "should parse a partial input file" {
+            // ARRANGE
+            val expectedBenchmark = simpleBenchmarkBuilder()
+            // ACT
+            val benchmark = parser.parse("src/test/resources/SimpleBenchmark.yml")
+            // ASSERT
+            assert(benchmark == expectedBenchmark)
+        }
+        "should parse a full input file" {
+            val expectedBenchmark = fullBenchmarkBuilder()
+            val benchmark = parser.parse("src/test/resources/FullBenchmark.yml")
+            assert(benchmark == expectedBenchmark)
+        }
+        "should fail to parse a wrong file" {
+            assertThrows<InvalidPropertyValueException> {
+                parser.parse("src/test/resources/WrongBenchmark.yml")
+            }
+        }
+    }
+})
+\end{lstlisting}
+
+\subsection{Integration Testing}
+
+Integration testing is a software testing method to test the behavior of the various components of the software when integrated together.
+In this work, we use it to test the behavior of the simulators supported by the framework.
+
+Checking if a simulator is running a scenario in the right way is not an easy task to do automatically, as it requires human judgment.
+Therefore the integration tests are performed manually.
+
+\paragraph*{NetLogo}
+NetLogo was tested by running one of the bundled models, the Wolf Sheep Predation model.
+The first time the model was run by the framework in headless mode: the process was running and the output correctly saved in a csv file.
+The second time the model was run using the NetLogo graphical interface to check if the experiment was correctly executed.
+No differences were found between the two outputs.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/netlogo-sim.png}
+  \caption{NetLogo simulation launched by the framework}
+\end{figure}
+
+\paragraph*{Alchemist}
+
+
+\subsection{Acceptance Testing}
+Acceptance testing is a software testing method to test the behavior of the software from the user's perspective.
+To test if all the user requirements are met.
+
+
 
 %----------------------------------------------------------------------------------------
 \chapter{Conclusion and Future Work}
