@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.0.0...2.1.0) (2024-02-07)
+
+
+### Features
+
+* add testing chapter ([cedad3c](https://github.com/PaoloPenazzi/master-thesis/commit/cedad3ceaa0aea48292ae67627b7e3744742581f))
+
 ## [2.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/1.20.0...2.0.0) (2024-02-02)
 
 
