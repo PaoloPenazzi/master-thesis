@@ -1,3 +1,15 @@
+## [2.3.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.2.0...2.3.0) (2024-02-12)
+
+
+### Features
+
+* add b.a. and c.i. paragraphs ([41e0cc7](https://github.com/PaoloPenazzi/master-thesis/commit/41e0cc7a64c2005b2b61e3b8db2f1823d1829b99))
+
+
+### Bug Fixes
+
+* change listings style ([e9a0ac9](https://github.com/PaoloPenazzi/master-thesis/commit/e9a0ac9259bdb70890cf75ad849218e80d3262a3))
+
 ## [2.2.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.1.0...2.2.0) (2024-02-12)
 
 
