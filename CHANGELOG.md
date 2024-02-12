@@ -1,3 +1,10 @@
+## [2.2.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.1.0...2.2.0) (2024-02-12)
+
+
+### Features
+
+* add some content in technologies chapter ([931633e](https://github.com/PaoloPenazzi/master-thesis/commit/931633e11c8af89d4813c6db9d251d12c27da4da))
+
 ## [2.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.0.0...2.1.0) (2024-02-07)
 
 
