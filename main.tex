@@ -550,8 +550,102 @@ The master branch is the development reference: all feature branches originate f
 The feature branches are related to the developed features. 
 For each feature to be implemented, a feature branch was created, and at the end of the development, a pull request was made to merge the content into the master branch.
 All feature branches followed this naming convention: \textit{feature/{feature-name}}
+
 \paragraph*{Build automation}
-\paragraph*{Continous Integration}
+Build Automation refers to the automation of the build lifecycle of a project, the process from source code to product release and distribution. 
+This allows automating operations that were previously done manually, making software deployment more efficient and less error-prone.
+In this work, Gradle, one of the most famous and widely used build systems, is used. 
+Gradle is primarily used to manage dependencies with external libraries used in the project (e.g., the library for parsing YAML files).
+With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
+This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
+\begin{lstlisting}
+  tasks.withType<ShadowJar> {
+    archiveFileName.set("testbed.jar")
+    manifest {
+        attributes(
+            mapOf(
+                "Implementation-Title" to "Testbed",
+                "Implementation-Version" to rootProject.version.toString(),
+                "Main-Class" to "testbed.Testbed",
+            ),
+        )
+    }
+}
+\end{lstlisting}
+
+\paragraph*{Continuous Integration}
+Continuous Integration is a software development practice in which developers regularly merge their code changes into a central repository, after which automated builds and tests are run.
+The key goals of continuous integration are to find and address bugs quicker, improve software quality, and reduce the time it takes to validate and release new software updates.
+In this work, GitHub Actions is used to automate the process of building, testing, and deploying the framework.
+The workflow of a GitHub Action is defined in a YAML file, which is stored in the repository under the path \textit{.github/workflows}.
+The following is an example of a GitHub Action that builds the project and runs the tests.
+
+\begin{lstlisting}[language=yaml]
+  name: CI/CD Process
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ windows-2022, macos-12, ubuntu-22.04 ]
+    runs-on: ${{ matrix.os }}
+    concurrency:
+      group: build-${{ github.workflow }}-${{ matrix.os }}-${{ github.event.number || github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: DanySK/action-checkout@0.2.14
+      - name: Test
+        run: ./gradlew test
+  release:
+    concurrency:
+      # Only one release job at a time. Strictly sequential.
+      group: release-${{ github.workflow }}-${{ github.event.number || github.ref }}
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    if: >-
+      !github.event.repository.fork
+      && (
+        github.event_name != 'pull_request'
+        || github.event.pull_request.head.repo.full_name == github.repository
+      )
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Find the version of Node from package.json
+        id: node-version
+        run: echo "version=$(jq -r .engines.node package.json)" >> $GITHUB_OUTPUT
+      - name: Install Node
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          npm install
+          npx semantic-release
+  success:
+    runs-on: ubuntu-22.04
+    needs:
+      - release
+      - build
+    if: >-
+      always() && (
+        contains(join(needs.*.result, ','), 'failure')
+        || !contains(join(needs.*.result, ','), 'cancelled')
+      )
+    steps:
+      - name: Verify that there were no failures
+        run: ${{ !contains(join(needs.*.result, ','), 'failure') }}
+\end{lstlisting}
+
 \paragraph*{Versioning and Releasing}
 As for commits, we use Conventional Commit, a convention that provides a set of possible commits, 
 each with a different semantic, allowing the definition of the software version number based on the commit history.
