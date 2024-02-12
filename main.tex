@@ -392,7 +392,6 @@ This section contains:
 \end{itemize}
 
 This is an input file example, which will be used to explain the structure of the input file.
-
 \begin{lstlisting}[style=yaml]
 strategy:
   executionOrder:
@@ -487,7 +486,7 @@ It must match the structure of the input file to allow easy parsing.
 Each concept of the model is implemented as a data class in Kotlin, which is a class that only contains data and does not have any functionality.
 The \emph{Serializable} annotation is used to allow the model to be serialized and deserialized from YAML.
 
-\begin{lstlisting}[language=Kotlin]
+\begin{lstlisting}[style=Kotlin]
 @Serializable
 data class BenchmarkModel(
     val strategy: Strategy,
@@ -500,7 +499,7 @@ data class BenchmarkModel(
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as type alias in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[language=Kotlin]
+\begin{lstlisting}[style=Kotlin]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -558,7 +557,8 @@ In this work, Gradle, one of the most famous and widely used build systems, is u
 Gradle is primarily used to manage dependencies with external libraries used in the project (e.g., the library for parsing YAML files).
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
-\begin{lstlisting}
+
+\begin{lstlisting}[style=Kotlin]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -580,7 +580,7 @@ In this work, GitHub Actions is used to automate the process of building, testin
 The workflow of a GitHub Action is defined in a YAML file, which is stored in the repository under the path \textit{.github/workflows}.
 The following is an example of a GitHub Action that builds the project and runs the tests.
 
-\begin{lstlisting}[language=yaml]
+\begin{lstlisting}[style=yaml]
   name: CI/CD Process
 on:
   workflow_call:
@@ -696,7 +696,7 @@ This is the case for the \emph{Executor} and \emph{Listener} components, which a
 The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
-\begin{lstlisting}[language=kotlin]
+\begin{lstlisting}[style=Kotlin]
   class ParserTest : FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
