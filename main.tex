@@ -254,7 +254,7 @@ User Stories were also defined, helpful in understanding what users need and thu
     \textit{...As a user, I want to be able to define and execute different scenarios.}                   \\ \hline
     \textit{...As a user, I want to be able to define a solution.}                                        \\ \hline
     \textit{...As a user, I want to be able to define how the output of the benchmark will be processed.} \\ \hline
-    \textit{...As a user, I want to be able to compare the my solution to other's.}                       \\ \hline
+    \textit{...As a user, I want to be able to compare my solution to other's.}                       \\ \hline
   \end{tabular}
   \caption{Domain Ubiquitous Language}
 \end{table}
@@ -514,67 +514,95 @@ The concept of \emph{Scenario Result} is implemented as a data class.
 
 \section{Technologies}
 
-\subsection*{YAML}
-The specifications of the input file are written in YAML, a human-readable data serialization language.
-YAML is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
-
-YAML is used as a configuration language in many projects, such as Kubernetes, Docker, GitHub Actions, and many more.
-
-Some of the advantages of YAML compared to JSON are:
-\begin{itemize}
-  \item It is easier to read.
-  \item Possibility to concatenate multiple files.
-  \item Possibility to self-reference.
-  \item Support for complex data structures.
-  \item It is more flexible.
-\end{itemize}
-
-It also has some disadvantages:
-\begin{itemize}
-  \item Less concise.
-  \item Difficult to learn and write.
-  \item Less used than JSON.
-\end{itemize}
-
-\subsection*{Language}
-Different languages were considered for the implementation of the system.
-
-\paragraph*{Scala}
-Scala is a strong statically typed high-level general-purpose programming language that supports both object-oriented
-programming and functional programming.
-Designed to be concise, scalable and safe, many of Scala's design decisions are aimed at addressing criticisms of Java.
-One weakness of Scala is its steep learning curve, which makes it difficult to learn for new users.
+\subsection*{Framework technologies}
 
 \paragraph*{Kotlin}
+
 Kotlin is a cross-platform, statically typed, general-purpose high-level programming language with type inference.
 Kotlin is designed to interoperate fully with Java.
 Support for multiplatform programming is one of Kotlin’s key benefits. It reduces time spent writing and maintaining
 the same code for different platforms while retaining the flexibility and benefits of native programming.
 
-\paragraph*{Rust}
-Rust is a multi-paradigm programming language designed for performance and safety, especially safe concurrency. \\
-It has been designed to be a safe, concurrent, practical language, supporting functional and imperative-procedural paradigms.
-It is considered the modern version of C and C++.
+\paragraph*{YAML}
+To provide the user with the ability to write a benchmark configuration file, various options were considered, such as using JSON, YAML, Google Protobuf or even developing a DSL. 
+The choice fell on YAML, a human-readable data serialization language. It is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
+YAML is commonly used in applications where data needs to be represented in a format that is easy for both humans to read and write, as well as for machines to parse and generate.
+In fact, It is used as a configuration language in different projects, such as Kubernetes, Docker, GitHub Actions, and many more.
 
-\paragraph*{Final choice}
-After a brief analysis, it was clear that both Kotlin and Scala were suitable candidates for the implementation of the system.
-In the end, the choice fell on Kotlin.
 
+
+\subsection*{DevOps technologies}
+DevOps engineering is a software development methodology that aims at communication, collaboration and integration among all workers around an IT project. 
+This set of techniques responds to interdependencies between software development and relative IT operations, allowing a faster and more efficient organization of software products and services.
+The following paragraphs describe which DevOps techniques have been used in the making of the system, focusing on the advantages that each procedure has brought.
+\paragraph*{Repository management}
+The project was developed following a customized version of Git Flow. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/gitflow.png}
+  \caption{Git Flow}
+  \label{fig:git-flow}
+\end{figure}
+
+The repository consists of a master branch and several feature branches.
+The master branch is the development reference: all feature branches originate from it, and at the end of their existence, they are merged into the master branch.
+The feature branches are related to the developed features. 
+For each feature to be implemented, a feature branch was created, and at the end of the development, a pull request was made to merge the content into the master branch.
+All feature branches followed this naming convention: \textit{feature/{feature-name}}
+\paragraph*{Build automation}
+\paragraph*{Continous Integration}
+\paragraph*{Versioning and Releasing}
+As for commits, we use Conventional Commit, a convention that provides a set of possible commits, 
+each with a different semantic, allowing the definition of the software version number based on the commit history.
+
+The following set of commits is used:
+\begin{itemize}
+  \item \textbf{Major Release} 
+  \begin{itemize}
+    \item Any commit terminating \textit{!} causes a \emph{breaking change}
+  \end{itemize}
+
+  \item \textbf{Minor Release} 
+  \begin{itemize}
+    \item Commit type \emph{feat} with any scope.
+  \end{itemize}
+
+  \item \textbf{Pathc Release} 
+  \begin{itemize}
+    \item Commit type \emph{fix} with any scope.
+    \item Commit type \emph{docs} with any scope.
+    \item Commit type \emph{chore} with scope \textit{core-deps}.
+  \end{itemize}
+
+  \item \textbf{No Release} 
+  \begin{itemize}
+    \item Commit type \emph{test} with any scope.
+    \item Commit type \emph{ci} with any scope.
+    \item Commit type \emph{chore} with scope \textit{deps}.
+    \item Commit type \emph{refactor} with scope \textit{deps}.
+  \end{itemize}
+\end{itemize}
+
+Thanks to the use of semantic release, it was possible to automate the versioning and releasing of the software. 
+Every time a push is made to the master branch, semantic release calculates the version number and creates a release on GitHub, uploading the necessary assets.
+
+The version number is defined in the format \emph{X.Y.Z} where X is a major version, Y the minor version and Z the patch version.
 %----------------------------------------------------------------------------------------
-\chapter{Testing}
+\chapter{Validation}
 %----------------------------------------------------------------------------------------
 
-\subsection{Unit Testing}
+\section{Unit Testing}
 
 Unit testing is a software testing method to test individual units or components of software.
 In this work, we use it to test the behavior of the various components of the framework.
 
 Given the nature of the work, most components require human judgment to be tested. 
 This is the case for the \emph{Executor} and \emph{Listener} components, which are responsible for starting the simulator and reading its output, respectively.
-The tests on this component where conducted by repeatedly running the framework with different scenarios and checking the output manually.
+The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
-\begin{lstlisting}[language=Kotlin]
+\begin{lstlisting}[language=kotlin]
   class ParserTest : FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -600,7 +628,7 @@ The \emph{Parser} component, on the other hand, was tested automatically, to che
 })
 \end{lstlisting}
 
-\subsection{Integration Testing}
+\section{Integration Testing}
 
 Integration testing is a software testing method to test the behavior of the various components of the software when integrated together.
 In this work, we use it to test the behavior of the simulators supported by the framework.
@@ -610,9 +638,18 @@ Therefore the integration tests are performed manually.
 
 \paragraph*{NetLogo}
 NetLogo was tested by running one of the bundled models, the Wolf Sheep Predation model.
-The first time the model was run by the framework in headless mode: the process was running and the output correctly saved in a csv file.
-The second time the model was run using the NetLogo graphical interface to check if the experiment was correctly executed.
-No differences were found between the two outputs.
+
+The first time, the simulation was launched through the framework in headless mode, without a graphical interface. 
+Several logs were added to monitor the benchmark execution, and everything went as expected: 
+the parser generated the benchmark model, which was used by the controller and executor to launch the simulation. 
+At the end of the simulation, an output file containing the expected information was generated. 
+This CSV file was then transformed into a data structure within the framework containing the results.
+
+The second execution was launched again through the framework, but this time with the graphical interface activated. 
+The same steps as before were observed, with the addition of the simulation being visually displayed.
+
+Comparing the two executions and conducting further ones, no differences were noticed. 
+We can therefore say that NetLogo has been integrated correctly into the framework.
 
 \begin{figure}
   \centering
@@ -621,11 +658,19 @@ No differences were found between the two outputs.
 \end{figure}
 
 \paragraph*{Alchemist}
+The same process was applied to test the integration with the Alchemist simulator. 
+In this case, even more tests were conducted to verify the support for two Alchemist incarnations, namely Protelis and SAPERE.
+
+Again, both executions with a graphical interface, where the correct progress of the simulation could be verified, 
+and headless executions yielded the same results.
 
 
-\subsection{Acceptance Testing}
+
+\section{Acceptance Testing}
 Acceptance testing is a software testing method to test the behavior of the software from the user's perspective.
-To test if all the user requirements are met.
+
+
+
 
 
 
