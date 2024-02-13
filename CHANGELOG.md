@@ -1,3 +1,10 @@
+## [2.4.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.3.0...2.4.0) (2024-02-13)
+
+
+### Features
+
+* add future works section ([3314dae](https://github.com/PaoloPenazzi/master-thesis/commit/3314daee96945e9635a0316b0e6cf73db3d378d5))
+
 ## [2.3.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.2.0...2.3.0) (2024-02-12)
 
 
