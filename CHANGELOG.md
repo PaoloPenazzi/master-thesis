@@ -1,3 +1,10 @@
+## [2.5.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.4.0...2.5.0) (2024-02-13)
+
+
+### Features
+
+* add simulator section ([f5fd00e](https://github.com/PaoloPenazzi/master-thesis/commit/f5fd00ec45af651dd36e8dc9409a6f49a5103f5f))
+
 ## [2.4.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.3.0...2.4.0) (2024-02-13)
 
 
