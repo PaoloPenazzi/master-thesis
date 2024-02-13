@@ -462,6 +462,20 @@ A user who wants to add support for a new simulator must do the following steps:
   \item Update the \emph{Controller} to take into account the new simulator.
 \end{itemize}
 
+\section{Simulators}
+
+Since the framework relies on external simulators to run a benchmark, it is necessary for the user to have these simulators on their machine. 
+Various solutions were evaluated to address this issue, each with its positives and negatives.
+\begin{itemize}
+  \item Include all supported simulators in the application: While this solution ensures that the simulators are present, it has drawbacks. 
+  Forcing the user to download all supported simulators may be impractical, especially if they only need a few or already have them installed. 
+  Additionally, this would increase the application size significantly.
+  \item Let the user download the simulators: This is the simplest solution, as it shifts the responsibility of downloading required simulators to the user.
+  However, it degrades the user experience as users cannot immediately use the framework after download.
+  \item Hybrid solution: Simulators are not included in the framework, but if the testbed does not detect them during benchmark execution, it automatically downloads them. 
+  This solution is more complex but proved to be the most effective after analysis.
+\end{itemize}
+
 %----------------------------------------------------------------------------------------
 \chapter{Implementation}
 %----------------------------------------------------------------------------------------
