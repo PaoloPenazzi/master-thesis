@@ -203,8 +203,6 @@ Users can program the behavior of thousands of independent agents to see how the
 It also comes with the Models Library, a large collection of pre-written simulations that can be used and modified.
 These simulations can be explored to observe their behavior under various conditions.
 
-The following image shows the NetLogo interface while executing one of the bundled simulations.
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/NetLogo-interface.png}
@@ -254,7 +252,7 @@ User Stories were also defined, helpful in understanding what users need and thu
     \textit{...As a user, I want to be able to define and execute different scenarios.}                   \\ \hline
     \textit{...As a user, I want to be able to define a solution.}                                        \\ \hline
     \textit{...As a user, I want to be able to define how the output of the benchmark will be processed.} \\ \hline
-    \textit{...As a user, I want to be able to compare my solution to other's.}                       \\ \hline
+    \textit{...As a user, I want to be able to compare my solution to others.}                       \\ \hline
   \end{tabular}
   \caption{Domain Ubiquitous Language}
 \end{table}
@@ -486,7 +484,7 @@ It must match the structure of the input file to allow easy parsing.
 Each concept of the model is implemented as a data class in Kotlin, which is a class that only contains data and does not have any functionality.
 The \emph{Serializable} annotation is used to allow the model to be serialized and deserialized from YAML.
 
-\begin{lstlisting}[style=Kotlin]
+\begin{lstlisting}[language=Java]
 @Serializable
 data class BenchmarkModel(
     val strategy: Strategy,
@@ -499,7 +497,7 @@ data class BenchmarkModel(
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as type alias in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[style=Kotlin]
+\begin{lstlisting}[language=Java]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -526,15 +524,16 @@ the same code for different platforms while retaining the flexibility and benefi
 To provide the user with the ability to write a benchmark configuration file, various options were considered, such as using JSON, YAML, Google Protobuf or even developing a DSL. 
 The choice fell on YAML, a human-readable data serialization language. It is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
 YAML is commonly used in applications where data needs to be represented in a format that is easy for both humans to read and write, as well as for machines to parse and generate.
-In fact, It is used as a configuration language in different projects, such as Kubernetes, Docker, GitHub Actions, and many more.
-
-
+It is used as a configuration language in different projects, such as Kubernetes, Docker, GitHub Actions, and many more.
 
 \subsection*{DevOps technologies}
 DevOps engineering is a software development methodology that aims at communication, collaboration and integration among all workers around an IT project. 
 This set of techniques responds to interdependencies between software development and relative IT operations, allowing a faster and more efficient organization of software products and services.
 The following paragraphs describe which DevOps techniques have been used in the making of the system, focusing on the advantages that each procedure has brought.
+
 \paragraph*{Repository management}
+The work is hosted on GitHub and uses Git as a DVCS (Distributed Version Control System).
+A DVCS is a version control system that allows multiple users to work on the same codebase at the same time, and keeps track of every change made.
 The project was developed following a customized version of Git Flow. 
 
 \begin{figure}[h]
@@ -558,7 +557,7 @@ Gradle is primarily used to manage dependencies with external libraries used in 
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
 
-\begin{lstlisting}[style=Kotlin]
+\begin{lstlisting}[language=Java]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -647,7 +646,7 @@ jobs:
 \end{lstlisting}
 
 \paragraph*{Versioning and Releasing}
-As for commits, we use Conventional Commit, a convention that provides a set of possible commits, 
+For commits, Conventional Commits are used, a convention that provides a set of possible commits, 
 each with a different semantic, allowing the definition of the software version number based on the commit history.
 
 The following set of commits is used:
@@ -681,13 +680,15 @@ The following set of commits is used:
 Thanks to the use of semantic release, it was possible to automate the versioning and releasing of the software. 
 Every time a push is made to the master branch, semantic release calculates the version number and creates a release on GitHub, uploading the necessary assets.
 
-The version number is defined in the format \emph{X.Y.Z} where X is a major version, Y the minor version and Z the patch version.
+The version number is defined in the format \emph{X.Y.Z} where X is a major version, Y is the minor version and Z is the patch version.
+
 %----------------------------------------------------------------------------------------
 \chapter{Validation}
 %----------------------------------------------------------------------------------------
 
-\section{Unit Testing}
+\section{Testing}
 
+\subsection*{Unit Testing}
 Unit testing is a software testing method to test individual units or components of software.
 In this work, we use it to test the behavior of the various components of the framework.
 
@@ -696,7 +697,7 @@ This is the case for the \emph{Executor} and \emph{Listener} components, which a
 The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
-\begin{lstlisting}[style=Kotlin]
+\begin{lstlisting}[language=Java]
   class ParserTest : FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -722,9 +723,9 @@ The \emph{Parser} component, on the other hand, was tested automatically, to che
 })
 \end{lstlisting}
 
-\section{Integration Testing}
+\subsection*{Integration Testing}
 
-Integration testing is a software testing method to test the behavior of the various components of the software when integrated together.
+Integration testing is a software testing method to test the behavior of the various components of the software when integrated.
 In this work, we use it to test the behavior of the simulators supported by the framework.
 
 Checking if a simulator is running a scenario in the right way is not an easy task to do automatically, as it requires human judgment.
@@ -733,10 +734,10 @@ Therefore the integration tests are performed manually.
 \paragraph*{NetLogo}
 NetLogo was tested by running one of the bundled models, the Wolf Sheep Predation model.
 
-The first time, the simulation was launched through the framework in headless mode, without a graphical interface. 
-Several logs were added to monitor the benchmark execution, and everything went as expected: 
-the parser generated the benchmark model, which was used by the controller and executor to launch the simulation. 
-At the end of the simulation, an output file containing the expected information was generated. 
+The first time, the simulation was launched through the framework in headless mode, without a graphical interface.
+Several logs were added to monitor the benchmark execution, and everything went as expected:
+the parser generated the benchmark model, which was used by the controller and executor to launch the simulation.
+At the end of the simulation, an output file containing the expected information was generated.
 This CSV file was then transformed into a data structure within the framework containing the results.
 
 The second execution was launched again through the framework, but this time with the graphical interface activated. 
@@ -752,25 +753,46 @@ We can therefore say that NetLogo has been integrated correctly into the framewo
 \end{figure}
 
 \paragraph*{Alchemist}
-The same process was applied to test the integration with the Alchemist simulator. 
-In this case, even more tests were conducted to verify the support for two Alchemist incarnations, namely Protelis and SAPERE.
+The same process was applied to test the integration with the Alchemist simulator.
 
-Again, both executions with a graphical interface, where the correct progress of the simulation could be verified, 
-and headless executions yielded the same results.
+To test the behavior of Alchemist, a program that computes the gradient, a typical problem known in the literature, was chosen. 
+The first execution was done with the graphical interface activated, which allowed verifying the correct execution of the simulation, thanks to the graphical effects applied to the nodes. 
+The second execution was done headless and provided the same results as the first. This process was repeated for both incarnations supported by the framework, namely Protelis and Sapere.
 
 
 
-\section{Acceptance Testing}
+\section{Evaluation}
 Acceptance testing is a software testing method to test the behavior of the software from the user's perspective.
-
-
-
-
-
 
 %----------------------------------------------------------------------------------------
 \chapter{Conclusion and Future Work}
 %----------------------------------------------------------------------------------------
+
+\paragraph*{Future Works}
+
+The framework is still in its early stages and some features are missing for it to become a complete tool for testing collective adaptive systems.
+The scientific community requires a high standard of quality and reliability, and the framework must be able to provide it.
+These features are necessary for the framework to be widely adopted.
+
+\begin{itemize}
+  \item \textbf{Increase the number of supported simulators} 
+  The framework currently supports two simulators, Alchemist and NetLogo.
+  In the field of collective adaptive systems, there are other simulators used to test different aspects of the systems.
+  Supporting a wide range of simulators is necessary for the framework to be useful and relevant in the scientific community.
+  Moreover, the support of different simulators allows the user to test the behavior of the system in its entirety. 
+  \item \textbf{Multi platform support}
+  At the time of writing, the framework is developed for JVM platforms. 
+  Switching to Kotlin-Multiplatform would allow the framework to be compiled for different target platforms, such as JavaScript, iOS, and native.
+  The ability to provide support for different platforms will help the framework to be more widely adopted.
+  \item \textbf{Graphical User Interface}
+  Currently is possible to interact with the framework only through the command line.
+  It is known that the user experience is one of the most important aspects of software, as it can make the difference between a successful and an unsuccessful product.
+  Providing the user with a graphical interface to interact with the software, both for the benchmark configuration and the visualization of the results, is fundamental.
+  Benchmarking often involves comparing data from different solutions and a graphical interface would make this process easier and more intuitive.
+  \item \textbf{Provide a way to download simulators}
+  The framework currently requires the user to download the simulators manually.
+  Providing the user a way to download a simulator, using a simple command, would make the framework more user-friendly and relieve the user from the burden of downloading the simulators manually.
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
