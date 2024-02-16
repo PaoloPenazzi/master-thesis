@@ -10,17 +10,36 @@
 \usepackage{comment} % for multi-line comments
 \usepackage{booktabs} % for better tables
 \usepackage{xcolor}
-\usepackage{listings}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{svg}
+
+\definecolor{ddarkgreen}{rgb}{0,0.5,0}
+\lstdefinelanguage{kt}{
+    frame=single,
+    basewidth=0.5em,
+    language={kotlin},
+    keywordstyle=\color{blue}\textbf,
+    commentstyle=\color{ddarkgreen},
+    keywordstyle=[2]\color{cyan},
+    keywords=[2]{Aggregate, Field,InboundMessage, OutboundMessage, SingleOutboundMessage,Message,Path,YieldingScope,Network,State,
+        AggregateContext,AggregateResult,YieldingContext,YieldingResult},
+    keywordstyle=[3]\color{orange},
+    keywords=[3]{exchange,exchanging,repeat,repeating,share,sharing,neighboringViaExchange,Collektive,aggregate,yielding},
+    keywordstyle=[4]\color{teal}\textbf,
+    keywords=[4]{ID,Scalar,Initial,Return,Payload,*,R,X,Init,Ret},
+    keywordstyle=[5]\color{olive},
+    keywords=[5]{read,mapTo,stateAt,messagesAt,newField,excludeSelf,currentPath,mapToConstantField,getPosition,map,distanceTo},
+    keywordstyle=[6]\color{blue},
+    keywords=[6]{also,it,run,let}
+}
 
 \showboxdepth=5
 \showboxbreadth=5
 
 \school{\unibo}
 \programme{Corso di Laurea Magistrale in Ingegneria e Scienze Informatiche}
-\title{Development of an open benchmarking platform for Collective Adaptive Systems}
+\title{Design and Implementation of a Prototype Open Benchmarking Platform for Collective Adaptive Systems}
 \author{Paolo Penazzi}
 \date{\today}
 \subject{Laboratorio di Sistemi Software}
@@ -59,24 +78,23 @@
 %----------------------------------------------------------------------------------------
 \paragraph{Background and Motivation}
 One aspect that guides scientific research is the discovery of new solutions that improve what is defined as the state of the art. 
+This implies that at some point, it is necessary to compare two solutions and have a clear metric to understand which one performs better, either overall or in specific aspects. 
+To make this comparison is mandatory to have a widely adopted, standard test protocol to execute two algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments.
 
-This implies that at some point, it is necessary to compare two solutions and have a clear metric to understand which solution performs better. 
-Another fundamental aspect is to have a standard test protocol to compare two algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments. 
-
-In many aspects of computer science, the reproducibility of scientific publications is questioned \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}, which makes the creation of a benchmarking and testing framework necessary. 
+In many aspects of computer science, the reproducibility of scientific publications is questioned \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}, this makes the creation of a benchmarking and testing framework necessary to avoid confusion in the scientific community
+and to set a standard for the comparison of different solutions.
 In some application domains, such as security \cite{DBLP:conf/bdet/Es-SamaaliOBMK21}, IoT \cite{DBLP:conf/IEEEares/RuckGWLN23} and many more, \cite{DBLP:journals/ral/CollinsRYSJP24, DBLP:journals/corr/abs-2401-01275} tools have been developed for benchmarking. 
-In other fields, like autonomic, organic computing, and collective adaptive systems, such frameworks have not yet been created. \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}
+In other fields, like autonomic, organic computing, and \ac*{CAS}, such frameworks have not yet been created. \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}
+This work focuses on \ac*{CAS} \cite{DBLP:journals/sttt/NicolaJW20}, these systems are characterized by their ability to adapt to the environment in which they are immersed and interact with it. \cite{DBLP:conf/birthday/BucchiaroneM19}
+There is no central entity, either internal or external, that coordinates the devices in the network; instead, each node collaborates with its neighbor to achieve a goal.
+The properties and behavior of these systems make them particularly challenging to test and evaluate their performance. \cite{DBLP:conf/srds/AlmeidaMV10}
 
 \paragraph{Objectives}
-
-This thesis aims to partially fill this gap by creating a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20} for a specific type of distributed systems: collective adaptive systems. \cite{DBLP:journals/sttt/NicolaJW20}
-These systems are characterized by their ability to adapt to the environment in which they are immersed and interact with it. \cite{DBLP:conf/birthday/BucchiaroneM19}
-There is no central entity, either internal or external, that coordinates the devices in the network; instead, they collaborate with each other to achieve a goal.
-The properties and behavior of these systems make them particularly challenging to test and evaluate their performance. \cite{DBLP:conf/srds/AlmeidaMV10}
-This work aims to create a framework to make it easy for the user to define a benchmark and execute it,
-allowing him or others to develop new solutions related to a specific problem and compare them with existing ones.
-The key to this framework is its extensibility: given the numerous aspects a user might want to evaluate,
-the framework must be designed so that adding new simulators is possible without compromising the functionality of already supported simulators. \cite{DBLP:conf/mascots/Dujmovic99}
+This thesis aims to partially fill this gap by creating a prototype of a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20}.
+The objective is to create a standard way for the scientific community to compare different solutions to typical problems in the \ac*{CAS} domain.
+To become widely adopted the platform should allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
+Given the characteristics of \ac*{CAS}, the different aspects a user might want to evaluate and the number of simulators already available the framework must be designed to be flexible and extensible, 
+so that adding new simulators is possible without compromising the functionality of already supported simulators. \cite{DBLP:conf/mascots/Dujmovic99}
 
 %----------------------------------------------------------------------------------------
 \chapter{Background}
@@ -147,9 +165,9 @@ The key point of a simulation is to execute the software under controlled and re
 This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec} \\
 The importance of simulators becomes clear when testing \ac{CAS}.
 It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program.
-Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior. \\
+Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior.
 
-\section{Alchemist}
+\paragraph*{Alchemist}
 
 The reference simulator for this work is Alchemist. \cite{Pianini_2013}
 Alchemist is a meta-simulator, open-source, for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions.
@@ -179,7 +197,7 @@ Here is the visual representation of the Alchemist meta-model.
   \caption{Alchemist reaction}
 \end{figure}
 
-The key of the Alchemist extensibility is the very generic interpretation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
+The key to the Alchemist extensibility is the very generic interpretation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
 Alchemist supports four incarnations:
 SAPERE \cite{DBLP:conf/saso/CastelliMRZ11}, the first supported incarnation, based on the concept of Live Semantic Annotation (LSA),
 ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library and framework for Aggregate Programming,
@@ -192,7 +210,7 @@ Biochemistry incarnation.
   \caption{A grid of nodes in Alchemist}
 \end{figure}
 
-\section{NetLogo}
+\paragraph*{NetLogo}
 
 NetLogo is a programmable modeling environment for simulating natural and social phenomena. It was created at the Center
 for Connected Learning and Computer-Based Modeling (CCL) at Northwestern University, directed by Uri Wilensky.
@@ -307,9 +325,9 @@ Non-functional requirements define the quality attributes of the framework.
 
 \section{Architecture}
 
-The following image shows the architecture of the testbed at the highest level.
+The following image describes the architecture of the testbed at the highest level.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/architecture-high-level.png}
   \caption{Abstract architecture of the testbed}
@@ -482,7 +500,7 @@ Various solutions were evaluated to address this issue, each with its positives 
 
 In this chapter, we will dive deeper into the implementation of the framework.
 
-\section{Model}
+\section{Framework}
 
 \paragraph*{Benchmark Model}
 The benchmark model is the data structure that represents the benchmark to be executed.
@@ -497,21 +515,75 @@ It must match the structure of the input file to allow easy parsing.
 
 Each concept of the model is implemented as a data class in Kotlin, which is a class that only contains data and does not have any functionality.
 The \emph{Serializable} annotation is used to allow the model to be serialized and deserialized from YAML.
+This annotation is provided by the \emph{"org.jetbrains.kotlinx:kotlinx-serialization-json"} library.
 
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=kt]
 @Serializable
-data class BenchmarkModel(
+data class Benchmark(
     val strategy: Strategy,
     val simulators: List<Simulator>
 )
+@Serializable
+data class Strategy(
+    val executionOrder: List<String> = emptyList(),
+)
+@Serializable
+data class Simulator(
+    val name: SupportedSimulator,
+    val simulatorPath: String = "",
+    val scenarios: List<Scenario>,
+)
+@Serializable
+data class Scenario(
+    val name: String,
+    val description: String = "",
+    val input: List<String> = listOf(),
+    val repetitions: Int = 1,
+    val duration: Int = 0,
+)
 \end{lstlisting}
+
+To account for the possibility of adding new simulators, the \emph{SupportedSimulator} enum was created.
+This enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
+This forces the user to extend each component of the system to support the new simulator.
+
+\begin{lstlisting}[language=kt]
+  enum class SupportedSimulator {
+    ALCHEMIST,
+    NETLOGO,
+}
+\end{lstlisting}
+
+\paragraph*{Parser}
+The parser is the component responsible for translating the user-written specifications in YAML into a data structure that represents the benchmark model.
+The library \emph{"com.charleskorn.kaml:kaml"} is used to parse the input file.
+This allow a easy and clean way to parse the input file as shown in the following code.
+
+\begin{lstlisting}[language=kt]
+  val inputFile = File(path)
+  val benchmark = Yaml.default.decodeFromString(Benchmark.serializer(), inputFile.readText())
+\end{lstlisting}
+
+In certain scenarios, the configuration file for a scenario must be modified before being returned to the controller.
+This is the case for the \emph{duration} parameter, which can be specified in the benchmark specification file.
+This parameter may change the duration of the execution of a scenario, overriding the simulator's input file. 
+To achieve this, a \emph{ConfigFileHandler} interface was created, which is implemented by each simulator-specific component.
+This interface contains a single method, \emph{handle}, which takes as input the scenario configuration.
+
+\begin{lstlisting}[language=kt]
+  interface ConfigFileHandler {
+    fun editConfigurationFile(scenario: Scenario)
+}
+\end{lstlisting}
+
+For example, the Alchemist implementation of the \emph{ConfigFileHandler} interface reads the \emph{duration} parameter from the scenario configuration and injects it to the Alchemist input file, overriding it.
 
 \paragraph*{Output and Result}
 
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as type alias in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=kt]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -571,7 +643,7 @@ Gradle is primarily used to manage dependencies with external libraries used in 
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
 
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=kt]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -711,7 +783,7 @@ This is the case for the \emph{Executor} and \emph{Listener} components, which a
 The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=kt]
   class ParserTest : FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -806,6 +878,11 @@ These features are necessary for the framework to be widely adopted.
   \item \textbf{Provide a way to download simulators}
   The framework currently requires the user to download the simulators manually.
   Providing the user a way to download a simulator, using a simple command, would make the framework more user-friendly and relieve the user from the burden of downloading the simulators manually.
+  \item \textbf{Maintaining benchmarks history}
+  Comparing new solutions with existing ones on well-known problems is a fundamental aspect of developing innovative solutions. 
+  Keeping a history of benchmark results in an online repository would facilitate such comparisons. 
+  Currently, users lack access to a database containing known benchmarks, various solutions, and their respective results. 
+  Providing this database would streamline the comparison process.
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
