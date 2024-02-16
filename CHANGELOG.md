@@ -1,3 +1,14 @@
+## [3.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.5.0...3.0.0) (2024-02-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* change thesis title and a few sections"
+
+### Features
+
+* change thesis title and a few sections" ([3237dde](https://github.com/PaoloPenazzi/master-thesis/commit/3237dde231b923931b6f6f47c64df299c2b15535))
+
 ## [2.5.0](https://github.com/PaoloPenazzi/master-thesis/compare/2.4.0...2.5.0) (2024-02-13)
 
 
