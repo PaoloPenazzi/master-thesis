@@ -27,8 +27,9 @@
 	frameround=fttt,
  }
 
- \lstset{
+ \lstdefinestyle{kotlin}{
 	showstringspaces=false,
+	language=kotlin
 	basicstyle=\scriptsize\ttfamily,
 	commentstyle={\color{olive}},
 	identifierstyle=\color{black},
@@ -53,6 +54,6 @@
 	morecomment=[s]{/*}{*/},
 	morestring=[b]",
 	morestring=[s]{"""*}{*"""},
-	ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Unit, it},
+	ndkeywords={@Deprecated, @Serializable, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Unit, it},
 	sensitive=true
 }

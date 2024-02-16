@@ -5,6 +5,7 @@
 \usepackage{float}
 \usepackage{notes}
 \usepackage{shortcuts}
+\usepackage{listings}
 \usepackage{acronym}
 \usepackage{hyperref} % links
 \usepackage{comment} % for multi-line comments
@@ -14,24 +15,52 @@
 \usepackage{subcaption}
 \usepackage{svg}
 
-\definecolor{ddarkgreen}{rgb}{0,0.5,0}
-\lstdefinelanguage{kt}{
-    frame=single,
-    basewidth=0.5em,
-    language={kotlin},
-    keywordstyle=\color{blue}\textbf,
-    commentstyle=\color{ddarkgreen},
-    keywordstyle=[2]\color{cyan},
-    keywords=[2]{Aggregate, Field,InboundMessage, OutboundMessage, SingleOutboundMessage,Message,Path,YieldingScope,Network,State,
-        AggregateContext,AggregateResult,YieldingContext,YieldingResult},
-    keywordstyle=[3]\color{orange},
-    keywords=[3]{exchange,exchanging,repeat,repeating,share,sharing,neighboringViaExchange,Collektive,aggregate,yielding},
-    keywordstyle=[4]\color{teal}\textbf,
-    keywords=[4]{ID,Scalar,Initial,Return,Payload,*,R,X,Init,Ret},
-    keywordstyle=[5]\color{olive},
-    keywords=[5]{read,mapTo,stateAt,messagesAt,newField,excludeSelf,currentPath,mapToConstantField,getPosition,map,distanceTo},
-    keywordstyle=[6]\color{blue},
-    keywords=[6]{also,it,run,let}
+\lstdefinestyle{my-yaml}{
+  basicstyle=\color{blue}\scriptsize\ttfamily,
+  rulecolor=\color{black},
+  string=[s]{'}{'},
+  stringstyle=\color{blue},
+  comment=[l]{:},
+  commentstyle=\color{black},
+  morecomment=[l]{-},
+  breaklines=true,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=10pt,
+	tabsize=2,
+	extendedchars=true,
+	frame=trbl,
+	frameround=fttt,
+ }
+
+ \lstdefinestyle{my-kotlin}{
+	showstringspaces=false,
+	basicstyle=\scriptsize\ttfamily,
+	commentstyle={\color{olive}},
+	identifierstyle=\color{black},
+	ndkeywordstyle={\color{blue}},
+	stringstyle={\color{magenta}},
+	emphstyle={},
+	keywordstyle={\color{blue}},
+	breaklines=true,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=10pt,
+	tabsize=2,
+	extendedchars=true,
+	frame=trBL,
+	frameround=fttt,
+}
+
+ \lstdefinelanguage{my-kotlin}{
+	comment=[l]{//},
+	emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
+	keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+	morestring=[s]{"""*}{*"""},
+	ndkeywords={@Deprecated, @Serializable, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Unit, it},
+	sensitive=true
 }
 
 \showboxdepth=5
@@ -408,7 +437,8 @@ This section contains:
 \end{itemize}
 
 This is an input file example, which will be used to explain the structure of the input file.
-\begin{lstlisting}[style=yaml]
+\lstset{style=my-yaml}
+\begin{lstlisting}
 strategy:
   executionOrder:
     - Alchemist-sapere-tutorial
@@ -517,7 +547,8 @@ Each concept of the model is implemented as a data class in Kotlin, which is a c
 The \emph{Serializable} annotation is used to allow the model to be serialized and deserialized from YAML.
 This annotation is provided by the \emph{"org.jetbrains.kotlinx:kotlinx-serialization-json"} library.
 
-\begin{lstlisting}[language=kt]
+\lstset{style=my-kotlin}
+\begin{lstlisting}[language=my-kotlin]
 @Serializable
 data class Benchmark(
     val strategy: Strategy,
@@ -547,7 +578,7 @@ To account for the possibility of adding new simulators, the \emph{SupportedSimu
 This enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
 This forces the user to extend each component of the system to support the new simulator.
 
-\begin{lstlisting}[language=kt]
+\begin{lstlisting}[language=my-kotlin]
   enum class SupportedSimulator {
     ALCHEMIST,
     NETLOGO,
@@ -557,9 +588,9 @@ This forces the user to extend each component of the system to support the new s
 \paragraph*{Parser}
 The parser is the component responsible for translating the user-written specifications in YAML into a data structure that represents the benchmark model.
 The library \emph{"com.charleskorn.kaml:kaml"} is used to parse the input file.
-This allow a easy and clean way to parse the input file as shown in the following code.
+This allows a easy and clean way to parse the input file as shown in the following code.
 
-\begin{lstlisting}[language=kt]
+\begin{lstlisting}[language=my-kotlin]
   val inputFile = File(path)
   val benchmark = Yaml.default.decodeFromString(Benchmark.serializer(), inputFile.readText())
 \end{lstlisting}
@@ -570,7 +601,7 @@ This parameter may change the duration of the execution of a scenario, overridin
 To achieve this, a \emph{ConfigFileHandler} interface was created, which is implemented by each simulator-specific component.
 This interface contains a single method, \emph{handle}, which takes as input the scenario configuration.
 
-\begin{lstlisting}[language=kt]
+\begin{lstlisting}[language=my-kotlin]
   interface ConfigFileHandler {
     fun editConfigurationFile(scenario: Scenario)
 }
@@ -583,7 +614,7 @@ For example, the Alchemist implementation of the \emph{ConfigFileHandler} interf
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as type alias in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[language=kt]
+\begin{lstlisting}[language=my-kotlin]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -601,14 +632,17 @@ The concept of \emph{Scenario Result} is implemented as a data class.
 
 \paragraph*{Kotlin}
 
-Kotlin is a cross-platform, statically typed, general-purpose high-level programming language with type inference.
-Kotlin is designed to interoperate fully with Java.
-Support for multiplatform programming is one of Kotlin’s key benefits. It reduces time spent writing and maintaining
-the same code for different platforms while retaining the flexibility and benefits of native programming.
+Kotlin\footnote{https://kotlinlang.org/} is a cross-platform, strong statically typed, general-purpose high-level programming language with type inference.
+It took inspiration from several programming languages including Java, Scala and others.
+Born as an object-oriented programming language, it includes a lot of functional programming elements such as first-class support for higher-order functions and lambda literals.
+The rise of Kotlin is testified by the fact that Google chose it as the official language for Android development, replacing Java.
+
+In the beginning, Kotlin was developed as a JVM language, and the support for multi-platform development was added recently. 
+It has great advantages as it reduces time spent writing and maintaining the same code for different platforms while retaining the flexibility and benefits of native programming.
 
 \paragraph*{YAML}
 To provide the user with the ability to write a benchmark configuration file, various options were considered, such as using JSON, YAML, Google Protobuf or even developing a DSL. 
-The choice fell on YAML, a human-readable data serialization language. It is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
+The choice fell on YAML\footnote{https://yaml.org/}, a human-readable data serialization language. It is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
 YAML is commonly used in applications where data needs to be represented in a format that is easy for both humans to read and write, as well as for machines to parse and generate.
 It is used as a configuration language in different projects, such as Kubernetes, Docker, GitHub Actions, and many more.
 
@@ -618,8 +652,8 @@ This set of techniques responds to interdependencies between software developmen
 The following paragraphs describe which DevOps techniques have been used in the making of the system, focusing on the advantages that each procedure has brought.
 
 \paragraph*{Repository management}
-The work is hosted on GitHub and uses Git as a DVCS (Distributed Version Control System).
-A DVCS is a version control system that allows multiple users to work on the same codebase at the same time, and keeps track of every change made.
+The work is hosted on GitHub\footnote{https://www.github.com/} and uses Git\footnote{https://www.git-scm.com/} as a DVCS (Distributed Version Control System).
+A DVCS is a version control system that allows multiple users to work on the same codebase at the same time and keeps track of every change made.
 The project was developed following a customized version of Git Flow. 
 
 \begin{figure}[h]
@@ -638,12 +672,12 @@ All feature branches followed this naming convention: \textit{feature/{feature-n
 \paragraph*{Build automation}
 Build Automation refers to the automation of the build lifecycle of a project, the process from source code to product release and distribution. 
 This allows automating operations that were previously done manually, making software deployment more efficient and less error-prone.
-In this work, Gradle, one of the most famous and widely used build systems, is used. 
+In this work, Gradle\footnote{https://gradle.org/}, one of the most famous and widely used build systems, is used. 
 Gradle is primarily used to manage dependencies with external libraries used in the project (e.g., the library for parsing YAML files).
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
 
-\begin{lstlisting}[language=kt]
+\begin{lstlisting}[language=my-kotlin]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -665,7 +699,8 @@ In this work, GitHub Actions is used to automate the process of building, testin
 The workflow of a GitHub Action is defined in a YAML file, which is stored in the repository under the path \textit{.github/workflows}.
 The following is an example of a GitHub Action that builds the project and runs the tests.
 
-\begin{lstlisting}[style=yaml]
+\lstset{style=my-yaml}
+\begin{lstlisting}
   name: CI/CD Process
 on:
   workflow_call:
@@ -732,7 +767,7 @@ jobs:
 \end{lstlisting}
 
 \paragraph*{Versioning and Releasing}
-For commits, Conventional Commits are used, a convention that provides a set of possible commits, 
+For commits, Conventional Commits\footnote{https://www.conventionalcommits.org/en/v1.0.0/} are used, a convention that provides a set of possible commits, 
 each with a different semantic, allowing the definition of the software version number based on the commit history.
 
 The following set of commits is used:
@@ -783,7 +818,8 @@ This is the case for the \emph{Executor} and \emph{Listener} components, which a
 The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
-\begin{lstlisting}[language=kt]
+\lstset{style=my-kotlin}
+\begin{lstlisting}[language=my-kotlin]
   class ParserTest : FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -845,10 +881,80 @@ To test the behavior of Alchemist, a program that computes the gradient, a typic
 The first execution was done with the graphical interface activated, which allowed verifying the correct execution of the simulation, thanks to the graphical effects applied to the nodes. 
 The second execution was done headless and provided the same results as the first. This process was repeated for both incarnations supported by the framework, namely Protelis and Sapere.
 
-
-
 \section{Evaluation}
-Acceptance testing is a software testing method to test the behavior of the software from the user's perspective.
+
+In this section, we will provide an example of how the framework can be use to benchmark \ac*{CAS}.
+
+We start by defining a problem, which is the computation of the gradient in a grid of nodes.
+This is a known scenario in the literature, it consists of computing the distance of each node in the grid from a source node.
+The solution to be tested is an implementation of the gradient computation in the Sapere incarnation of Alchemist.
+
+We create a benchmark configuration file, which contains all the informations about the benchmark to be executed.
+
+\lstset{style=my-yaml}
+\begin{lstlisting}
+strategy:
+  executionOrder:
+    - Alchemist-SAPERE-gradient
+
+simulators:
+  - name: ALCHEMIST
+    simulatorPath: "./"
+    scenarios:
+      - name: Alchemist-SAPERE-gradient
+        description: A benchmark to test the gradient computation in the Sapere incarnation
+        input: "sapere-gradient.yml"
+        repetitions: 3
+\end{lstlisting}
+
+After the benchmark configuration file, we define the input file for the Alchemist simulation:
+
+\begin{lstlisting}[style=my-yaml]
+incarnation: sapere
+launcher:
+  type: HeadlessSimulationLauncher
+seeds:
+  scenario: 42
+  simulation: 42
+network-model:
+  type: ConnectWithinDistance
+  parameters: [0.35]
+
+  _send: &id001
+  - {time-distribution: 0.1, program: '{source} --> {source} {gradient, 0}'}
+  - {time-distribution: 1, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
+  - program: >
+      {gradient, N}{gradient, def: N2>=N} --> {gradient, N}
+  - time-distribution: 0.1
+    program: >
+      {gradient, N} --> {gradient, N + 1}
+  - program: >
+      {gradient, def: N > 30} -->
+
+deployments:
+  type: Grid
+  parameters: [-5, -5, 5, 5, 0.25, 0.25, 0.1, 0.1]
+  contents:
+    in:
+      type: Rectangle
+      parameters: [-0.5, -0.5, 1, 1]
+    molecule: source
+  programs: *id001
+  
+export:
+  - type: CSVExporter
+    parameters: {fileNameRoot: export, interval: 5, exportPath: ./}
+    data: 
+      - time
+      - molecule: "TODO"
+terminate:
+  - type: afterTime
+    parameters: 100
+\end{lstlisting}
+
+
+
+
 
 %----------------------------------------------------------------------------------------
 \chapter{Conclusion and Future Work}
