@@ -588,7 +588,7 @@ This forces the user to extend each component of the system to support the new s
 \paragraph*{Parser}
 The parser is the component responsible for translating the user-written specifications in YAML into a data structure that represents the benchmark model.
 The library \emph{"com.charleskorn.kaml:kaml"} is used to parse the input file.
-This allows a easy and clean way to parse the input file as shown in the following code.
+This allows an easy and clean way to parse the input file as shown in the following code.
 
 \begin{lstlisting}[language=my-kotlin]
   val inputFile = File(path)
@@ -609,9 +609,43 @@ This interface contains a single method, \emph{handle}, which takes as input the
 
 For example, the Alchemist implementation of the \emph{ConfigFileHandler} interface reads the \emph{duration} parameter from the scenario configuration and injects it to the Alchemist input file, overriding it.
 
+\paragraph*{Listener}
+The listener is implemented as an interface with a \emph{read} method, which takes the path to the CSV file as input and returns a ScenarioOutput. 
+Saving simulation results in a CSV file is a standard and widely used approach, which is why this is the preferred method to read the simulator's output. 
+In case it is not available as an option, listener interface can be extended to implement a custom read function. 
+The logic for reading from a CSV file is implemented directly in the Listener interface, while the \emph{clearCSV} method is not implemented and must be handled by the specific simulator's listener. 
+In general, the \emph{clearCSV} function should clean the file from all unnecessary information, leaving the CSV file only with headers and values; otherwise, the reading will not be performed.
+
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Listener interface}]
+  interface Listener {
+    fun read(path: String = ""): ScenarioOutput
+    fun clearCSV(path: String)
+\end{lstlisting}
+
+The Alchemist implementation for the \emph{ClearCSV} method is:
+
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={CSV file cleaning in Alchemist}]
+override fun clearCSV(path: String) {
+    val lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8)
+    val regexPatterns = listOf(
+        Regex("#.*#"),
+        Regex("#$"),
+        Regex("# $"),
+        Regex("# T.*"),
+    )
+    val dataLines = lines.filter { line ->
+        !regexPatterns.any { pattern -> pattern.matches(line) }
+    }
+    val finalLines = dataLines.map { line ->
+        val modifiedLine = line.replace(Regex("# "), "")
+        modifiedLine
+    }
+    Files.write(Paths.get(path), finalLines, StandardCharsets.UTF_8)
+\end{lstlisting}
+
 \paragraph*{Output and Result}
 
-The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as type alias in Kotlin, which is a way to define a new type without creating a new class.
+The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as \emph{type alias} in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
 \begin{lstlisting}[language=my-kotlin]
@@ -625,6 +659,42 @@ The concept of \emph{Scenario Result} is implemented as a data class.
     val visualisationType: VisualisationType,
 )
 \end{lstlisting}
+
+Both the \textit{ScenarioOutput} and the \textit{ScenarioResult} use a list of \emph{Any} to represent the value.
+This is done to ensure compatibility with any simulator that might be added in the future.
+
+\paragraph*{Controller}
+
+After parsing the benchmark configuration file the \emph{Controller} begins to execute every Scenario in the order specified by the user.
+It creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
+
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Controller implementation}]
+  val scenarioNameOrder: List<String> = benchmark.strategy.executionOrder
+  val scenarioMap: Map<String, Triple<Simulator, Scenario, Int>> = benchmark.simulators
+      .flatMap { simulator ->
+          simulator.scenarios.map { scenario ->
+              scenario.name to Triple(simulator, scenario, scenario.repetitions)
+          }
+      }.toMap()
+  scenarioNameOrder.forEach { scenarioName ->
+      val (simulator, scenario, repetitions) = scenarioMap.getOrElse(scenarioName) {
+          throw IllegalArgumentException("Scenario $scenarioName not found")
+      }
+      for (i in 1..repetitions) {
+          runBlocking {
+              println("[TESTBED] Running scenario $scenarioName in ${simulator.name} simulator. Run number $i")
+              createExecutor(simulator.name, simulator.simulatorPath, scenario)
+              val reader = createReader(simulator.name)
+              val runName = "$scenarioName-$i"
+              val metric = reader.read(simulator.simulatorPath + "export.csv")
+              benchmarkOutput = benchmarkOutput + mapOf(runName to metric)
+          }
+      }
+  }
+\end{lstlisting}
+
+It is important to note that each scenario execution is strictly sequential. A scenario is launched, the controller waits for the execution to finish, creates the Listener to read the results and only then moves on to the next scenario.
+All the results are saved in a data structure that will be displayed to the user by the \emph{View}.
 
 \section{Technologies}
 
