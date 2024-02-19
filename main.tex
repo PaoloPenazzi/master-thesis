@@ -16,22 +16,14 @@
 \usepackage{svg}
 
 \lstdefinestyle{my-yaml}{
-  basicstyle=\color{blue}\scriptsize\ttfamily,
+  basicstyle=\color{blue}\footnotesize,
   rulecolor=\color{black},
   string=[s]{'}{'},
   stringstyle=\color{blue},
   comment=[l]{:},
   commentstyle=\color{black},
-  morecomment=[l]{-},
-  breaklines=true,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	numbersep=10pt,
-	tabsize=2,
-	extendedchars=true,
-	frame=trbl,
-	frameround=fttt,
- }
+  morecomment=[l]{-}
+}
 
  \lstdefinestyle{my-kotlin}{
 	showstringspaces=false,
@@ -134,12 +126,11 @@ so that adding new simulators is possible without compromising the functionality
 \ac{CAS} are a complex type of distributed network, composed of a large number of heterogeneous entities.
 The two main characteristics that distinguish these systems are the ability to adapt their behavior to dynamically changing open-ended environments
 and the pursuit of a collective goal, achieved through interaction without specific external or internal central control. \cite{DBLP:series/lncs/HolzlRW08, DBLP:journals/corr/abs-1108-5643}
-It is important to note that \ac{CAS} can be composed of heterogeneous entities, each with its capabilities and goals.
+It is important to note that \ac{CAS} can be composed of heterogeneous entities, each with its own capabilities and goals.
 To achieve the collective goal without central control, \ac{CAS} often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18} \\
 
 Nowadays, many systems are adaptive and collective: drone swarms tasked with monitoring an area,
-wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic,
-are all examples of CAS. \cite{DBLP:journals/sttt/NicolaJW20}
+wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic. \cite{DBLP:journals/sttt/NicolaJW20}
 
 \begin{figure*}[h]
   \centering
@@ -200,7 +191,7 @@ Simulators allow us to create a virtual environment where we can run the program
 
 The reference simulator for this work is Alchemist. \cite{Pianini_2013}
 Alchemist is a meta-simulator, open-source, for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions.
-The meta-model of Alchemist is inspired by biochemistry and consists of various entities:
+The meta-model of Alchemist is inspired by biochemistry and consists of various entities \footnote{https://alchemistsimulator.github.io/}:
 \begin{itemize}
   \item \textbf{Molecule} The name of a data item.
   \item \textbf{Concentration} The value associated with a molecule.
@@ -214,13 +205,13 @@ The meta-model of Alchemist is inspired by biochemistry and consists of various 
 
 Here is the visual representation of the Alchemist meta-model.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-model.png}
   \caption{Alchemist meta-model}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-reaction.png}
   \caption{Alchemist reaction}
@@ -233,7 +224,7 @@ ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library an
 Protelis \cite{DBLP:conf/sac/PianiniVB15}, a programming language for aggregate computing, and
 Biochemistry incarnation.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist.png}
   \caption{A grid of nodes in Alchemist}
@@ -241,7 +232,7 @@ Biochemistry incarnation.
 
 \paragraph*{NetLogo}
 
-NetLogo is a programmable modeling environment for simulating natural and social phenomena. It was created at the Center
+NetLogo\footnote{https://ccl.northwestern.edu/netlogo/} is a programmable modeling environment for simulating natural and social phenomena. It was created at the Center
 for Connected Learning and Computer-Based Modeling (CCL) at Northwestern University, directed by Uri Wilensky.
 
 NetLogo is particularly well suited for modeling complex systems developing over time.
@@ -250,15 +241,14 @@ Users can program the behavior of thousands of independent agents to see how the
 It also comes with the Models Library, a large collection of pre-written simulations that can be used and modified.
 These simulations can be explored to observe their behavior under various conditions.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/NetLogo-interface.png}
   \caption{NetLogo interface}
 \end{figure}
 
 The model used in the image above is the Fire model.
-It simulates the spread of a fire through a forest. It shows that the fire's chance of reaching the right edge
-of the forest depends critically on the density of trees.
+It simulates the spread of a fire through a forest. It shows that the fire's chance of reaching the right edge the forest depends critically on the density of trees.
 
 %----------------------------------------------------------------------------------------
 \chapter{Analysis}
@@ -369,7 +359,7 @@ The execution of the benchmark is then handled by the testbed, which takes care 
 Diving deeper into the architecture, we can see that the testbed is composed of different components, each with a specific role.
 The following image shows the architecture of the system.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/testbed-architecture.png}
   \caption{Architecture of the system (v0.1)}
@@ -385,7 +375,7 @@ Once the benchmark execution is complete, a post-processing function is applied 
 
 To better understand the architecture, it is useful to analyze the execution of a benchmark.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
   \caption{Architecture of the system (v0.1)}
@@ -437,8 +427,9 @@ This section contains:
 \end{itemize}
 
 This is an input file example, which will be used to explain the structure of the input file.
+
 \lstset{style=my-yaml}
-\begin{lstlisting}
+\begin{lstlisting}[float=h!, caption={Benchmark configuration file structure}]
 strategy:
   executionOrder:
     - Alchemist-sapere-tutorial
@@ -548,7 +539,7 @@ The \emph{Serializable} annotation is used to allow the model to be serialized a
 This annotation is provided by the \emph{"org.jetbrains.kotlinx:kotlinx-serialization-json"} library.
 
 \lstset{style=my-kotlin}
-\begin{lstlisting}[language=my-kotlin]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Benchmark model.}]
 @Serializable
 data class Benchmark(
     val strategy: Strategy,
@@ -578,7 +569,7 @@ To account for the possibility of adding new simulators, the \emph{SupportedSimu
 This enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
 This forces the user to extend each component of the system to support the new simulator.
 
-\begin{lstlisting}[language=my-kotlin]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={SupportedSimulator enum.}]
   enum class SupportedSimulator {
     ALCHEMIST,
     NETLOGO,
@@ -590,7 +581,7 @@ The parser is the component responsible for translating the user-written specifi
 The library \emph{"com.charleskorn.kaml:kaml"} is used to parse the input file.
 This allows an easy and clean way to parse the input file as shown in the following code.
 
-\begin{lstlisting}[language=my-kotlin]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Parsing of the input file.}]
   val inputFile = File(path)
   val benchmark = Yaml.default.decodeFromString(Benchmark.serializer(), inputFile.readText())
 \end{lstlisting}
@@ -601,7 +592,7 @@ This parameter may change the duration of the execution of a scenario, overridin
 To achieve this, a \emph{ConfigFileHandler} interface was created, which is implemented by each simulator-specific component.
 This interface contains a single method, \emph{handle}, which takes as input the scenario configuration.
 
-\begin{lstlisting}[language=my-kotlin]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={ConfigFileHandler interface.}]
   interface ConfigFileHandler {
     fun editConfigurationFile(scenario: Scenario)
 }
@@ -616,7 +607,7 @@ In case it is not available as an option, listener interface can be extended to 
 The logic for reading from a CSV file is implemented directly in the Listener interface, while the \emph{clearCSV} method is not implemented and must be handled by the specific simulator's listener. 
 In general, the \emph{clearCSV} function should clean the file from all unnecessary information, leaving the CSV file only with headers and values; otherwise, the reading will not be performed.
 
-\begin{lstlisting}[language=my-kotlin, float=h!, caption={Listener interface}]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Listener interface.}]
   interface Listener {
     fun read(path: String = ""): ScenarioOutput
     fun clearCSV(path: String)
@@ -624,7 +615,7 @@ In general, the \emph{clearCSV} function should clean the file from all unnecess
 
 The Alchemist implementation for the \emph{ClearCSV} method is:
 
-\begin{lstlisting}[language=my-kotlin, float=h!, caption={CSV file cleaning in Alchemist}]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={CSV file cleaning in Alchemist.}]
 override fun clearCSV(path: String) {
     val lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8)
     val regexPatterns = listOf(
@@ -648,7 +639,7 @@ override fun clearCSV(path: String) {
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as \emph{type alias} in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[language=my-kotlin]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Benchmark output and result model.}]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -668,7 +659,7 @@ This is done to ensure compatibility with any simulator that might be added in t
 After parsing the benchmark configuration file the \emph{Controller} begins to execute every Scenario in the order specified by the user.
 It creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 
-\begin{lstlisting}[language=my-kotlin, float=h!, caption={Controller implementation}]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Controller implementation.}]
   val scenarioNameOrder: List<String> = benchmark.strategy.executionOrder
   val scenarioMap: Map<String, Triple<Simulator, Scenario, Int>> = benchmark.simulators
       .flatMap { simulator ->
@@ -726,10 +717,10 @@ The work is hosted on GitHub\footnote{https://www.github.com/} and uses Git\foot
 A DVCS is a version control system that allows multiple users to work on the same codebase at the same time and keeps track of every change made.
 The project was developed following a customized version of Git Flow. 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/gitflow.png}
-  \caption{Git Flow}
+  \caption{Git Flow.}
   \label{fig:git-flow}
 \end{figure}
 
@@ -747,7 +738,7 @@ Gradle is primarily used to manage dependencies with external libraries used in 
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
 
-\begin{lstlisting}[language=my-kotlin]
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Custom task to generate the JAR file.}]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -770,7 +761,7 @@ The workflow of a GitHub Action is defined in a YAML file, which is stored in th
 The following is an example of a GitHub Action that builds the project and runs the tests.
 
 \lstset{style=my-yaml}
-\begin{lstlisting}
+\begin{lstlisting}[float=h!, caption={CI/CD workflow.}]
   name: CI/CD Process
 on:
   workflow_call:
@@ -889,7 +880,7 @@ The tests on this component were conducted by repeatedly running the framework w
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
 \lstset{style=my-kotlin}
-\begin{lstlisting}[language=my-kotlin]
+\begin{lstlisting}[language=my-kotlin, float=H, caption={Parser tests.}]
   class ParserTest : FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -938,7 +929,7 @@ The same steps as before were observed, with the addition of the simulation bein
 Comparing the two executions and conducting further ones, no differences were noticed. 
 We can therefore say that NetLogo has been integrated correctly into the framework.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/netlogo-sim.png}
   \caption{NetLogo simulation launched by the framework}
@@ -953,16 +944,16 @@ The second execution was done headless and provided the same results as the firs
 
 \section{Evaluation}
 
-In this section, we will provide an example of how the framework can be use to benchmark \ac*{CAS}.
+In this section, we will provide an example of how the framework can be used to benchmark \ac*{CAS}.
 
 We start by defining a problem, which is the computation of the gradient in a grid of nodes.
 This is a known scenario in the literature, it consists of computing the distance of each node in the grid from a source node.
 The solution to be tested is an implementation of the gradient computation in the Sapere incarnation of Alchemist.
 
-We create a benchmark configuration file, which contains all the informations about the benchmark to be executed.
+We create a benchmark configuration file, which contains all the information about the benchmark to be executed.
 
 \lstset{style=my-yaml}
-\begin{lstlisting}
+\begin{lstlisting}[float=H, caption={Case of study: benchmark configuration file.}]
 strategy:
   executionOrder:
     - Alchemist-SAPERE-gradient
@@ -979,7 +970,7 @@ simulators:
 
 After the benchmark configuration file, we define the input file for the Alchemist simulation:
 
-\begin{lstlisting}[style=my-yaml]
+\begin{lstlisting}[float=H, caption={Case of study: Alchemist input file.}]
 incarnation: sapere
 launcher:
   type: HeadlessSimulationLauncher
@@ -1022,19 +1013,37 @@ terminate:
     parameters: 100
 \end{lstlisting}
 
+Now we need to define the processing function which will be in charge of aggregating the data and returning the result.
 
+\lstset{style=my-kotlin}
+\begin{lstlisting}[language=my-kotlin, float=h!, caption={Case of study: Output processing function.}]]
+  
+\end{lstlisting}
 
-
+We can observe the result of the benchmark execution:
 
 %----------------------------------------------------------------------------------------
 \chapter{Conclusion and Future Work}
 %----------------------------------------------------------------------------------------
 
+The work presented in this thesis has resulted in the creation of a prototype of a testbed for benchmarking collective adaptive systems.
+The objective of the framework is to provide a tool that incorporates the most common simulator used in the field of collective adaptive systems,
+and to allow the user to test the behavior of a solution in different scenarios, using different simulators, and to compare the results obtained.
+To achieve this goal the framework was designed to be flexible and extensible, allowing the user to express a benchmark configuration in a simple and intuitive way, and to add new simulators without breaking the existing structure.
+
+A key aspect of the framework is its abstract design. Each component of the system has a general behavior, independent of the simulator, but incomplete.
+This gives the user the possibility to extend the framework to support new simulators, by implementing its specific logic.
+If the user is not interested in adding support to new simulators, the framework can be used to extensively test the behavior of a solution in a certain scenario.
+Moreover, everyone can define a benchmark and share the result with the community to allow other users to put their solution in the pre-configured benchmark and compare the results.
+
+In our opinion, the framework is a good starting point for the development of a complete tool for testing collective adaptive systems.
+The testbed addresses the key challenges in the development of an open benchmarking platform and provides a solid foundation for future work.
+
 \paragraph*{Future Works}
 
-The framework is still in its early stages and some features are missing for it to become a complete tool for testing collective adaptive systems.
+Despite the work that has been done, the framework is still in its early stages and some features are missing for it to become a complete tool for testing collective adaptive systems.
 The scientific community requires a high standard of quality and reliability, and the framework must be able to provide it.
-These features are necessary for the framework to be widely adopted.
+This section will provide a list of possible future works that could be done.
 
 \begin{itemize}
   \item \textbf{Increase the number of supported simulators} 
