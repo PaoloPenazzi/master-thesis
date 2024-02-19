@@ -1,3 +1,10 @@
+## [3.2.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.1.0...3.2.0) (2024-02-19)
+
+
+### Features
+
+* add implementation controller paragraph ([9a5a3a4](https://github.com/PaoloPenazzi/master-thesis/commit/9a5a3a4aa1f548285fd30c7fe91729a067bf477f))
+
 ## [3.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.0.0...3.1.0) (2024-02-16)
 
 
