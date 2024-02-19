@@ -1,3 +1,15 @@
+## [3.3.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.2.0...3.3.0) (2024-02-19)
+
+
+### Features
+
+* add conclusion ([01fe1a1](https://github.com/PaoloPenazzi/master-thesis/commit/01fe1a150f5d6a051ba04d3d5b7544633a6bfbe1))
+
+
+### Bug Fixes
+
+* fix code listings ([4c150c6](https://github.com/PaoloPenazzi/master-thesis/commit/4c150c68719a3ffc23c3d5b662e449b5c3c80b48))
+
 ## [3.2.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.1.0...3.2.0) (2024-02-19)
 
 
