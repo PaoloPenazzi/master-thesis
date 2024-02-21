@@ -1,3 +1,10 @@
+## [3.5.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.4.1...3.5.0) (2024-02-21)
+
+
+### Features
+
+* add abstract ([5dc3c45](https://github.com/PaoloPenazzi/master-thesis/commit/5dc3c4519c0be4705accb7829c4604cf46d2e189))
+
 ## [3.4.1](https://github.com/PaoloPenazzi/master-thesis/compare/3.4.0...3.4.1) (2024-02-21)
 
 
