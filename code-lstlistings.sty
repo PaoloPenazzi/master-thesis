@@ -9,27 +9,8 @@
 \Crefname{lstlisting}{Listing}{Listing}
 \renewcommand\lstlistlistingname{List of Listings}
 
-\lstdefinestyle{yaml}{
-     basicstyle=\color{blue}\scriptsize\ttfamily,
-     rulecolor=\color{black},
-     string=[s]{'}{'},
-     stringstyle=\color{blue},
-     comment=[l]{:},
-     commentstyle=\color{black},
-     morecomment=[l]{-},
-     breaklines=true,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	numbersep=10pt,
-	tabsize=2,
-	extendedchars=true,
-	frame=trbl,
-	frameround=fttt,
- }
-
- \lstdefinestyle{kotlin}{
+ \lstset{
 	showstringspaces=false,
-	language=kotlin
 	basicstyle=\scriptsize\ttfamily,
 	commentstyle={\color{olive}},
 	identifierstyle=\color{black},
@@ -45,15 +26,4 @@
 	extendedchars=true,
 	frame=trBL,
 	frameround=fttt,
-}
-
- \lstdefinelanguage{Kotlin}{
-	comment=[l]{//},
-	emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
-	keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
-	morecomment=[s]{/*}{*/},
-	morestring=[b]",
-	morestring=[s]{"""*}{*"""},
-	ndkeywords={@Deprecated, @Serializable, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Unit, it},
-	sensitive=true
 }

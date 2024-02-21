@@ -87,8 +87,23 @@
 \frontmatter\frontispiece
 
 \begin{abstract}
-  Max 2000 characters, strict.
+  In every domain of scientific research, the comparison between innovative solutions and the state of the art is crucial.
+  This practice enables the evaluation of whether the system under examination outperforms the established reference, either comprehensively or in specific aspects.
+  In various fields of computer science, tools have been developed to benchmark new solutions.
+  On the other hand, in the domain of collective adaptive systems, a conspicuous gap exists in software designed to facilitate such comparisons.
+
+  The primary objective of this thesis is to craft a prototype for a benchmarking platform tailored to Collective Adaptive Systems (CAS). 
+  By capitalizing on existing simulators available in the market, the aim is to establish a comprehensive framework for testing, validating, and comparing these dynamic systems. 
+  The presented platform is designed to empower users in defining benchmarks, executing them, and extracting results of interest - all while preserving flexibility and extensibility. 
+  This inherent adaptability allows for the incorporation of additional simulators into the expanding testbed.
+
+  An experiment has been executed to validate the framework's anticipated functionalities and scrutinize its strengths and weaknesses. 
+  This undertaking serves the purpose of identifying areas for future improvement within the tool.
 \end{abstract}
+  
+\begin{acknowledgements}
+  
+\end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
 \tableofcontents
@@ -168,7 +183,7 @@ it is possible to simplify the design and maintenance of these systems. \cite{DB
 Aggregate programming is based on the concept of a computational field, which is a global map associating each device in the network with its local value,
 and on that of field calculus, a minimal core that provides basic constructs for working with fields. \cite{DBLP:journals/corr/ViroliADPB16}
 
-\section{Testing}
+\section{Testing and Simulation}
 
 In every field of engineering, testing is a fundamental part of the development process. 
 It refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
@@ -180,9 +195,7 @@ Given the complexity of these systems, using a single simulator is not sufficien
 It is often necessary to use multiple simulators and combine the results obtained to understand the system's behavior.
 This technique is termed co-simulation and introduces various issues, such as communication delays, approximations, and difficulties in synchronizing simulators. \cite{DBLP:journals/simpra/ThuleLGML19}
 Since these systems are adaptive and react to changes in their environment, it is natural to want to support the injection of changes. \cite{DBLP:conf/icac/BrownHHLLSY04}
-A complete testbed must, therefore, be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety.
-
-\section{Simulation}
+A complete testbed must, therefore, be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety. \\
 
 In computer science, simulation is the process of executing software in a controlled environment to evaluate its behavior.
 Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario.
