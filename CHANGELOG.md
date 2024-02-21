@@ -1,3 +1,10 @@
+## [3.4.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.3.0...3.4.0) (2024-02-21)
+
+
+### Features
+
+* complete evaluation section ([a057633](https://github.com/PaoloPenazzi/master-thesis/commit/a057633f912bbfb0ff5d35ce2f5cb625805be784))
+
 ## [3.3.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.2.0...3.3.0) (2024-02-19)
 
 
