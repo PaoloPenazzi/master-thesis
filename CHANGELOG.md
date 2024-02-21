@@ -1,3 +1,10 @@
+## [3.6.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.5.0...3.6.0) (2024-02-21)
+
+
+### Features
+
+* refactor output section ([2cdab50](https://github.com/PaoloPenazzi/master-thesis/commit/2cdab50a1a28f6dadd4bc125e285eed587aaa175))
+
 ## [3.5.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.4.1...3.5.0) (2024-02-21)
 
 
