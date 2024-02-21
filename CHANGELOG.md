@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/PaoloPenazzi/master-thesis/compare/3.4.0...3.4.1) (2024-02-21)
+
+
+### Bug Fixes
+
+* fix yaml listing ([4ad7c64](https://github.com/PaoloPenazzi/master-thesis/commit/4ad7c64236b7b59d95c5dd7e922f11f226bbada1))
+
 ## [3.4.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.3.0...3.4.0) (2024-02-21)
 
 
