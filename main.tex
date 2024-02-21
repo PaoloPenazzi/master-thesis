@@ -17,18 +17,6 @@
 
 \input{yaml-def}
 
-\begin{comment}
-  \lstdefinestyle{my-yaml}{
-  basicstyle=\color{blue}\footnotesize,
-  rulecolor=\color{black},
-  string=[s]{'}{'},
-  stringstyle=\color{blue},
-  comment=[l]{:},
-  commentstyle=\color{black},
-  morecomment=[l]{-}
-}
-\end{comment}
-
 
  \lstdefinestyle{my-kotlin}{
 	showstringspaces=false,
@@ -107,8 +95,8 @@
 
 %----------------------------------------------------------------------------------------
 \tableofcontents
-\listoffigures     % (optional) comment if empty
-\lstlistoflistings % (optional) comment if empty
+\listoffigures
+\lstlistoflistings
 %----------------------------------------------------------------------------------------
 
 \mainmatter
@@ -277,7 +265,7 @@ It simulates the spread of a fire through a forest. It shows that the fire's cha
 A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs.
 
 To better understand the problem domain and to avoid misunderstandings, a ubiquitous language has been defined.
-These concepts were then utilized in the framework development and can be found in the implementation.
+These concepts were then utilized in the framework development and can be found in the work.
 
 \begin{table}[h]
   \centering
@@ -377,7 +365,7 @@ The execution of the benchmark is then handled by the testbed, which takes care 
 Diving deeper into the architecture, we can see that the testbed is composed of different components, each with a specific role.
 The following image shows the architecture of the system.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/testbed-architecture.png}
   \caption{Architecture of the system (v0.1)}
@@ -440,6 +428,7 @@ This section contains:
   \item \textbf{name} the name of the scenario. It is mandatory and should match the name in the
   \item \textbf{description} a brief explanation of the scenario. Optional.
   \item \textbf{input} a list of all the input files needed to run the scenario. This parameter is optional to take into account a scenario that does not require any input file.
+  \item \textbf{postProcessing} the script that will be used to process the scenario output. This parameter is optional.
   \item \textbf{repetitions} the number of times that the scenario should be run. This parameter is optional and defaults to 1.
   \item \textbf{duration} the duration of the simulation. This parameter can be used to overwrite the value present in the simulator-specific configuration file, if the simulator supports it. This parameter is optional.
 \end{itemize}
@@ -459,21 +448,23 @@ simulators:
     scenarios:
       - name: NetLogo-tutorial
         description: A tutorial to NetLogo
-        input: "../src/main/resources/netlogo/netlogo-tutorial.xml" TODO change to list
-        modelPath: "./models/IABM Textbook/chapter 4/Wolf Sheep Simple 5.nlogo"
+        input:
+          - "../src/main/resources/netlogo/netlogo-tutorial.xml"
+          - "./models/IABM Textbook/chapter 4/Wolf Sheep Simple 5.nlogo"
         repetitions: 3
+        postProcessing: "./processing/netlogo-tutorial.py"
 
   - name: Alchemist
     simulatorPath: "./"
     scenarios:
       - name: Alchemist-protelis-tutorial
         description: A tutorial to Alchemist and Protelis incarnation
-        input: "src/main/resources/alchemist/protelis-tutorial.yml"
+        input: ["src/main/resources/alchemist/protelis-tutorial.yml"]
         repetitions: 1
         duration: 10
       - name: Alchemist-sapere-tutorial
         description: A tutorial to Alchemist and Sapere incarnation
-        input: "src/main/resources/alchemist/sapere-tutorial.yml"
+        input: ["src/main/resources/alchemist/sapere-tutorial.yml"]
         repetitions: 1
         duration: 100
 \end{lstlisting}
@@ -482,6 +473,26 @@ simulators:
 
 A critical part of the framework design is related to what is presented to the user at the end of the benchmark execution.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/output-processing.pdf}
+  \caption{Simulator output processing}
+  \label{fig:random-image}
+\end{figure}
+
+Each simulator has its own method of providing simulation results. Some return a CSV file, others a text file, and some even utilize snapshots. 
+Managing all these diverse cases within the framework is not feasible, which is why two methods are provided to obtain the desired results: through an external scripting file or by implementing a listener and a processing function.
+
+In the first case, an external scripting file is used to process the simulator's output. 
+Once the simulation is complete, the controller invokes the script specified in the Scenario configuration. 
+Upon execution completion, the framework reads the results from a predefined JSON file: result.json. 
+This file must contain data in the form of Scenario Result, which will be described shortly.
+
+In the second case, the Listener interface is employed. It takes the file outputted by the simulator and transforms it into an internal framework data structure: BenchmarkOutput. 
+A post-processing function must then be implemented, taking this BenchmarkOutput as input and returning a BenchmarkResult. 
+In practice, this solution divides the process into two phases, where the script execution is also performed.
+This allows defining a method to read the output of a simulator and using it in combination with various processing functions to obtain results of different natures.
+
 We define \emph{output} concepts:
 \begin{itemize}
   \item \textbf{Scenario Output} the output of a single scenario. It is a map that associates each metric with its value.
@@ -489,18 +500,13 @@ We define \emph{output} concepts:
 \end{itemize}
 
 These concepts represent the data returned at the end of the benchmark execution as generated by the simulator.
-This data must be processed in order to extract useful information for the user.
+This data must be processed to extract useful information for the user.
 
 We define \emph{result} concepts, which represent the data the user desires, obtained by processing the benchmark's output.
 \begin{itemize}
   \item \textbf{Scenario Result} the result of a single scenario. It contains a description of the result and its value.
   \item \textbf{Benchmark Result} the result of the entire benchmark. It is a list of \emph{Scenario Result}.
 \end{itemize}
-
-At this point, it is necessary to define a function to aggregate the data, transforming the benchmark's output to provide useful information to the user.
-This function cannot be predefined since, given a benchmark, different users might want to visualize different metrics.
-The \emph{processingFunction} is defined as a function that takes as input the \emph{Benchmark Output} and returns the \emph{Benchmark Result}.
-The user must implement this function to get the desired result.
 
 \section{Extension}
 
@@ -512,7 +518,7 @@ This will then be integrated with the specific behavior related to the simulator
 A user who wants to add support for a new simulator must do the following steps:
 \begin{itemize}
   \item Implement the \emph{Executor} interface.
-  \item Implement the \emph{Listener} interface.
+  \item Implement the \emph{Listener} interface. Optional.
   \item If some manipulations on the input file are needed, implement the \emph{ConfigFileHandler} interface.
   \item Extend the \emph{SupportedSimulator} enum by adding the new simulator.
   \item Update the \emph{Controller} to take into account the new simulator.
@@ -544,7 +550,7 @@ In this chapter, we will dive deeper into the implementation of the framework.
 The benchmark model is the data structure that represents the benchmark to be executed.
 It must match the structure of the input file to allow easy parsing.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/benchmark-model.png}
   \caption{Benchmark Model}
