@@ -165,9 +165,9 @@ and on that of field calculus, a minimal core that provides basic constructs for
 
 \section{Testing}
 
-In every field of engineering, testing is a fundamental part of the development process.
-Testing refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
-It is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
+In every field of engineering, testing is a fundamental part of the development process. 
+It refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
+Testing is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
 This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario. \\
 
 The testing of adaptive systems introduces a series of challenges and difficulties, many of which stem from the intrinsic nature of these systems.
@@ -217,7 +217,7 @@ Here is the visual representation of the Alchemist meta-model.
   \caption{Alchemist reaction}
 \end{figure}
 
-The key to the Alchemist extensibility is the very generic interpretation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
+The key to the Alchemist's extensibility is the very generic interpretation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
 Alchemist supports four incarnations:
 SAPERE \cite{DBLP:conf/saso/CastelliMRZ11}, the first supported incarnation, based on the concept of Live Semantic Annotation (LSA),
 ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library and framework for Aggregate Programming,
@@ -538,8 +538,7 @@ Each concept of the model is implemented as a data class in Kotlin, which is a c
 The \emph{Serializable} annotation is used to allow the model to be serialized and deserialized from YAML.
 This annotation is provided by the \emph{"org.jetbrains.kotlinx:kotlinx-serialization-json"} library.
 
-\lstset{style=my-kotlin}
-\begin{lstlisting}[language=my-kotlin, caption={Benchmark model.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark model.}]
 @Serializable
 data class Benchmark(
     val strategy: Strategy,
@@ -569,7 +568,7 @@ To account for the possibility of adding new simulators, the \emph{SupportedSimu
 This enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
 This forces the user to extend each component of the system to support the new simulator.
 
-\begin{lstlisting}[language=my-kotlin, caption={SupportedSimulator enum}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={SupportedSimulator enum}]
   enum class SupportedSimulator {
     ALCHEMIST,
     NETLOGO,
@@ -581,7 +580,7 @@ The parser is the component responsible for translating the user-written specifi
 The library \emph{"com.charleskorn.kaml:kaml"} is used to parse the input file.
 This allows an easy and clean way to parse the input file as shown in the following code.
 
-\begin{lstlisting}[language=my-kotlin, caption={Parsing of the input file}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parsing of the input file}]
   val inputFile = File(path)
   val benchmark = Yaml.default.decodeFromString(Benchmark.serializer(), inputFile.readText())
 \end{lstlisting}
@@ -592,7 +591,7 @@ This parameter may change the duration of the execution of a scenario, overridin
 To achieve this, a \emph{ConfigFileHandler} interface was created, which is implemented by each simulator-specific component.
 This interface contains a single method, \emph{handle}, which takes as input the scenario configuration.
 
-\begin{lstlisting}[language=my-kotlin, caption={ConfigFileHandler interface}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={ConfigFileHandler interface}]
   interface ConfigFileHandler {
     fun editConfigurationFile(scenario: Scenario)
 }
@@ -607,7 +606,7 @@ In case it is not available as an option, the listener interface can be extended
 The logic for reading from a CSV file is implemented directly in the Listener interface, while the \emph{clearCSV} method is not implemented and must be handled by the specific simulator's listener. 
 In general, the \emph{clearCSV} function should clean the file from all unnecessary information, leaving the CSV file only with headers and values; otherwise, the reading will not be performed.
 
-\begin{lstlisting}[language=my-kotlin, caption={Listener interface.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Listener interface.}]
   interface Listener {
     fun read(path: String = ""): ScenarioOutput
     fun clearCSV(path: String)
@@ -616,7 +615,7 @@ In general, the \emph{clearCSV} function should clean the file from all unnecess
 
 The Alchemist implementation for the \emph{ClearCSV} method is:
 
-\begin{lstlisting}[language=my-kotlin, caption={CSV file cleaning in Alchemist}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={CSV file cleaning in Alchemist}]
 override fun clearCSV(path: String) {
     val lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8)
     val regexPatterns = listOf(
@@ -641,7 +640,7 @@ override fun clearCSV(path: String) {
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as \emph{type alias} in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[language=my-kotlin, caption={Benchmark output and result model}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark output and result model}]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -661,7 +660,7 @@ This is done to ensure compatibility with any simulator that might be added in t
 After parsing the benchmark configuration file the \emph{Controller} begins to execute every Scenario in the order specified by the user.
 It creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 
-\begin{lstlisting}[language=my-kotlin, caption={Controller implementation}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Controller implementation}]
   val scenarioNameOrder: List<String> = benchmark.strategy.executionOrder
   val scenarioMap: Map<String, Triple<Simulator, Scenario, Int>> = benchmark.simulators
       .flatMap { simulator ->
@@ -700,7 +699,7 @@ It took inspiration from several programming languages including Java, Scala and
 Born as an object-oriented programming language, it includes a lot of functional programming elements such as first-class support for higher-order functions and lambda literals.
 The rise of Kotlin is testified by the fact that Google chose it as the official language for Android development, replacing Java.
 
-In the beginning, Kotlin was developed as a JVM language, and the support for multi-platform development was added recently. 
+In the beginning, Kotlin was developed as a JVM language, and support for multi-platform development was added recently. 
 It has great advantages as it reduces time spent writing and maintaining the same code for different platforms while retaining the flexibility and benefits of native programming.
 
 \paragraph*{YAML}
@@ -740,7 +739,7 @@ Gradle is primarily used to manage dependencies with external libraries used in 
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
 
-\begin{lstlisting}[language=my-kotlin, caption={Custom task to generate the JAR file}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Custom task to generate the JAR file}]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -762,9 +761,9 @@ In this work, GitHub Actions is used to automate the process of building, testin
 The workflow of a GitHub Action is defined in a YAML file, which is stored in the repository under the path \textit{.github/workflows}.
 The following is an example of a GitHub Action that builds the project and runs the tests.
 
-\lstset{style=my-yaml}
-\begin{lstlisting}[caption={CI/CD workflow}]
-  name: CI/CD Process
+\begin{lstlisting}[style=my-yaml, caption={CI/CD workflow}]
+name: CI/CD Process
+
 on:
   workflow_call:
   workflow_dispatch:
@@ -881,8 +880,7 @@ This is the case for the \emph{Executor} and \emph{Listener} components, which a
 The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
-\lstset{style=my-kotlin}
-\begin{lstlisting}[language=my-kotlin, caption={Parser tests}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parser tests}]
   class ParserTest : FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -941,12 +939,20 @@ We can therefore say that NetLogo has been integrated correctly into the framewo
 The same process was applied to test the integration with the Alchemist simulator.
 
 To test the behavior of Alchemist, a program that computes the gradient, a typical problem known in the literature, was chosen. 
-The first execution was done with the graphical interface activated, which allowed verifying the correct execution of the simulation, thanks to the graphical effects applied to the nodes. 
+The first execution was done with the graphical interface activated, which allowed verifying the correct execution of the simulation, thanks to the graphical effects applied to the nodes.
 The second execution was done headless and provided the same results as the first. This process was repeated for both incarnations supported by the framework, namely Protelis and Sapere.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/gradient-execution.png}
+  \caption{Alchemist simulation launched by the framework}
+\end{figure}
 
 \section{Evaluation}
 
 In this section, we will provide an example of how the framework can be used to benchmark \ac*{CAS}.
+
+\paragraph*{Definition and execution of a benchmark}
 
 We start by defining a problem, which is the computation of the gradient in a grid of nodes.
 This is a known scenario in the literature, it consists of computing the distance of each node in the grid from a source node.
@@ -967,7 +973,7 @@ simulators:
       - name: Alchemist-SAPERE-gradient
         description: A benchmark to test the gradient computation in the Sapere incarnation
         input: "sapere-gradient.yml"
-        repetitions: 3
+        repetitions: 1
 \end{lstlisting}
 
 After the benchmark configuration file, we define the input file for the Alchemist simulation:
@@ -977,8 +983,8 @@ incarnation: sapere
 launcher:
   type: HeadlessSimulationLauncher
 seeds:
-  scenario: 42
-  simulation: 42
+  scenario: 1
+  simulation: 1
 network-model:
   type: ConnectWithinDistance
   parameters: [0.35]
@@ -1009,20 +1015,90 @@ export:
     parameters: {fileNameRoot: export, interval: 5, exportPath: ./}
     data: 
       - time
-      - molecule: "TODO"
+      - molecule: gradient, value
+      property: value
+      aggregators: [mean]
+      value-filter: onlyfinite
 terminate:
   - type: afterTime
     parameters: 100
 \end{lstlisting}
 
-Now we need to define the processing function which will be in charge of aggregating the data and returning the result.
+Now we define the processing function which will be in charge of aggregating the data and returning the result.
+The function is implemented whithout the use of any external library, using pure Kotlin.
+It is not recommended to do so, as Kotlin is not a data analysis language and the code itself is not very readable.
 
 \lstset{style=my-kotlin}
 \begin{lstlisting}[language=my-kotlin, caption={Case of study: Output processing function.}]
-  XZxcz
+  val timeValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["time"]
+  val gradientValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["value[mean]"]
+  val timeToStabilize = gradientValues.reversed().foldRight(Triple(0.00, 0, 0)) { value, acc ->
+      if (acc.second == 0) {
+          if (value == acc.first && value != 0.00) Triple(
+              acc.first,
+              gradientValuesDouble.indexOf(acc.first),
+              acc.third - 1
+          ) else Triple(value, 0, acc.third + 1)
+      } else {
+          acc
+      }
+  }
+  return listOf(
+      ScenarioResult(
+          "Time to stabilize: ",
+          listOf(timeValuesDouble[timeToStabilize.third]),
+          VisualisationType.SINGLE_VALUE
+      )
+  )
 \end{lstlisting}
 
-We can observe the result of the benchmark execution:
+The function looks at the gradient value and returns the time at which the gradient stabilizes.
+A stable gradient is defined as two consecutive values that are the same and different from zero.
+To make the comparison values of type \textit{Double} are used, with a precision of two decimal places.
+
+We can observe the result of the benchmark execution, along with the output data of the simulator.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/result-A.png}
+  \caption{Case of study: Benchmark result A}
+\end{figure}
+
+\paragraph*{Compare a new solution to the reference}
+
+We want to create a new solution for the gradient computation problem and compare it to the reference solution.
+To do so, we can use the benchmark configuration file and the processing function used for the reference solution,
+develop our own solution and run the benchmark to get the result.
+
+To define the solution we take the Alchemist input file and change the time distribution of the reactions.
+
+\lstset{style=my-yaml}
+\begin{lstlisting}[caption={Case of study: benchmark configuration file}]
+  _send: &id001
+  - {time-distribution: 1, program: '{source} --> {source} {gradient, 0}'}
+  - {time-distribution: 2, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
+  - program: >
+      {gradient, N}{gradient, def: N2>=N} --> {gradient, N}
+  - time-distribution: 1
+    program: >
+      {gradient, N} --> {gradient, N + 1}
+  - program: >
+      {gradient, def: N > 30} -->
+\end{lstlisting}
+
+We can observe the result of the benchmark execution, and compare them against the reference solution.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/result-B.png}
+  \caption{Case of study: Benchmark result B}
+\end{figure}
+
+The objective of this case study was not to assess particular aspects or the performance of a CAS. 
+Instead, a basic metric was employed to estimate the system's stabilization speed.
+This experiment illustrated the feasibility of defining a benchmark, executing it, and deriving a meaningful outcome for the user. 
+It serves as a reference for testing and evaluating new solutions without the need to redefine the benchmark; modifications can be made solely by altering the solution. 
+As a result, the framework requirements outlined in the analysis phase are deemed fulfilled.
 
 %----------------------------------------------------------------------------------------
 \chapter{Conclusion and Future Work}
