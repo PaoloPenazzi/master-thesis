@@ -1,3 +1,19 @@
+## [4.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.6.0...4.0.0) (2024-02-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* refactore chapters
+
+### Features
+
+* refactore chapters ([f60b869](https://github.com/PaoloPenazzi/master-thesis/commit/f60b86954db88e31049f9b07d97c454c1a32272b))
+
+
+### Refactoring
+
+* update some figures ([21a219d](https://github.com/PaoloPenazzi/master-thesis/commit/21a219d41a40e61952e21a50b8c41e3b1d68ac48))
+
 ## [3.6.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.5.0...3.6.0) (2024-02-21)
 
 
