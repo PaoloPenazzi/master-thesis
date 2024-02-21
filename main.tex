@@ -15,7 +15,10 @@
 \usepackage{subcaption}
 \usepackage{svg}
 
-\lstdefinestyle{my-yaml}{
+\input{yaml-def}
+
+\begin{comment}
+  \lstdefinestyle{my-yaml}{
   basicstyle=\color{blue}\footnotesize,
   rulecolor=\color{black},
   string=[s]{'}{'},
@@ -24,6 +27,8 @@
   commentstyle=\color{black},
   morecomment=[l]{-}
 }
+\end{comment}
+
 
  \lstdefinestyle{my-kotlin}{
 	showstringspaces=false,
@@ -428,8 +433,7 @@ This section contains:
 
 This is an input file example, which will be used to explain the structure of the input file.
 
-\lstset{style=my-yaml}
-\begin{lstlisting}[caption={Benchmark configuration file structure}]
+\begin{lstlisting}[language=yaml, caption={Benchmark configuration file structure}]
 strategy:
   executionOrder:
     - Alchemist-sapere-tutorial
@@ -761,7 +765,7 @@ In this work, GitHub Actions is used to automate the process of building, testin
 The workflow of a GitHub Action is defined in a YAML file, which is stored in the repository under the path \textit{.github/workflows}.
 The following is an example of a GitHub Action that builds the project and runs the tests.
 
-\begin{lstlisting}[style=my-yaml, caption={CI/CD workflow}]
+\begin{lstlisting}[language=yaml, caption={CI/CD workflow}]
 name: CI/CD Process
 
 on:
@@ -960,8 +964,7 @@ The solution to be tested is an implementation of the gradient computation in th
 
 We create a benchmark configuration file, which contains all the information about the benchmark to be executed.
 
-\lstset{style=my-yaml}
-\begin{lstlisting}[caption={Case of study: benchmark configuration file}]
+\begin{lstlisting}[language=yaml, caption={Case of study: benchmark configuration file}]
 strategy:
   executionOrder:
     - Alchemist-SAPERE-gradient
@@ -1072,8 +1075,7 @@ develop our own solution and run the benchmark to get the result.
 
 To define the solution we take the Alchemist input file and change the time distribution of the reactions.
 
-\lstset{style=my-yaml}
-\begin{lstlisting}[caption={Case of study: benchmark configuration file}]
+\begin{lstlisting}[language=yaml, caption={Case of study: benchmark configuration file}]
   _send: &id001
   - {time-distribution: 1, program: '{source} --> {source} {gradient, 0}'}
   - {time-distribution: 2, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
