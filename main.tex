@@ -214,13 +214,13 @@ Here is the visual representation of the Alchemist meta-model.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-model.png}
-  \caption{Alchemist meta-model}
+  \caption{Alchemist meta-model.}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-reaction.png}
-  \caption{Alchemist reaction}
+  \caption{Alchemist reaction.}
 \end{figure}
 
 The key to the Alchemist's extensibility is the very generic interpretation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
@@ -233,7 +233,7 @@ Biochemistry incarnation.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist.png}
-  \caption{A grid of nodes in Alchemist}
+  \caption{A grid of nodes in Alchemist.}
 \end{figure}
 
 \paragraph*{NetLogo}
@@ -250,7 +250,7 @@ These simulations can be explored to observe their behavior under various condit
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/NetLogo-interface.png}
-  \caption{NetLogo interface}
+  \caption{NetLogo interface.}
 \end{figure}
 
 The model used in the image above is the Fire model.
@@ -354,8 +354,8 @@ The following image describes the architecture of the testbed at the highest lev
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{figures/architecture-high-level.png}
-  \caption{Abstract architecture of the testbed}
+  \includegraphics[width=\textwidth]{figures/architecture-high-level.pdf}
+  \caption{Abstract architecture of the testbed.}
 \end{figure}
 
 The testbed is a framework that sits between the user and the various simulators.
@@ -367,8 +367,8 @@ The following image shows the architecture of the system.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{figures/testbed-architecture.png}
-  \caption{Architecture of the system (v0.1)}
+  \includegraphics[width=\textwidth]{figures/testbed-architecture.pdf}
+  \caption{Architecture of the system.}
   \label{fig:random-image}
 \end{figure}
 
@@ -384,7 +384,7 @@ To better understand the architecture, it is useful to analyze the execution of 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
-  \caption{Architecture of the system (v0.1)}
+  \caption{Benchmark execution sequence diagram.}
   \label{fig:random-image}
 \end{figure}
 
@@ -1125,18 +1125,23 @@ As a result, the framework requirements outlined in the analysis phase are deeme
 \chapter{Conclusion and Future Work}
 %----------------------------------------------------------------------------------------
 
-The work presented in this thesis has resulted in the creation of a prototype of a testbed for benchmarking collective adaptive systems.
-The objective of the framework is to provide a tool that incorporates the most common simulator used in the field of collective adaptive systems,
-and to allow the user to test the behavior of a solution in different scenarios, using different simulators, and to compare the results obtained.
-To achieve this goal the framework was designed to be flexible and extensible, allowing the user to express a benchmark configuration in a simple and intuitive way, and to add new simulators without breaking the existing structure.
+The work outlined in this thesis has culminated in the development of a testbed prototype designed for benchmarking collective adaptive systems. 
+The primary aim of the framework is to offer a tool that integrates the most widely used simulators within the realm of collective adaptive systems. 
+It empowers users to assess solution behavior in diverse scenarios, utilizing different simulators, and facilitating the comparison of obtained results.
 
-A key aspect of the framework is its abstract design. Each component of the system has a general behavior, independent of the simulator, but incomplete.
-This gives the user the possibility to extend the framework to support new simulators, by implementing its specific logic.
-If the user is not interested in adding support to new simulators, the framework can be used to extensively test the behavior of a solution in a certain scenario.
-Moreover, everyone can define a benchmark and share the result with the community to allow other users to put their solution in the pre-configured benchmark and compare the results.
+To realize this objective, the framework was meticulously crafted to be flexible and extensible. 
+Users can effortlessly express benchmark configurations in a straightforward and intuitive manner, and seamlessly integrate new simulators without disrupting the existing structure.
 
-In our opinion, the framework is a good starting point for the development of a complete tool for testing collective adaptive systems.
-The testbed addresses the key challenges in the development of an open benchmarking platform and provides a solid foundation for future work.
+A pivotal aspect of the framework lies in its abstract design. 
+Each system component boasts a general behavior independent of the simulator, yet remains incomplete. 
+This deliberate design allows users to extend the framework by incorporating specific logic for new simulators. 
+For users less inclined to introduce support for new simulators, the framework still serves as a robust tool for thoroughly testing solution behavior in specific scenarios.
+
+Furthermore, the framework promotes community collaboration, enabling individuals to define benchmarks and share results. 
+This communal approach allows users to incorporate their solutions into pre-configured benchmarks, fostering result comparisons.
+
+In our assessment, the framework serves as a promising foundation for the development of a comprehensive tool for testing collective adaptive systems. 
+It effectively tackles key challenges in open benchmarking platform development, providing a sturdy base for future enhancements.
 
 \paragraph*{Future Works}
 
