@@ -1,3 +1,10 @@
+## [5.0.2](https://github.com/PaoloPenazzi/master-thesis/compare/5.0.1...5.0.2) (2024-02-22)
+
+
+### Bug Fixes
+
+* remove repetition ([208b01d](https://github.com/PaoloPenazzi/master-thesis/commit/208b01d0445f9ff9850ffd3aba56c77761b713a1))
+
 ## [5.0.1](https://github.com/PaoloPenazzi/master-thesis/compare/5.0.0...5.0.1) (2024-02-22)
 
 
