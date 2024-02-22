@@ -78,16 +78,16 @@
 \begin{abstract}
   In every domain of scientific research, the comparison between innovative solutions and the state of the art is crucial.
   This practice enables the evaluation of whether the system under examination outperforms the established reference, either comprehensively or in specific aspects.
-  In various fields of computer science, tools have been developed to benchmark new solutions.
+  In various fields of computer science, tools have been developed to benchmark new and existing solutions.
   On the other hand, in the domain of collective adaptive systems, a conspicuous gap exists in software designed to facilitate such comparisons.
 
-  The primary objective of this thesis is to craft a prototype for a benchmarking platform tailored to Collective Adaptive Systems (CAS). 
-  By capitalizing on existing simulators available in the market, the aim is to establish a comprehensive framework for testing, validating, and comparing these dynamic systems. 
-  The presented platform is designed to empower users in defining benchmarks, executing them, and extracting results of interest - all while preserving flexibility and extensibility. 
-  This inherent adaptability allows for the incorporation of additional simulators into the expanding testbed.
+  The primary objective of this thesis is to create a prototype for a benchmarking platform focused on Collective Adaptive Systems (CAS). 
+  By making use of existing simulators available in the market, the aim is to establish a comprehensive framework for testing, validating, and comparing these dynamic systems. 
+  The presented platform is designed to allow users to define benchmarks, execute them, and extract results of interest - all while preserving flexibility and extensibility. 
+  This inherent adaptability allows for the incorporation of additional simulators into the testbed.
 
-  An experiment has been executed to validate the framework's anticipated functionalities and scrutinize its strengths and weaknesses. 
-  This undertaking serves the purpose of identifying areas for future improvement within the tool.
+  An experiment has been executed to validate the framework's anticipated functionalities and understand its strengths and weaknesses. 
+  This analysis serves the purpose of identifying areas for future improvement within the tool.
 \end{abstract}
   
 \begin{acknowledgements}
@@ -108,7 +108,7 @@
 %----------------------------------------------------------------------------------------
 \paragraph{Background and Motivation}
 
-In the scientific research, new solutions are developed in order to improve what is defined as the state of art. 
+In scientific research, new solutions are developed in order to improve what is defined as the state of art. 
 This implies that, at some point, two different solutions must be compared. 
 To define which one performs better, either overall or in specific aspects, it is necessary to employ a clear and objective metric. 
 Additionally, it is essential to use a widely adopted, standard test protocol that executes two different algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments. 
@@ -125,7 +125,7 @@ The properties and behavior of these systems make them particularly challenging 
 This thesis aims to partially fill this gap by developing a prototype of a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20}.
 Specifically, the objective is to create a standard way for the scientific community to compare different solutions to typical problems in the \ac*{CAS} domain.
 This platform is designed to allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
-Given the great number of simulators already available, the framework must flexible and extensible.
+Given the great number of simulators already available, the framework must be flexible and extensible.
 In this way, it is possible to add new simulators without compromising the functionality of the already supported ones \cite{DBLP:conf/mascots/Dujmovic99}.
 Furthermore, users might want to evaluate different aspects of the \ac*{CAS}. Therefore, the metrics for evaluating them must be generic and customizable.
 
@@ -135,7 +135,7 @@ Furthermore, users might want to evaluate different aspects of the \ac*{CAS}. Th
 
 \section{Collective Adaptive Systems}
 
-\ac{CAS} are a complex type of distributed network which are composed of a many heterogeneous entities, each with its own capabilities and goals. 
+\ac{CAS} are a complex type of distributed network which are composed of many heterogeneous entities, each with its own capabilities and goals. 
 These systems are characterized by the ability to adapt their behavior to dynamically changing open-ended environments and by the pursuit of a collective goal. 
 The latter is achieved through the collaboration of the systems’ entities, without a specific external or internal central control \cite{DBLP:series/lncs/HolzlRW08, DBLP:journals/corr/abs-1108-5643}. 
 In fact, CAS often adopts cooperative operating strategies to run distributed decision-making mechanisms \cite{DBLP:journals/tomacs/Aldini18}.
@@ -355,7 +355,7 @@ The execution of the benchmark is then handled by the testbed, which takes care 
 
 \Cref{fig:high-level-architecture} depicts the architecture of the testbed at the highest level.
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/architecture-high-level.pdf}
   \caption{Abstract architecture of the testbed.}
@@ -365,7 +365,7 @@ The execution of the benchmark is then handled by the testbed, which takes care 
 Diving deeper into the architecture, we can see that the testbed consists of different components, each with a specific role.
 \Cref{fig:detailed-architecture} is a more detailed image of the system's architecture.
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/testbed-architecture.pdf}
   \caption{Architecture of the system.}
@@ -382,7 +382,7 @@ Once the benchmark execution is complete, a post-processing function is applied 
 
 To better understand the testbed's functioning, it is useful to analyze the execution of a benchmark, which is depicted in \Cref{fig:benchmark-sequence-diagram}.
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
   \caption{Benchmark execution sequence diagram.}
@@ -488,8 +488,8 @@ Upon execution completion, the framework reads the results from a predefined JSO
 This file must contain data in the form of \emph{ScenarioResult}, which will be defined below.
 
 In the second case, the Listener interface is employed. It takes the file outputted by the simulator and transforms it into an internal framework data structure, the \emph{BenchmarkOutput}. 
-A post-processing function must then be implemented, taking this \emph{BenchmarkOutput} as input and returning a \emph{BenchmarkResult}. 
-This solution divides the process into two phases, where the script execution is also performed. TODO
+A post-processing function must then be implemented, taking the \emph{BenchmarkOutput} as input and returning a \emph{BenchmarkResult}. 
+This solution split the process into two phases, the read of the output simulator and the transformation of the data in a significant result.
 This allows to define a method to read the output of a simulator and to use it in combination with various processing functions to obtain results of different natures.
 
 We define \emph{output} concepts:
@@ -525,7 +525,7 @@ Users interested in adding support for a new simulator must do the following ste
 
 \section{Simulators}
 
-Since the framework relies on external simulators to run a benchmark, it is necessary for the user to have these simulators installed on their machine. 
+Since the framework relies on external simulators to run a benchmark, the users must have these simulators installed on their machines. 
 Various solutions were evaluated to address this issue, each with its pros and cons.
 \begin{itemize}
   \item Include all supported simulators in the application: while this solution ensures that the simulators are present, it has drawbacks. 
@@ -866,7 +866,7 @@ The following set of commits is used:
     \item Commit type \emph{feat} with any scope.
   \end{itemize}
 
-  \item \textbf{Pathc Release} 
+  \item \textbf{Patch Release} 
   \begin{itemize}
     \item Commit type \emph{fix} with any scope.
     \item Commit type \emph{docs} with any scope.
@@ -903,7 +903,7 @@ The tests on this component were conducted by repeatedly running the framework w
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
 \begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parser tests}]
-  class ParserTest : FreeSpec({
+  class ParserTest: FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
         "should parse a partial input file" {
@@ -1046,7 +1046,7 @@ terminate:
 \end{lstlisting}
 
 Now we define the processing function which will be in charge of aggregating the data and returning the result.
-The function is implemented whithout the use of any external library, using pure Kotlin.
+The function is implemented without the use of any external library, using pure Kotlin.
 It is not recommended to do so, as Kotlin is not a data analysis language and the code itself is not very readable.
 
 \lstset{style=my-kotlin}
@@ -1167,7 +1167,7 @@ This section will provide a list of possible future works that could be done.
   Providing the user with a way to download a simulator, using a simple command, would make the framework more user-friendly.
   Moreover, this would ease the user from the task of manually downloading the simulators.
   \item \textbf{Maintaining benchmarks history}
-  The comparison of new and existing solutions on well-known problems is a fundamental aspect when developing innovative solutions.
+  The comparison of new and existing solutions to well-known problems is a fundamental aspect when developing innovative solutions.
   Keeping a history of benchmark results in an online repository would facilitate such comparisons. 
   Currently, users lack access to a database containing known benchmarks, various solutions, and their respective results. 
   Providing them with this database would streamline the comparison process.
