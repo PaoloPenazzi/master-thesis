@@ -66,6 +66,7 @@
 \acrodef{CAS}{Collective Adaptive Systems}
 \acrodef{vm}[VM]{Virtual Machine}
 \acrodef{SUT}{System Under Test}
+\acrodef{CLI}{Command Line Interface}
 
 
 \mainlinespacing{1.241} % line spacing in main matter, comment to default (1)
@@ -106,24 +107,27 @@
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
 \paragraph{Background and Motivation}
-One aspect that guides scientific research is the discovery of new solutions that improve what is defined as the state of the art. 
-This implies that at some point, it is necessary to compare two solutions and have a clear metric to understand which one performs better, either overall or in specific aspects. 
-To make this comparison is mandatory to have a widely adopted, standard test protocol to execute two algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments.
 
-In many aspects of computer science, the reproducibility of scientific publications is questioned \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}, this makes the creation of a benchmarking and testing framework necessary to avoid confusion in the scientific community
-and to set a standard for the comparison of different solutions.
-In some application domains, such as security \cite{DBLP:conf/bdet/Es-SamaaliOBMK21}, IoT \cite{DBLP:conf/IEEEares/RuckGWLN23} and many more, \cite{DBLP:journals/ral/CollinsRYSJP24, DBLP:journals/corr/abs-2401-01275} tools have been developed for benchmarking. 
-In other fields, like autonomic, organic computing, and \ac*{CAS}, such frameworks have not yet been created. \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}
-This work focuses on \ac*{CAS} \cite{DBLP:journals/sttt/NicolaJW20}, these systems are characterized by their ability to adapt to the environment in which they are immersed and interact with it. \cite{DBLP:conf/birthday/BucchiaroneM19}
-There is no central entity, either internal or external, that coordinates the devices in the network; instead, each node collaborates with its neighbor to achieve a goal.
-The properties and behavior of these systems make them particularly challenging to test and evaluate their performance. \cite{DBLP:conf/srds/AlmeidaMV10}
+In the scientific research, new solutions are developed in order to improve what is defined as the state of art. 
+This implies that, at some point, two different solutions must be compared. 
+To define which one performs better, either overall or in specific aspects, it is necessary to employ a clear and objective metric. 
+Additionally, it is essential to use a widely adopted, standard test protocol that executes two different algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments. 
+The lack of such a protocol raises concerns regarding the reproducibility of scientific publications, as happened in some fields of Computer Science \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}.
+Therefore, the creation of a benchmarking and testing framework becomes necessary to set a standard for the comparison of different solutions.
+In some application domains, such as security \cite{DBLP:conf/bdet/Es-SamaaliOBMK21}, IoT \cite{DBLP:conf/IEEEares/RuckGWLN23}, and many more \cite{DBLP:journals/ral/CollinsRYSJP24, DBLP:journals/corr/abs-2401-01275}, tools have been developed for benchmarking. 
+In other fields, like Autonomic, Organic Computing, and \ac*{CAS}, such frameworks have not been created yet \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}.
+This absence led us to focus on \ac*{CAS} \cite{DBLP:journals/sttt/NicolaJW20}. 
+These systems are characterized by their ability to adapt to the environment in which they are immersed and to interact with it \cite{DBLP:conf/birthday/BucchiaroneM19}.
+There is no central entity, either internal or external, that coordinates the devices in the network. Instead, each node collaborates with its neighbor to achieve a goal.
+The properties and behavior of these systems make them particularly challenging to test and evaluate their performance \cite{DBLP:conf/srds/AlmeidaMV10}.
 
 \paragraph{Objectives}
-This thesis aims to partially fill this gap by creating a prototype of a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20}.
-The objective is to create a standard way for the scientific community to compare different solutions to typical problems in the \ac*{CAS} domain.
-To become widely adopted the platform should allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
-Given the characteristics of \ac*{CAS}, the different aspects a user might want to evaluate and the number of simulators already available the framework must be designed to be flexible and extensible, 
-so that adding new simulators is possible without compromising the functionality of already supported simulators. \cite{DBLP:conf/mascots/Dujmovic99}
+This thesis aims to partially fill this gap by developing a prototype of a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20}.
+Specifically, the objective is to create a standard way for the scientific community to compare different solutions to typical problems in the \ac*{CAS} domain.
+This platform is designed to allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
+Given the great number of simulators already available, the framework must flexible and extensible.
+In this way, it is possible to add new simulators without compromising the functionality of the already supported ones \cite{DBLP:conf/mascots/Dujmovic99}.
+Furthermore, users might want to evaluate different aspects of the \ac*{CAS}. Therefore, the metrics for evaluating them must be generic and customizable.
 
 %----------------------------------------------------------------------------------------
 \chapter{Background}
@@ -131,14 +135,13 @@ so that adding new simulators is possible without compromising the functionality
 
 \section{Collective Adaptive Systems}
 
-\ac{CAS} are a complex type of distributed network, composed of a large number of heterogeneous entities.
-The two main characteristics that distinguish these systems are the ability to adapt their behavior to dynamically changing open-ended environments
-and the pursuit of a collective goal, achieved through interaction without specific external or internal central control. \cite{DBLP:series/lncs/HolzlRW08, DBLP:journals/corr/abs-1108-5643}
-It is important to note that \ac{CAS} can be composed of heterogeneous entities, each with its own capabilities and goals.
-To achieve the collective goal without central control, \ac{CAS} often adopts cooperative operating strategies to run distributed decision-making mechanisms. \cite{DBLP:journals/tomacs/Aldini18} \\
+\ac{CAS} are a complex type of distributed network which are composed of a many heterogeneous entities, each with its own capabilities and goals. 
+These systems are characterized by the ability to adapt their behavior to dynamically changing open-ended environments and by the pursuit of a collective goal. 
+The latter is achieved through the collaboration of the systems’ entities, without a specific external or internal central control \cite{DBLP:series/lncs/HolzlRW08, DBLP:journals/corr/abs-1108-5643}. 
+In fact, CAS often adopts cooperative operating strategies to run distributed decision-making mechanisms \cite{DBLP:journals/tomacs/Aldini18}.
 
-Nowadays, many systems are adaptive and collective: drone swarms tasked with monitoring an area,
-wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic. \cite{DBLP:journals/sttt/NicolaJW20}
+Nowadays, many systems are adaptive and collective. Examples include drone swarms tasked with monitoring an area,
+wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic \cite{DBLP:journals/sttt/NicolaJW20}.
 
 \begin{figure*}[h]
   \centering
@@ -156,48 +159,48 @@ wearable devices to manage crowd congestion during a public event, cars on stree
 
 \section{Aggregate Programming}
 
-In recent years, we have witnessed a shift in the production of computing devices: moving from a few large and powerful devices to a large number of small and lightweight devices.
+In recent years, we have witnessed a shift in the production of computing devices, moving from a few large and powerful devices to a large number of small and lightweight devices.
 There is often talk about the Internet of Things and how technology has become pervasive, impacting every aspect of our lives with electronic devices.
-This trend has led to a change in the way we compute data: no longer focusing on a single machine performing heavy computation, but rather on a distributed network of devices communicating and collaborating to achieve a result.
-Computation is thus divided and distributed across various devices in the network.
-
-This has introduced an additional level of complexity in programming these systems as it is necessary to consider issues such as communication between devices,
-concurrency, or failures. Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable. \cite{DBLP:conf/ecoop/CasadeiV16}
+This trend has led to a change in the way we compute data. 
+In fact, the focus is no longer on a single machine performing heavy computation, but rather on a distributed network of devices communicating and collaborating to achieve a result.
+Computation is thus divided and distributed across various devices in the network, introducing an additional level of complexity in programming these systems.
+In fact, developers must now consider issues such as communication between devices, concurrency, or failures. 
+Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable \cite{DBLP:conf/ecoop/CasadeiV16}.
 
 Aggregate programming is a new approach to developing complex distributed systems that abstract from individual devices, focusing on programming the collective.
 Through a layer that handles and hides some problematic aspects of these networks, such as communication between devices and details of individual entities,
-it is possible to simplify the design and maintenance of these systems. \cite{DBLP:journals/computer/BealPV15, DBLP:conf/sfm/BealV16}
+it is possible to simplify the design and maintenance of these systems \cite{DBLP:journals/computer/BealPV15, DBLP:conf/sfm/BealV16}.
 
 Aggregate programming is based on the concept of a computational field, which is a global map associating each device in the network with its local value,
-and on that of field calculus, a minimal core that provides basic constructs for working with fields. \cite{DBLP:journals/corr/ViroliADPB16}
+and on that of field calculus, a minimal core that provides basic constructs for working with fields \cite{DBLP:journals/corr/ViroliADPB16}.
 
 \section{Testing and Simulation}
 
 In every field of engineering, testing is a fundamental part of the development process. 
-It refers to the process carried out to verify and validate a system, according to its requirements. \cite{Spillner2011}
+It refers to the process carried out to verify and validate a system, according to its requirements \cite{Spillner2011}.
 Testing is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
 This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario. \\
 
-The testing of adaptive systems introduces a series of challenges and difficulties, many of which stem from the intrinsic nature of these systems.
-Given the complexity of these systems, using a single simulator is not sufficient to test all their features.
-It is often necessary to use multiple simulators and combine the results obtained to understand the system's behavior.
-This technique is termed co-simulation and introduces various issues, such as communication delays, approximations, and difficulties in synchronizing simulators. \cite{DBLP:journals/simpra/ThuleLGML19}
-Since these systems are adaptive and react to changes in their environment, it is natural to want to support the injection of changes. \cite{DBLP:conf/icac/BrownHHLLSY04}
-A complete testbed must, therefore, be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety. \\
+Adaptive systems testing introduces a series of challenges and difficulties, many of which stem from the intrinsic nature of these systems.
+Given their complexity, the use of a single simulator is not sufficient to test all their features.
+In fact, it is often necessary to employ multiple simulators and combine the results obtained to understand the system's behavior.
+This technique is termed co-simulation and introduces various issues, such as communication delays, approximations, and difficulties in synchronizing simulators \cite{DBLP:journals/simpra/ThuleLGML19}.
+Since these systems are adaptive and react to mutations in their environment, it is natural to want to support the injection of changes \cite{DBLP:conf/icac/BrownHHLLSY04}.
+Therefore, a complete testbed must be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety. \\
 
-In computer science, simulation is the process of executing software in a controlled environment to evaluate its behavior.
+In Computer Science, the simulation is the process of executing software in a controlled environment to evaluate its behavior.
 Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario.
-The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions. \cite{DBLP:journals/cacm/CollbergP16}
-This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation. \cite{argun2021simulation, bagrodia1998parsec} \\
+The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions  \cite{DBLP:journals/cacm/CollbergP16}.
+This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation  \cite{argun2021simulation, bagrodia1998parsec}. \\
 The importance of simulators becomes clear when testing \ac{CAS}.
-It is not feasible to create a real environment, such as a network of 100 drones or a crowd of 1000 people, to test a program.
-Simulators allow us to create a virtual environment where we can run the program and evaluate its behavior.
+Creating a real environment to test a program, such as a network of 100 drones or a crowd of 1000 people, is not feasible.
+Simulators allow us to deploy a virtual environment where we can run the program and evaluate its behavior.
 
 \paragraph*{Alchemist}
 
-The reference simulator for this work is Alchemist. \cite{Pianini_2013}
-Alchemist is a meta-simulator, open-source, for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions.
-The meta-model of Alchemist is inspired by biochemistry and consists of various entities \footnote{https://alchemistsimulator.github.io/}:
+The reference simulator for this work is Alchemist \cite{Pianini_2013}.
+Alchemist is an open-source tool for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions.
+The meta-model of Alchemist, as \Cref{fig:alchemist-meta-model, fig:alchemist-reaction} show, is inspired by biochemistry and consists of various entities \footnote{https://alchemistsimulator.github.io/}:
 \begin{itemize}
   \item \textbf{Molecule} The name of a data item.
   \item \textbf{Concentration} The value associated with a molecule.
@@ -209,18 +212,18 @@ The meta-model of Alchemist is inspired by biochemistry and consists of various 
   \item \textbf{Action} Models a change in the environment.
 \end{itemize}
 
-Here is the visual representation of the Alchemist meta-model.
-
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-model.png}
   \caption{Alchemist meta-model.}
+  \label{fig:alchemist-meta-model}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist-reaction.png}
   \caption{Alchemist reaction.}
+  \label{fig:alchemist-reaction}
 \end{figure}
 
 The key to the Alchemist's extensibility is the very generic interpretation of molecules and concentrations. An incarnation maps this generic chemical abstraction to a specific use case.
@@ -247,14 +250,16 @@ Users can program the behavior of thousands of independent agents to see how the
 It also comes with the Models Library, a large collection of pre-written simulations that can be used and modified.
 These simulations can be explored to observe their behavior under various conditions.
 
+An example of a NetLogo simulation is depicted in \Cref{fig:netlogo-simulation}.
+It uses the Fire model which simulates the spread of a fire through a forest. 
+It shows that the fire's chance of reaching the right edge of the forest depends critically on the density of trees.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/NetLogo-interface.png}
   \caption{NetLogo interface.}
+  \label{fig:netlogo-simulation}
 \end{figure}
-
-The model used in the image above is the Fire model.
-It simulates the spread of a fire through a forest. It shows that the fire's chance of reaching the right edge the forest depends critically on the density of trees.
 
 %----------------------------------------------------------------------------------------
 \chapter{Design}
@@ -262,12 +267,11 @@ It simulates the spread of a fire through a forest. It shows that the fire's cha
 
 \section{Domain Analysis}
 
-A domain-driven approach was employed in the development. The choices made were based on the study of existing simulators and user needs.
-
-To better understand the problem domain and to avoid misunderstandings, a ubiquitous language has been defined.
+A domain-driven approach was employed in the development of this work.
+To better understand the problem domain and to avoid confusion, a ubiquitous language was defined.
 These concepts were then utilized in the framework development and can be found in the work.
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \begin{tabular}{|l|p{0.8\textwidth}|}
     \toprule
@@ -282,9 +286,9 @@ These concepts were then utilized in the framework development and can be found 
   \caption{Domain Ubiquitous Language}
 \end{table}
 
-User Stories were also defined, helpful in understanding what users need and thus what features the framework should support.
+User Stories were also defined to clarify the users' needs and thus what features the framework should support.
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \begin{tabular}{|p{0.8\textwidth}|}
     \toprule
@@ -300,13 +304,12 @@ User Stories were also defined, helpful in understanding what users need and thu
   \caption{Domain Ubiquitous Language}
 \end{table}
 
-It is important to note that the expected users of the framework are researchers and developers,
-who are people with a strong technical background and knowledge of the domain.
+It is worth noting that the expected users of the framework are researchers and developers, i.e., people with a strong technical background and knowledge of the domain.
 
 \section{Requirements}
 
 \subsection*{User Requirements}
-These requirements express the needs of the user and identify which actions the user should be able to perform.
+User requirements express the needs of the user and identify which actions the user should be able to perform.
 The following requirements are extracted from the previous domain analysis:
 \begin{itemize}
   \item It should be possible to define a \emph{benchmark}.
@@ -320,8 +323,8 @@ The following requirements are extracted from the previous domain analysis:
 \end{itemize}
 
 \subsection*{Functional Requirements}
-Functional requirements define what are the features and functions of the framework.
-These are derived from the user requirements.
+Functional requirements define the features and the functions of the framework.
+These derive from the user requirements.
 
 \begin{itemize}
   \item The framework should allow the user to define a benchmark.
@@ -346,42 +349,44 @@ Non-functional requirements define the quality attributes of the framework.
 
 \section{Architecture}
 
-The following image describes the architecture of the testbed at the highest level.
+The testbed is a framework that sits between the user and the various simulators.
+The user specifies which benchmark to run.
+The execution of the benchmark is then handled by the testbed, which takes care of running the various scenarios in the respective simulators and collecting the results.
+
+\Cref{fig:high-level-architecture} depicts the architecture of the testbed at the highest level.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/architecture-high-level.pdf}
   \caption{Abstract architecture of the testbed.}
+  \label{fig:high-level-architecture}
 \end{figure}
 
-The testbed is a framework that sits between the user and the various simulators.
-The user specifies which benchmark to run.
-The execution of the benchmark is then handled by the testbed, which takes care of running the various scenarios in the respective simulators and collecting the results.
-
-Diving deeper into the architecture, we can see that the testbed is composed of different components, each with a specific role.
-The following image shows the architecture of the system.
+Diving deeper into the architecture, we can see that the testbed consists of different components, each with a specific role.
+\Cref{fig:detailed-architecture} is a more detailed image of the system's architecture.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/testbed-architecture.pdf}
   \caption{Architecture of the system.}
-  \label{fig:random-image}
+  \label{fig:detailed-architecture}
 \end{figure}
 
 The main component of the Testbed is the controller, which is the entry point of the framework and handles the entire benchmark execution.
 The Parser is the component responsible for translating user-written specifications in YAML into a data structure that represents the benchmark model.
 If there are manipulations to be made on a configuration file, they will be performed by a Parser component, specific to each simulator, before the actual parsing.
 The Executor is responsible for starting the simulator and generating the correct command to invoke the simulator.
-For each started simulator, the corresponding Listener is then launched, which reads the simulator's output, cleans the file from unnecessary elements, and saves it in a data structure.
+For each started simulator, the corresponding Listener is then launched. 
+The latter reads the simulator's output, cleans the file from unnecessary elements, and saves it in a data structure.
 Once the benchmark execution is complete, a post-processing function is applied to the benchmark output to obtain a result of interest, and it is displayed to the user by the View.
 
-To better understand the architecture, it is useful to analyze the execution of a benchmark.
+To better understand the testbed's functioning, it is useful to analyze the execution of a benchmark, which is depicted in \Cref{fig:benchmark-sequence-diagram}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
   \caption{Benchmark execution sequence diagram.}
-  \label{fig:random-image}
+  \label{fig:benchmark-sequence-diagram}
 \end{figure}
 
 The configuration file is given as input to the controller, which performs some checks on the file's integrity.
@@ -391,47 +396,45 @@ At this point, each scenario defined by the user must be launched.
 The execution is carried out in the order specified by the user.
 For each scenario, a command to start the simulator is generated and launched.
 The framework then waits for the simulation to finish.
-Once it's done, it reads the results returned in output by the simulator and saves them in a data structure.
+Once it is done, the framework reads the results returned in output by the simulator and saves them in a data structure.
 When the data from all scenarios has been collected, a user-defined transformation is applied to extract results of interest.
-These results are finally displayed to the user, either through the console or in a GUI.
+The latter are finally displayed to the user, either through the console or in a GUI.
 
 \section{Benchmark Configuration}
 
 The design of the input file system is a crucial aspect of the framework.
-It should allow the user to define a benchmark simply and intuitively, without limiting the user in any way.
+It should enable the user to define a benchmark simply and intuitively, without limiting the user in any way.
 It also needs to be flexible enough to allow the addition of new simulators without breaking the existing structure.
 
-The input file is composed of two main sections: strategy and simulators.
+The input file is composed of two main sections, namely \emph{Strategy} and \emph{Simulators}.
 
 \paragraph*{Strategy}
-The strategy section contains generic information about the testbed configuration.
-None of these are simulator-specific instructions, but rather general instructions on how the framework will handle the benchmark execution.
-At the moment, the only information present in this section is the execution order of the scenarios,
-a list that defines the order in which the scenarios will be executed. This is a mandatory parameter.
-Other strategy parameters could be added in the future, to enable features such as multi-threaded execution.
+The strategy section provides generic information about the testbed configuration, rather than simulator-specific instructions.
+Currently, it only includes the execution order of the scenarios, a mandatory parameter which defines the sequence in which the scenarios will be executed.
+Additional strategy parameters could be added in the future to support other features, such as multi-threaded execution.
 
 \paragraph*{Simulators}
-The simulators section contains the configuration of each simulator used for the benchmark.
-Each simulator has a name, a path and a list of scenarios.
+The simulators section contains the configuration of the simulators used in the benchmark.
+Each simulator has a name, a path, and a list of scenarios.
 The name is mandatory and must be written exactly as it appears in the testbed documentation.
-The path is optional and is used to specify the path of the simulator executable.
+The path is optional and is used to specify the path of the executable simulator.
 If not specified, the framework will assume that the simulator is in the same directory as the testbed.
 
 \paragraph*{Scenario}
-The scenario configuration is more complex, as each simulator has different ways to configure the scenario.
+The scenario configuration is more complex, as it depends on which simulator is used to run the scenario.
 This section contains:
 \begin{itemize}
-  \item \textbf{name} the name of the scenario. It is mandatory and should match the name in the
-  \item \textbf{description} a brief explanation of the scenario. Optional.
+  \item \textbf{name} the name of the scenario. This is mandatory and should match the name in the execution order list.
+  \item \textbf{description} a brief explanation of the scenario. This is optional.
   \item \textbf{input} a list of all the input files needed to run the scenario. This parameter is optional to take into account a scenario that does not require any input file.
   \item \textbf{postProcessing} the script that will be used to process the scenario output. This parameter is optional.
   \item \textbf{repetitions} the number of times that the scenario should be run. This parameter is optional and defaults to 1.
   \item \textbf{duration} the duration of the simulation. This parameter can be used to overwrite the value present in the simulator-specific configuration file, if the simulator supports it. This parameter is optional.
 \end{itemize}
 
-This is an input file example, which will be used to explain the structure of the input file.
+\Cref{lst:benchmark-configuration} is an input file example, which clarifies the structure of the benchmark configuration file.
 
-\begin{lstlisting}[language=yaml, caption={Benchmark configuration file structure}]
+\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration} ,caption={Benchmark configuration file structure}]
 strategy:
   executionOrder:
     - Alchemist-sapere-tutorial
@@ -462,7 +465,7 @@ simulators:
         description: A tutorial to Alchemist and Sapere incarnation
         input: ["src/main/resources/alchemist/sapere-tutorial.yml"]
         repetitions: 1
-        duration: 100
+        duration: 100      
 \end{lstlisting}
 
 \section{Benchmark Results}
@@ -473,21 +476,21 @@ A critical part of the framework design is related to what is presented to the u
   \centering
   \includegraphics[width=\textwidth]{figures/output-processing.pdf}
   \caption{Simulator output processing}
-  \label{fig:random-image}
+  \label{fig:output}
 \end{figure}
 
-Each simulator has its own method of providing simulation results. Some return a CSV file, others a text file, and some even utilize snapshots. 
+As \Cref{fig:output} shows, each simulator has its own method of providing simulation results. Certain simulators return a CSV file, others a text file, and some even utilize snapshots. 
 Managing all these diverse cases within the framework is not feasible, which is why two methods are provided to obtain the desired results: through an external scripting file or by implementing a listener and a processing function.
 
 In the first case, an external scripting file is used to process the simulator's output. 
 Once the simulation is complete, the controller invokes the script specified in the Scenario configuration. 
-Upon execution completion, the framework reads the results from a predefined JSON file: result.json. 
-This file must contain data in the form of Scenario Result, which will be described shortly.
+Upon execution completion, the framework reads the results from a predefined JSON file, namely \textit{result.json}. 
+This file must contain data in the form of \emph{ScenarioResult}, which will be defined below.
 
-In the second case, the Listener interface is employed. It takes the file outputted by the simulator and transforms it into an internal framework data structure: BenchmarkOutput. 
-A post-processing function must then be implemented, taking this BenchmarkOutput as input and returning a BenchmarkResult. 
-In practice, this solution divides the process into two phases, where the script execution is also performed.
-This allows defining a method to read the output of a simulator and using it in combination with various processing functions to obtain results of different natures.
+In the second case, the Listener interface is employed. It takes the file outputted by the simulator and transforms it into an internal framework data structure, the \emph{BenchmarkOutput}. 
+A post-processing function must then be implemented, taking this \emph{BenchmarkOutput} as input and returning a \emph{BenchmarkResult}. 
+This solution divides the process into two phases, where the script execution is also performed. TODO
+This allows to define a method to read the output of a simulator and to use it in combination with various processing functions to obtain results of different natures.
 
 We define \emph{output} concepts:
 \begin{itemize}
@@ -507,11 +510,11 @@ We define \emph{result} concepts, which represent the data the user desires, obt
 \section{Extension}
 
 One of the main goals of this work is to create a flexible system that can be extended to support different simulators.
-The architecture was designed considering this characteristic.
+The architecture was designed considering this objective.
 Each component of the system has a general behavior, independent of the simulator but incomplete.
-This will then be integrated with the specific behavior related to the simulator defined in a subclass.
+This will be then integrated with the specific behavior related to the simulator defined in a subclass.
 
-A user who wants to add support for a new simulator must do the following steps:
+Users interested in adding support for a new simulator must do the following steps:
 \begin{itemize}
   \item Implement the \emph{Executor} interface.
   \item Implement the \emph{Listener} interface. Optional.
@@ -522,16 +525,16 @@ A user who wants to add support for a new simulator must do the following steps:
 
 \section{Simulators}
 
-Since the framework relies on external simulators to run a benchmark, it is necessary for the user to have these simulators on their machine. 
-Various solutions were evaluated to address this issue, each with its positives and negatives.
+Since the framework relies on external simulators to run a benchmark, it is necessary for the user to have these simulators installed on their machine. 
+Various solutions were evaluated to address this issue, each with its pros and cons.
 \begin{itemize}
-  \item Include all supported simulators in the application: While this solution ensures that the simulators are present, it has drawbacks. 
-  Forcing the user to download all supported simulators may be impractical, especially if they only need a few or already have them installed. 
-  Additionally, this would increase the application size significantly.
-  \item Let the user download the simulators: This is the simplest solution, as it shifts the responsibility of downloading required simulators to the user.
-  However, it degrades the user experience as users cannot immediately use the framework after download.
-  \item Hybrid solution: Simulators are not included in the framework, but if the testbed does not detect them during benchmark execution, it automatically downloads them. 
-  This solution is more complex but proved to be the most effective after analysis.
+  \item Include all supported simulators in the application: while this solution ensures that the simulators are present, it has drawbacks. 
+  Forcing the user to download all supported simulators may be impractical, especially if they only need a few of them or already have them installed. 
+  Additionally, this would significantly increase the application size.
+  \item Let the user download the simulators: this is the simplest solution, as it shifts the responsibility of downloading the required simulators to the user.
+  However, it degrades the user experience as users cannot immediately use the framework after downloading it.
+  \item Hybrid solution: simulators are not included in the framework. However, if the testbed does not detect them during benchmark execution, it automatically downloads them. 
+  This solution is more complex but has proved to be the most effective after the analysis.
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
@@ -1121,53 +1124,53 @@ As a result, the framework requirements outlined in the analysis phase are deeme
 \chapter{Conclusion and Future Work}
 %----------------------------------------------------------------------------------------
 
-The work outlined in this thesis has culminated in the development of a testbed prototype designed for benchmarking collective adaptive systems. 
-The primary aim of the framework is to offer a tool that integrates the most widely used simulators within the realm of collective adaptive systems. 
-It empowers users to assess solution behavior in diverse scenarios, utilizing different simulators, and facilitating the comparison of obtained results.
+The work presented in this thesis has resulted in the development of a testbed prototype designed for benchmarking \ac*{CAS}.
+The objective of the framework was to provide a tool that integrates the most widely used simulators in the field of \ac*{CAS}.
+This allows users to assess a solution behavior in different scenarios, utilizing different simulators, and facilitating the comparison of the obtained results.
 
-To realize this objective, the framework was meticulously crafted to be flexible and extensible. 
-Users can effortlessly express benchmark configurations in a straightforward and intuitive manner, and seamlessly integrate new simulators without disrupting the existing structure.
+To achieve this goal, the framework was designed to be flexible and extensible.
+Users can express benchmark configurations in a straightforward and intuitive way, and integrate new simulators without breaking the existing structure.
 
 A pivotal aspect of the framework lies in its abstract design. 
-Each system component boasts a general behavior independent of the simulator, yet remains incomplete. 
-This deliberate design allows users to extend the framework by incorporating specific logic for new simulators. 
-For users less inclined to introduce support for new simulators, the framework still serves as a robust tool for thoroughly testing solution behavior in specific scenarios.
+Each system component has a general behavior that is independent of the simulator, yet remains incomplete.
+This architectural choice enables users to extend the framework by incorporating specific logic for new simulators.
+For the users who are not interested in introducing support for new simulators, the testbed still serves as a useful tool for evaluating solution behavior in specific scenarios.
+Furthermore, the framework promotes community collaboration, enabling individuals to define benchmarks and share results.
+This approach allows users to incorporate their solutions into pre-configured benchmarks, supporting result comparisons.
 
-Furthermore, the framework promotes community collaboration, enabling individuals to define benchmarks and share results. 
-This communal approach allows users to incorporate their solutions into pre-configured benchmarks, fostering result comparisons.
-
-In our assessment, the framework serves as a promising foundation for the development of a comprehensive tool for testing collective adaptive systems. 
-It effectively tackles key challenges in open benchmarking platform development, providing a sturdy base for future enhancements.
+In our opinion, the testbed constitutes a promising foundation for the creation of a comprehensive tool for testing \ac*{CAS}.
+It addresses the key challenges in the development of an open benchmarking platform, providing a solid base for future works.
 
 \paragraph*{Future Works}
 
-Despite the work that has been done, the framework is still in its early stages and some features are missing for it to become a complete tool for testing collective adaptive systems.
+Despite the work that has been done, the testbed is still in its early stages and some features are missing for it to become a complete tool for testing \ac*{CAS}.
 The scientific community requires a high standard of quality and reliability, and the framework must be able to provide it.
 This section will provide a list of possible future works that could be done.
 
 \begin{itemize}
   \item \textbf{Increase the number of supported simulators} 
   The framework currently supports two simulators, Alchemist and NetLogo.
-  In the field of collective adaptive systems, there are other simulators used to test different aspects of the systems.
-  Supporting a wide range of simulators is necessary for the framework to be useful and relevant in the scientific community.
-  Moreover, the support of different simulators allows the user to test the behavior of the system in its entirety. 
-  \item \textbf{Multi platform support}
-  At the time of writing, the framework is developed for JVM platforms. 
+  In the field of \ac*{CAS}, there are other simulators used to test different aspects of the systems.
+  Supporting a wide range of simulators is necessary for the framework to be useful and relevant within the scientific community.
+  Moreover, this would enable the user to test the behavior of the system in its entirety. 
+  \item \textbf{Multi-platform support}
+  At the time of writing, the testbed has been developed for JVM platforms. 
   Switching to Kotlin-Multiplatform would allow the framework to be compiled for different target platforms, such as JavaScript, iOS, and native.
   The ability to provide support for different platforms will help the framework to be more widely adopted.
   \item \textbf{Graphical User Interface}
-  Currently is possible to interact with the framework only through the command line.
-  It is known that the user experience is one of the most important aspects of software, as it can make the difference between a successful and an unsuccessful product.
-  Providing the user with a graphical interface to interact with the software, both for the benchmark configuration and the visualization of the results, is fundamental.
+  Currently, it is possible to interact with the framework only through a \ac*{CLI}.
+  The user experience is known to be one of the most important aspects of software, as it can make the difference between a successful and an unsuccessful product.
+  It is fundamental to provide the user with a graphical interface to interact with the application, both for the benchmark configuration and the visualization of the results.
   Benchmarking often involves comparing data from different solutions and a graphical interface would make this process easier and more intuitive.
   \item \textbf{Provide a way to download simulators}
-  The framework currently requires the user to download the simulators manually.
-  Providing the user a way to download a simulator, using a simple command, would make the framework more user-friendly and relieve the user from the burden of downloading the simulators manually.
+  At present, the framework requires the user to download the simulators manually.
+  Providing the user with a way to download a simulator, using a simple command, would make the framework more user-friendly.
+  Moreover, this would ease the user from the task of manually downloading the simulators.
   \item \textbf{Maintaining benchmarks history}
-  Comparing new solutions with existing ones on well-known problems is a fundamental aspect of developing innovative solutions. 
+  The comparison of new and existing solutions on well-known problems is a fundamental aspect when developing innovative solutions.
   Keeping a history of benchmark results in an online repository would facilitate such comparisons. 
   Currently, users lack access to a database containing known benchmarks, various solutions, and their respective results. 
-  Providing this database would streamline the comparison process.
+  Providing them with this database would streamline the comparison process.
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
