@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/PaoloPenazzi/master-thesis/compare/5.0.0...5.0.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* correct some typos ([5139261](https://github.com/PaoloPenazzi/master-thesis/commit/51392618c473b3f67e77ce61507cdb3a94df00ad))
+
 ## [5.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/4.0.0...5.0.0) (2024-02-22)
 
 
