@@ -1,3 +1,14 @@
+## [5.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/4.0.0...5.0.0) (2024-02-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* complete revision of the thesis"
+
+### Features
+
+* complete revision of the thesis" ([543cc05](https://github.com/PaoloPenazzi/master-thesis/commit/543cc05a65a6c4bcf8b63b7c23dffb5d83750b30))
+
 ## [4.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/3.6.0...4.0.0) (2024-02-21)
 
 
