@@ -1,3 +1,10 @@
+## [5.1.4](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.3...5.1.4) (2024-02-28)
+
+
+### Bug Fixes
+
+* change keywords color ([e4a4e0d](https://github.com/PaoloPenazzi/master-thesis/commit/e4a4e0d49bedf6c8dc6308f13d87029c324c554a))
+
 ## [5.1.3](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.2...5.1.3) (2024-02-28)
 
 
