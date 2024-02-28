@@ -1,3 +1,15 @@
+## [5.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/5.0.2...5.1.0) (2024-02-28)
+
+
+### Features
+
+* expand background ([3d3d4ea](https://github.com/PaoloPenazzi/master-thesis/commit/3d3d4ea8f52284bca171fafee63fe2cff2df24e5))
+
+
+### Bug Fixes
+
+* change image floating ([d1b1951](https://github.com/PaoloPenazzi/master-thesis/commit/d1b19512e68bb6103c3607448f045de91ff13c9e))
+
 ## [5.0.2](https://github.com/PaoloPenazzi/master-thesis/compare/5.0.1...5.0.2) (2024-02-22)
 
 
