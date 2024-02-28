@@ -1,7 +1,7 @@
 %!TeX root = main.tex
 \newcommand\YAMLcolonstyle{\color{red}\mdseries}
 \newcommand\YAMLkeystyle{\color{black}\ttfamily}
-\newcommand\YAMLvaluestyle{\color{blue}\ttfamily}
+\newcommand\YAMLvaluestyle{\color{magenta}\ttfamily}
 
 \makeatletter
 
@@ -16,13 +16,19 @@
   keywordstyle=\color{darkgray}\bfseries,
   basicstyle=\scriptsize\ttfamily,                                 % assuming a key comes first
   sensitive=false,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=10pt,
   tabsize=1,
+  extendedchars=true,
+  frame=single,
   comment=[l]{\#},
   morecomment=[s]{/*}{*/},
   commentstyle=\color{purple}\ttfamily,
   stringstyle=\YAMLvaluestyle\ttfamily,
   moredelim=[l][\color{orange}]{\&},
-  moredelim=[l][\color{magenta}]{*},
+  moredelim=[l][\color{blue}]{*},
   moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
   morestring=[b]',
   morestring=[b]",
