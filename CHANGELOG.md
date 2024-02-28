@@ -1,3 +1,10 @@
+## [5.1.2](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.1...5.1.2) (2024-02-28)
+
+
+### Bug Fixes
+
+* change yaml style ([cb9cde5](https://github.com/PaoloPenazzi/master-thesis/commit/cb9cde51d7448b3278dfc09a01767ac1d8f93476))
+
 ## [5.1.1](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.0...5.1.1) (2024-02-28)
 
 
