@@ -13,7 +13,6 @@
 \usepackage{xcolor}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{svg}
 
 \input{yaml-def}
 
@@ -488,7 +487,7 @@ simulators:
 
 A critical part of the framework design is related to what is presented to the user at the end of the benchmark execution.
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/output-processing.pdf}
   \caption{Simulator output processing}
@@ -993,23 +992,23 @@ The solution to be tested is an implementation of the gradient computation in th
 We create a benchmark configuration file, which contains all the information about the benchmark to be executed.
 
 \begin{lstlisting}[language=yaml, caption={Case of study: benchmark configuration file}]
-strategy:
-  executionOrder:
-    - Alchemist-SAPERE-gradient
-
-simulators:
-  - name: ALCHEMIST
-    simulatorPath: "./"
-    scenarios:
-      - name: Alchemist-SAPERE-gradient
-        description: A benchmark to test the gradient computation in the Sapere incarnation
-        input: "sapere-gradient.yml"
-        repetitions: 1
-\end{lstlisting}
+    strategy:
+      executionOrder:
+        - Alchemist-SAPERE-gradient
+    
+    simulators:
+      - name: ALCHEMIST
+        simulatorPath: "./"
+        scenarios:
+          - name: Alchemist-SAPERE-gradient
+            description: A benchmark to test the gradient computation in the Sapere incarnation.
+            input: "sapere-gradient.yml"
+            repetitions: 1
+\end{listing}
 
 After the benchmark configuration file, we define the input file for the Alchemist simulation:
 
-\begin{lstlisting}[caption={Case of study: Alchemist input file}]
+\begin{lstlisting}[language=yaml, caption={Case of study: Alchemist input file}]
 incarnation: sapere
 launcher:
   type: HeadlessSimulationLauncher
