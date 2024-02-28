@@ -1001,10 +1001,10 @@ We create a benchmark configuration file, which contains all the information abo
         simulatorPath: "./"
         scenarios:
           - name: Alchemist-SAPERE-gradient
-            description: A benchmark to test the gradient computation in the Sapere incarnation.
+            description: Gradient computation.
             input: "sapere-gradient.yml"
             repetitions: 1
-\end{listing}
+\end{lstlisting}
 
 After the benchmark configuration file, we define the input file for the Alchemist simulation:
 
@@ -1058,8 +1058,7 @@ Now we define the processing function which will be in charge of aggregating the
 The function is implemented without the use of any external library, using pure Kotlin.
 It is not recommended to do so, as Kotlin is not a data analysis language and the code itself is not very readable.
 
-\lstset{style=my-kotlin}
-\begin{lstlisting}[language=my-kotlin, caption={Case of study: Output processing function.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Case of study: Output processing function.}]
   val timeValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["time"]
   val gradientValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["value[mean]"]
   val timeToStabilize = gradientValues.reversed().foldRight(Triple(0.00, 0, 0)) { value, acc ->
@@ -1086,12 +1085,13 @@ The function looks at the gradient value and returns the time at which the gradi
 A stable gradient is defined as two consecutive values that are the same and different from zero.
 To make the comparison values of type \textit{Double} are used, with a precision of two decimal places.
 
-We can observe the result of the benchmark execution, along with the output data of the simulator.
+In \Cref{fig:result-A} we can observe the result of the benchmark execution, along with the output data of the simulator.
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/result-A.png}
   \caption{Case of study: Benchmark result A}
+  \label{fig:result-A}
 \end{figure}
 
 \paragraph*{Compare a new solution to the reference}
@@ -1115,12 +1115,14 @@ To define the solution we take the Alchemist input file and change the time dist
       {gradient, def: N > 30} -->
 \end{lstlisting}
 
-We can observe the result of the benchmark execution, and compare them against the reference solution.
+\Cref{fig:result-B} shows the result of the benchmark execution.
+It is now possible to compare them against the reference solution.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/result-B.png}
   \caption{Case of study: Benchmark result B}
+  \label{fig:result-B}
 \end{figure}
 
 The objective of this case study was not to assess particular aspects or the performance of a CAS. 
