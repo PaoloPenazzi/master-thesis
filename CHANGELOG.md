@@ -1,3 +1,10 @@
+## [5.1.3](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.2...5.1.3) (2024-02-28)
+
+
+### Bug Fixes
+
+* change listing graphics and colors ([46c8998](https://github.com/PaoloPenazzi/master-thesis/commit/46c89986b9817c8269b55899bfaa1c621046e491))
+
 ## [5.1.2](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.1...5.1.2) (2024-02-28)
 
 
