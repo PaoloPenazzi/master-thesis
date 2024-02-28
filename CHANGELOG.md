@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.0...5.1.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* change image floating and listing language ([560dbf0](https://github.com/PaoloPenazzi/master-thesis/commit/560dbf060f1bd777b10e0a03135c22b00c8fc8df))
+
 ## [5.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/5.0.2...5.1.0) (2024-02-28)
 
 
