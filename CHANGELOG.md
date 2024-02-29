@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/PaoloPenazzi/master-thesis/compare/6.0.0...6.0.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* change image size and add subsections to ToC ([c6b4920](https://github.com/PaoloPenazzi/master-thesis/commit/c6b492080aea32e027cae8eac204db1e7c5029b6))
+
 ## [6.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/5.2.3...6.0.0) (2024-02-29)
 
 
