@@ -229,14 +229,13 @@ SAPERE \cite{DBLP:conf/saso/CastelliMRZ11}, the first supported incarnation, bas
 ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library and framework for Aggregate Programming,
 Protelis \cite{DBLP:conf/sac/PianiniVB15}, a programming language for aggregate computing, and
 Biochemistry incarnation.
-
-\Cref{fig:alchemist-interface} shows some nodes in the Alchemist simulator interface.
+\Cref{fig:alchemist-nodes} shows some nodes in the Alchemist simulator interface.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{figures/alchemist.png}
-  \label{fig:alchemist-interface}
+  \includegraphics[width=0.8\textwidth]{figures/alchemist.png}
   \caption{A grid of nodes in Alchemist.}
+  \label{fig:alchemist-nodes}
 \end{figure}
 
 \subsection{NetLogo}
@@ -256,18 +255,18 @@ It shows that the fire's chance of reaching the right edge of the forest depends
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{figures/NetLogo-interface.png}
+  \includegraphics[width=0.6\textwidth]{figures/NetLogo-interface.png}
   \caption{NetLogo interface.}
   \label{fig:netlogo-simulation}
 \end{figure}
 
 \section{Objectives}
 This thesis aims to partially address the absence of a benchmarking platform by developing a prototype \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20}.
-The framework must be designed to allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
-To assess the system's behavior, the testbed relies on existing simulators in the market. 
-Given the large number of these simulators, the tool must be flexible and extensible to include support for new simulators later on without compromising the functionality of those already integrated or the framework as a whole \cite{DBLP:conf/mascots/Dujmovic99}.
+The testbed must be designed to allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
+To assess the system's behavior, the framework relies on existing simulators in the market. 
+Given the large number of these tools, the testbed must be flexible and extensible to include support for new simulators later on without compromising the functionality of those already integrated or the framework as a whole \cite{DBLP:conf/mascots/Dujmovic99}.
 Recognizing that users may focus on various aspects of \ac*{CAS}, it is essential to establish generic and customizable metrics for their evaluation.
-With this work, the aim is to establish the foundations for a standard way to test and compare various solutions in the \ac*{CAS} domain.
+With this work, the aim is to provide the foundations for a standard way to test and compare various solutions in the \ac*{CAS} domain.
 
 \paragraph*{Thesis structure}
 
@@ -325,7 +324,7 @@ It is worth noting that the expected users of the framework are researchers and 
 
 \section{Requirements}
 
-\subsection*{User Requirements}
+\subsection{User Requirements}
 User requirements express the needs of the user and identify which actions the user should be able to perform.
 The following requirements are extracted from the previous domain analysis:
 \begin{itemize}
@@ -339,7 +338,7 @@ The following requirements are extracted from the previous domain analysis:
   \item It should be possible to extend the framework to support new simulators.
 \end{itemize}
 
-\subsection*{Functional Requirements}
+\subsection{Functional Requirements}
 Functional requirements define the features and the functions of the framework.
 These derive from the user requirements.
 
@@ -354,7 +353,7 @@ These derive from the user requirements.
   \item The framework should allow the user to add support for new simulators.
 \end{itemize}
 
-\subsection*{Non-Functional Requirements}
+\subsection{Non-Functional Requirements}
 Non-functional requirements define the quality attributes of the framework.
 
 \begin{itemize}
@@ -740,7 +739,7 @@ All the results are saved in a data structure that will be displayed to the user
 
 \section{Technologies}
 
-\subsection*{Framework technologies}
+\subsection{Framework technologies}
 
 \paragraph*{Kotlin}
 
@@ -758,7 +757,7 @@ The choice fell on YAML\footnote{https://yaml.org/}, a human-readable data seria
 YAML is commonly used in applications where data needs to be represented in a format that is easy for both humans to read and write, as well as for machines to parse and generate.
 It is used as a configuration language in different projects, such as Kubernetes, Docker, GitHub Actions, and many more.
 
-\subsection*{DevOps technologies}
+\subsection{DevOps technologies}
 DevOps engineering is a software development methodology that aims at communication, collaboration and integration among all workers around an IT project. 
 This set of techniques responds to interdependencies between software development and relative IT operations, allowing a faster and more efficient organization of software products and services.
 The following paragraphs describe which DevOps techniques have been used in the making of the system, focusing on the advantages that each procedure has brought.
@@ -918,7 +917,7 @@ The version number is defined in the format \emph{X.Y.Z} where X is a major vers
 
 \section{Testing}
 
-\subsection*{Unit Testing}
+\subsection{Unit Testing}
 Unit testing is a software testing method to test individual units or components of software.
 In this work, we use it to test the behavior of the various components of the framework.
 
@@ -953,7 +952,7 @@ The \emph{Parser} component, on the other hand, was tested automatically, to che
 })
 \end{lstlisting}
 
-\subsection*{Integration Testing}
+\subsection{Integration Testing}
 
 Integration testing is a software testing method to test the behavior of the various components of the software when integrated.
 In this work, we use it to test the behavior of the simulators supported by the framework.
