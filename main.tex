@@ -89,10 +89,6 @@
   An experiment has been executed to validate the framework's anticipated functionalities and understand its strengths and weaknesses. 
   This analysis serves the purpose of identifying areas for future improvement within the tool.
 \end{abstract}
-  
-\begin{acknowledgements}
-  
-\end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
 \tableofcontents
@@ -106,40 +102,29 @@
 \chapter{Introduction}
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
-\paragraph{Background and Motivation}
 
-In scientific research, new solutions are developed in order to improve what is defined as the state of art. 
-This implies that, at some point, two different solutions must be compared.
-To define which one performs better, either overall or in specific aspects, it is necessary to employ a clear and objective metric. 
+\section{Motivation}
+
+In scientific research, new solutions are developed in order to improve what is defined as the state of the art. 
+This implies that, at some point, two different solutions must be compared to define which one performs better, either overall or in specific aspects.
+The result of this comparison must be a clear and objective metric, that does not leave room for personal interpretation.
 Additionally, it is essential to use a widely adopted, standard test protocol that executes two different algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments. 
 The lack of such a protocol raises concerns regarding the reproducibility of scientific publications, as happened in some fields of Computer Science \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}.
-Therefore, the creation of a benchmarking and testing framework becomes necessary to set a standard for the comparison of different solutions.
+The creation of a benchmarking and testing framework can solve these problems, by setting a standard for the comparison of different solutions.
 
 In some application domains, such as security \cite{DBLP:conf/bdet/Es-SamaaliOBMK21}, IoT \cite{DBLP:conf/IEEEares/RuckGWLN23}, and many more \cite{DBLP:journals/ral/CollinsRYSJP24, DBLP:journals/corr/abs-2401-01275}, tools have been developed for benchmarking. 
 In other fields, like Autonomic, Organic Computing, and \ac*{CAS}, such frameworks have not been created yet \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}.
-This absence led us to focus on \ac*{CAS} \cite{DBLP:journals/sttt/NicolaJW20}. 
-These systems are characterized by their ability to adapt to the environment in which they are immersed and to interact with it \cite{DBLP:conf/birthday/BucchiaroneM19}.
-There is no central entity, either internal or external, that coordinates the devices in the network. Instead, each node collaborates with its neighbor to achieve a goal.
-The properties and behavior of these systems make them particularly challenging to test and evaluate their performance \cite{DBLP:conf/srds/AlmeidaMV10}.
+This absence led us to focus on \ac*{CAS} \cite{DBLP:journals/sttt/NicolaJW20}.
 
-\paragraph{Objectives}
-This thesis aims to partially fill this gap by developing a prototype of a benchmarking platform \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20}.
-Specifically, the objective is to create a standard way for the scientific community to compare different solutions to typical problems in the \ac*{CAS} domain.
-This platform is designed to allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
-Given the great number of simulators already available, the framework must be flexible and extensible.
-In this way, it is possible to add new simulators without compromising the functionality of the already supported ones \cite{DBLP:conf/mascots/Dujmovic99}.
-Furthermore, users might want to evaluate different aspects of the \ac*{CAS}. Therefore, the metrics for evaluating them must be generic and customizable.
+\section{Background}
 
-%----------------------------------------------------------------------------------------
-\chapter{Background}
-%----------------------------------------------------------------------------------------
-
-\section{Collective Adaptive Systems}
+\subsection{Collective Adaptive Systems}
 
 \ac{CAS} are a complex type of distributed network which are composed of many heterogeneous entities, each with its own capabilities and goals. 
-These systems are characterized by the ability to adapt their behavior to dynamically changing open-ended environments and by the pursuit of a collective goal. 
+These systems are characterized by the ability to adapt their behavior to dynamically changing open-ended environments \cite{DBLP:conf/birthday/BucchiaroneM19} and by the pursuit of a collective goal. 
 The latter is achieved through the collaboration of the systems’ entities, without a specific external or internal central control \cite{DBLP:series/lncs/HolzlRW08, DBLP:journals/corr/abs-1108-5643}. 
 In fact, CAS often adopts cooperative operating strategies to run distributed decision-making mechanisms \cite{DBLP:journals/tomacs/Aldini18}.
+The properties and behavior of these systems make them particularly challenging to test and evaluate their performance \cite{DBLP:conf/srds/AlmeidaMV10}.
 
 Nowadays, many systems are adaptive and collective. Examples include drone swarms tasked with monitoring an area (as \Cref{fig:cas-examples-drone} shows),
 wearable devices to manage crowd congestion during a public event (represented in \Cref{fig:cas-examples-crowd}), cars on streets connected to handle traffic \cite{DBLP:journals/sttt/NicolaJW20}.
@@ -183,7 +168,7 @@ Aggregate programming is based on the concept of a computational field, which is
 and on that of field calculus, a minimal core that provides basic constructs for working with fields \cite{DBLP:journals/corr/ViroliADPB16}.
 Other notable approaches exist, including SOTA \cite{AbeywickramaBMZ20} and TOTA \cite{MameiVZ04}. 
 
-\section{Testing and Simulation}
+\subsection{Testing and Simulation}
 
 In every field of engineering, testing is a fundamental part of the development process. 
 It refers to the process carried out to verify and validate a system, according to its requirements \cite{Spillner2011}.
@@ -207,9 +192,9 @@ Simulators allow us to deploy a virtual environment where we can run the program
 
 Within the domain of \ac*{CAS}, numerous simulators provide an environment for testing these systems, either in some aspects or in their entirety.
 This is the case for ns-3 \footnote{https://www.nsnam.org/}, a discrete-event network simulator, the Repast suite \cite{North2013}, a family of agent-base modeling platforms, and OMNeT++ \footnote{https://omnetpp.org/}, a modular, component-base C++ simulation library.
-Given their central role in this study, the subsequent paragraphs will extensively examine other simulators, specifically Alchemist and NetLogo.
+Given their central role in this study, the subsequent sections will extensively examine other simulators, specifically Alchemist and NetLogo.
 
-\paragraph*{Alchemist}
+\subsection{Alchemist}
 
 Alchemist \cite{Pianini_2013} is an open-source tool for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions.
 The meta-model of Alchemist, as \Cref{fig:alchemist-meta-model} and \Cref{fig:alchemist-reaction} show, is inspired by biochemistry and consists of various entities \footnote{https://alchemistsimulator.github.io/}:
@@ -254,7 +239,7 @@ Biochemistry incarnation.
   \caption{A grid of nodes in Alchemist.}
 \end{figure}
 
-\paragraph*{NetLogo}
+\subsection{NetLogo}
 
 NetLogo\footnote{https://ccl.northwestern.edu/netlogo/} is a programmable modeling environment for simulating natural and social phenomena. It was created at the Center
 for Connected Learning and Computer-Based Modeling (CCL) at Northwestern University, directed by Uri Wilensky.
@@ -276,8 +261,25 @@ It shows that the fire's chance of reaching the right edge of the forest depends
   \label{fig:netlogo-simulation}
 \end{figure}
 
+\section{Objectives}
+This thesis aims to partially address the absence of a benchmarking platform by developing a prototype \cite{DBLP:conf/cisis/VilenicaL12, DBLP:conf/atal/ZhangZWBR20}.
+The framework must be designed to allow the user to define a benchmark, execute it, and compare the result to state-of-the-art solutions.
+To assess the system's behavior, the testbed relies on existing simulators in the market. 
+Given the large number of these simulators, the tool must be flexible and extensible to include support for new simulators later on without compromising the functionality of those already integrated or the framework as a whole \cite{DBLP:conf/mascots/Dujmovic99}.
+Recognizing that users may focus on various aspects of \ac*{CAS}, it is essential to establish generic and customizable metrics for their evaluation.
+With this work, the aim is to establish the foundations for a standard way to test and compare various solutions in the \ac*{CAS} domain.
+
+\paragraph*{Thesis structure}
+
+In the discussion of this work, we will start with the design of the framework, as discussed in \Cref{ch:design}. 
+In particular, we conduct a domain analysis, define the requirements, and then provide a detailed description of the system architecture. 
+\Cref{ch:implementation} delves into the implementation details, describing how various components of the framework were developed and the technologies employed. 
+\Cref{ch:validation} outlines the testing of the platform, verification of integration with supported simulators, and presents a case study to validate adherence to the requirements defined in the analysis phase. 
+Finally, in \Cref{ch:conclusion}, we analyze the work done and explore potential future developments.
+
 %----------------------------------------------------------------------------------------
 \chapter{Design}
+\label{ch:design}
 %----------------------------------------------------------------------------------------
 
 \section{Domain Analysis}
@@ -563,6 +565,7 @@ Various solutions were evaluated to address this issue, each with its pros and c
 
 %----------------------------------------------------------------------------------------
 \chapter{Implementation}
+\label{ch:implementation}
 %----------------------------------------------------------------------------------------
 
 In this chapter, we will dive deeper into the implementation of the framework.
@@ -910,6 +913,7 @@ The version number is defined in the format \emph{X.Y.Z} where X is a major vers
 
 %----------------------------------------------------------------------------------------
 \chapter{Validation}
+\label{ch:validation}
 %----------------------------------------------------------------------------------------
 
 \section{Testing}
@@ -1154,6 +1158,7 @@ As a result, the framework requirements outlined in the analysis phase are deeme
 
 %----------------------------------------------------------------------------------------
 \chapter{Conclusion and Future Work}
+\label{ch:conclusion}
 %----------------------------------------------------------------------------------------
 
 The work presented in this thesis has resulted in the development of a testbed prototype designed for benchmarking \ac*{CAS}.
@@ -1215,5 +1220,9 @@ This section will provide a list of possible future works that could be done.
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
+
+\begin{acknowledgements}
+  TODO
+\end{acknowledgements}
 
 \end{document}
