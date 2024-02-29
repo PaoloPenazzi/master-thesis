@@ -1,3 +1,14 @@
+## [6.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/5.2.3...6.0.0) (2024-02-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* merge chapter 1 and 2
+
+### Features
+
+* merge chapter 1 and 2 ([a10f21e](https://github.com/PaoloPenazzi/master-thesis/commit/a10f21e9b757be62dbcd868273b7dcc9c52ad910))
+
 ## [5.2.3](https://github.com/PaoloPenazzi/master-thesis/compare/5.2.2...5.2.3) (2024-02-29)
 
 
