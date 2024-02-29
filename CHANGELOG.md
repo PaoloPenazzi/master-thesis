@@ -1,3 +1,10 @@
+## [5.2.0](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.4...5.2.0) (2024-02-29)
+
+
+### Features
+
+* update image ref and code snippets ([4ed94e2](https://github.com/PaoloPenazzi/master-thesis/commit/4ed94e22784d3611da28e831b9fcc86a0ff31f45))
+
 ## [5.1.4](https://github.com/PaoloPenazzi/master-thesis/compare/5.1.3...5.1.4) (2024-02-28)
 
 
