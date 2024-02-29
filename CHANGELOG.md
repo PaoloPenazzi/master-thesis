@@ -1,3 +1,10 @@
+## [5.2.2](https://github.com/PaoloPenazzi/master-thesis/compare/5.2.1...5.2.2) (2024-02-29)
+
+
+### Bug Fixes
+
+* fix a broken ref ([7e281ad](https://github.com/PaoloPenazzi/master-thesis/commit/7e281ad744321fd72a7210071349e1fb6df86cab))
+
 ## [5.2.1](https://github.com/PaoloPenazzi/master-thesis/compare/5.2.0...5.2.1) (2024-02-29)
 
 
