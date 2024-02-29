@@ -109,11 +109,12 @@
 \paragraph{Background and Motivation}
 
 In scientific research, new solutions are developed in order to improve what is defined as the state of art. 
-This implies that, at some point, two different solutions must be compared. 
+This implies that, at some point, two different solutions must be compared.
 To define which one performs better, either overall or in specific aspects, it is necessary to employ a clear and objective metric. 
 Additionally, it is essential to use a widely adopted, standard test protocol that executes two different algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments. 
 The lack of such a protocol raises concerns regarding the reproducibility of scientific publications, as happened in some fields of Computer Science \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}.
-Therefore, the creation of a benchmarking and testing framework becomes necessary to set a standard for the comparison of different solutions.
+Therefore, the creation of a benchmarking and testing framework becomes necessary to set a standard for the comparison of different solutions. \\
+
 In some application domains, such as security \cite{DBLP:conf/bdet/Es-SamaaliOBMK21}, IoT \cite{DBLP:conf/IEEEares/RuckGWLN23}, and many more \cite{DBLP:journals/ral/CollinsRYSJP24, DBLP:journals/corr/abs-2401-01275}, tools have been developed for benchmarking. 
 In other fields, like Autonomic, Organic Computing, and \ac*{CAS}, such frameworks have not been created yet \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}.
 This absence led us to focus on \ac*{CAS} \cite{DBLP:journals/sttt/NicolaJW20}. 
@@ -140,8 +141,8 @@ These systems are characterized by the ability to adapt their behavior to dynami
 The latter is achieved through the collaboration of the systems’ entities, without a specific external or internal central control \cite{DBLP:series/lncs/HolzlRW08, DBLP:journals/corr/abs-1108-5643}. 
 In fact, CAS often adopts cooperative operating strategies to run distributed decision-making mechanisms \cite{DBLP:journals/tomacs/Aldini18}.
 
-Nowadays, many systems are adaptive and collective. Examples include drone swarms tasked with monitoring an area,
-wearable devices to manage crowd congestion during a public event, cars on streets connected to handle traffic \cite{DBLP:journals/sttt/NicolaJW20}.
+Nowadays, many systems are adaptive and collective. Examples include drone swarms tasked with monitoring an area (as \Cref{fig:cas-examples-drone} shows),
+wearable devices to manage crowd congestion during a public event (represented in \Cref{fig:cas-examples-crowd}), cars on streets connected to handle traffic \cite{DBLP:journals/sttt/NicolaJW20}.
 
 \Cref{fig:cas-examples} is provided by \footnote{https://www.unibo.it/it/studiare/dottorati-master-specializzazioni-e-altra-formazione/insegnamenti/insegnamento/2023/483706}.
 
@@ -151,13 +152,14 @@ wearable devices to manage crowd congestion during a public event, cars on stree
     \centering
     \includegraphics[width=0.9\textwidth]{figures/swarm2.jpeg}
     \caption{Drone swarm.}
+    \label{fig:cas-examples-drone}
   \end{subfigure}
 
   \begin{subfigure}[b]{0.49\textwidth}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/crowd.png}
     \caption{Crowd management.}
-    \label{fig:cas-examples}
+    \label{fig:cas-examples-crowd}
   \end{subfigure}
   \caption{Some examples of CAS.}
 \end{figure*}
@@ -166,11 +168,14 @@ wearable devices to manage crowd congestion during a public event, cars on stree
 The spread of these systems has led to a shift in computation, which is now divided and distributed across various devices in the network, introducing an additional level of complexity in programming these systems.
 Developers must consider issues such as communication between devices, concurrency, or failures. 
 Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable \cite{DBLP:conf/ecoop/CasadeiV16}.
-Several approaches have been identified over the years for programming CAS, or more generally, adaptive distributed systems.
-Agent-based models \cite{MacalN10} associate each device with the behavior of an agent \cite{RussellN95} Agent, which has sensors and actuators to interact with the environment and the ability to communicate with other agents. 
-This is the approach used in the NetLogo simulator.
+Several approaches have been identified over the years for programming \ac*{CAS}, or more generally, adaptive distributed systems. \\
+
+Agent-based models \cite{MacalN10} associate each device with the behavior of an agent \cite{RussellN95}, which has sensors and actuators to interact with the environment and the ability to communicate with other agents. 
+This is the paradigm used in the NetLogo simulator. \\
+
 The SCEL language \cite{NicolaLPT14}, the first to use the paradigm defined as attribute-based programming, establishes a formal approach to the interaction between devices. 
-This paradigm defines the system as a series of devices, each with a set of attributes representing the properties of the component.
+This paradigm defines the system as a series of devices, each with a set of attributes representing the properties of the component. \\
+
 Aggregate programming is a new approach to developing complex distributed systems that abstract from individual devices, focusing on programming the collective.
 Through a layer that handles and hides some problematic aspects of these networks, such as communication between devices and details of individual entities,
 it is possible to simplify the design and maintenance of these systems \cite{DBLP:journals/computer/BealPV15, DBLP:conf/sfm/BealV16}.
@@ -200,7 +205,7 @@ The importance of simulators becomes clear when testing \ac{CAS}.
 Creating a real environment to test a program, such as a network of 100 drones or a crowd of 1000 people, is not feasible.
 Simulators allow us to deploy a virtual environment where we can run the program and evaluate its behavior. \\
 
-Within the domain of \ac{CAS}, numerous simulators provide an environment for testing these systems, either in some aspects or in their entirety.
+Within the domain of \ac*{CAS}, numerous simulators provide an environment for testing these systems, either in some aspects or in their entirety.
 This is the case for ns-3 \footnote{https://www.nsnam.org/}, a discrete-event network simulator, the Repast suite \cite{North2013}, a family of agent-base modeling platforms, and OMNeT++ \footnote{https://omnetpp.org/}, a modular, component-base C++ simulation library.
 Given their central role in this study, the subsequent paragraphs will extensively examine other simulators, specifically Alchemist and NetLogo.
 
@@ -240,9 +245,12 @@ ScaFi \cite{DBLP:journals/softx/CasadeiVAP22}, which is a Scala-based library an
 Protelis \cite{DBLP:conf/sac/PianiniVB15}, a programming language for aggregate computing, and
 Biochemistry incarnation.
 
+\Cref{fig:alchemist-interface} shows some nodes in the Alchemist simulator interface.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/alchemist.png}
+  \label{fig:alchemist-interface}
   \caption{A grid of nodes in Alchemist.}
 \end{figure}
 
@@ -422,7 +430,7 @@ Additional strategy parameters could be added in the future to support other fea
 
 \Cref{lst:benchmark-configuration-strategy} shows a possibile definition of the \emph{Strategy} section in a benchmark configuration file.
 
-\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-strategy} ,caption={Benchmark configuration file structure: strategy section}]
+\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-strategy} ,caption={Benchmark configuration file structure: Strategy section.}]
   strategy:
     executionOrder:
       - Alchemist-sapere-tutorial
@@ -451,7 +459,7 @@ This section contains:
 
 \Cref{lst:benchmark-configuration-sim1} shows a possible definition of the \emph{Simulators} section in a benchmark configuration file using NetLogo as a simulator.
 
-\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim1} ,caption={Benchmark configuration file structure. NetLogo simulator section}]
+\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim1} ,caption={Benchmark configuration file structure: NetLogo simulator section.}]
 simulators:
   - name: NETLOGO
     simulatorPath: "./NetLogo 6.4.0/"
@@ -465,9 +473,9 @@ simulators:
         postProcessing: "./processing/netlogo-tutorial.py"
 \end{lstlisting}
 
-\Cref{lst:benchmark-configuration-sim2} depicts the configuration of two scenarios runned by the Alchemist simulator.
+\Cref{lst:benchmark-configuration-sim2} depicts the configuration of two scenarios run by the Alchemist simulator.
 
-\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim2} ,caption={Benchmark configuration file structure. Alchemist simulator section}]
+\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim2} ,caption={Benchmark configuration file structure: Alchemist simulator section.}]
   simulators:
     - name: Alchemist
       simulatorPath: "./"
@@ -491,7 +499,7 @@ A critical part of the framework design is related to what is presented to the u
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/output-processing.pdf}
-  \caption{Simulator output processing}
+  \caption{Simulator's output processing.}
   \label{fig:output}
 \end{figure}
 
@@ -506,7 +514,7 @@ This file must contain data in the form of \emph{ScenarioResult}, which will be 
 In the second case, the Listener interface is employed. It takes the file outputted by the simulator and transforms it into an internal framework data structure, the \emph{BenchmarkOutput}. 
 A post-processing function must then be implemented, taking the \emph{BenchmarkOutput} as input and returning a \emph{BenchmarkResult}. 
 This solution split the process into two phases, the read of the output simulator and the transformation of the data in a significant result.
-This allows to define a method to read the output of a simulator and to use it in combination with various processing functions to obtain results of different natures.
+This allows the implementation of a method to read the output of a simulator and to use it in combination with various processing functions to obtain results of different natures.
 
 We define \emph{output} concepts:
 \begin{itemize}
@@ -568,7 +576,7 @@ It matches the structure of the input file to allow easy parsing, as shown in \C
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/benchmark-model.png}
-  \caption{Benchmark Model}
+  \caption{Benchmark Model.}
   \label{fig:benchmark-model}
 \end{figure}
 
@@ -603,22 +611,23 @@ data class Scenario(
 \end{lstlisting}
 
 To account for the possibility of adding new simulators, the \emph{SupportedSimulator} enum was created.
-This enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
-This forces the user to extend each component of the system to support the new simulator.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={SupportedSimulator enum}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={SupportedSimulator enum.}]
   enum class SupportedSimulator {
     ALCHEMIST,
     NETLOGO,
 }
 \end{lstlisting}
 
+This enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
+This forces the user to extend each component of the system to support the new simulator.
+
 \paragraph*{Parser}
 The parser is the component responsible for translating the user-written specifications in YAML into a data structure that represents the benchmark model.
 The library \emph{"com.charleskorn.kaml:kaml"} is used to parse the input file.
 This allows an easy and clean way to parse the input file as shown in the following code.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parsing of the input file}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parsing of the input file.}]
   val inputFile = File(path)
   val benchmark = Yaml.default.decodeFromString(Benchmark.serializer(), inputFile.readText())
 \end{lstlisting}
@@ -629,7 +638,7 @@ This parameter may change the duration of the execution of a scenario, overridin
 To achieve this, a \emph{ConfigFileHandler} interface was created, which is implemented by each simulator-specific component.
 This interface contains a single method, \emph{handle}, which takes as input the scenario configuration.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={ConfigFileHandler interface}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={ConfigFileHandler interface.}]
   interface ConfigFileHandler {
     fun editConfigurationFile(scenario: Scenario)
 }
@@ -653,7 +662,7 @@ In general, the \emph{clearCSV} function should clean the file from all unnecess
 
 The Alchemist implementation for the \emph{ClearCSV} method is:
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={CSV file cleaning in Alchemist}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={CSV file cleaning in Alchemist.}]
 override fun clearCSV(path: String) {
     val lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8)
     val regexPatterns = listOf(
@@ -678,7 +687,7 @@ override fun clearCSV(path: String) {
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as \emph{type alias} in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark output and result model}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark output and result model.}]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -698,7 +707,7 @@ This is done to ensure compatibility with any simulator that might be added in t
 After parsing the benchmark configuration file the \emph{Controller} begins to execute every Scenario in the order specified by the user.
 It creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Controller implementation}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Controller implementation.}]
   val scenarioNameOrder: List<String> = benchmark.strategy.executionOrder
   val scenarioMap: Map<String, Triple<Simulator, Scenario, Int>> = benchmark.simulators
       .flatMap { simulator ->
@@ -754,7 +763,7 @@ The following paragraphs describe which DevOps techniques have been used in the 
 \paragraph*{Repository management}
 The work is hosted on GitHub\footnote{https://www.github.com/} and uses Git\footnote{https://www.git-scm.com/} as a DVCS (Distributed Version Control System).
 A DVCS is a version control system that allows multiple users to work on the same codebase at the same time and keeps track of every change made.
-The project was developed following a customized version of Git Flow. 
+The project was developed following a customized version of Git Flow, depicted in \Cref{fig:git-flow}. 
 
 \begin{figure}[H]
   \centering
@@ -777,7 +786,7 @@ Gradle is primarily used to manage dependencies with external libraries used in 
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Custom task to generate the JAR file}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Custom task to generate the JAR file.}]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -824,6 +833,8 @@ jobs:
 \end{lstlisting}
 
 \Cref{lst:ci-build} depicts the release job of the CI/CD workflow.
+It states that need the \emph{build} job to be completed before running. This ensure that the tests are passed before releasing the software.
+Then it proceeds to install Node, which is required to run the semantic release tool, and finally runs the npm release command.
 
 \begin{lstlisting}[language=yaml, label={lst:ci-release}, caption={CI/CD workflow: release job.}]
   jobs:
@@ -912,7 +923,7 @@ This is the case for the \emph{Executor} and \emph{Listener} components, which a
 The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parser tests}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parser tests.}]
   class ParserTest: FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -947,6 +958,7 @@ Checking if a simulator is running a scenario in the right way is not an easy ta
 Therefore the integration tests are performed manually.
 
 \paragraph*{NetLogo}
+
 NetLogo was tested by running one of the bundled models, the Wolf Sheep Predation model.
 
 The first time, the simulation was launched through the framework in headless mode, without a graphical interface.
@@ -955,16 +967,17 @@ the parser generated the benchmark model, which was used by the controller and e
 At the end of the simulation, an output file containing the expected information was generated.
 This CSV file was then transformed into a data structure within the framework containing the results.
 
-The second execution was launched again through the framework, but this time with the graphical interface activated. 
+The second execution was launched again through the framework, but this time with the graphical interface activated, as \Cref{fig:netlogo-sim} shows. 
 The same steps as before were observed, with the addition of the simulation being visually displayed.
 
 Comparing the two executions and conducting further ones, no differences were noticed. 
 We can therefore say that NetLogo has been integrated correctly into the framework.
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/netlogo-sim.png}
-  \caption{NetLogo simulation launched by the framework}
+  \caption{NetLogo simulation launched by the framework.}
+  \label{fig:netlogo-sim}
 \end{figure}
 
 \paragraph*{Alchemist}
@@ -972,12 +985,14 @@ The same process was applied to test the integration with the Alchemist simulato
 
 To test the behavior of Alchemist, a program that computes the gradient, a typical problem known in the literature, was chosen. 
 The first execution was done with the graphical interface activated, which allowed verifying the correct execution of the simulation, thanks to the graphical effects applied to the nodes.
+This run is depicted in \Cref{fig:alchemist-sim}.
 The second execution was done headless and provided the same results as the first. This process was repeated for both incarnations supported by the framework, namely Protelis and Sapere.
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/gradient-execution.png}
-  \caption{Alchemist simulation launched by the framework}
+  \caption{Alchemist simulation launched by the framework.}
+  \label{fig:alchemist-sim}
 \end{figure}
 
 \section{Evaluation}
@@ -992,7 +1007,7 @@ The solution to be tested is an implementation of the gradient computation in th
 
 We create a benchmark configuration file, which contains all the information about the benchmark to be executed.
 
-\begin{lstlisting}[language=yaml, caption={Case of study: benchmark configuration file}]
+\begin{lstlisting}[language=yaml, caption={Case of study: benchmark configuration file.}]
     strategy:
       executionOrder:
         - Alchemist-SAPERE-gradient
@@ -1007,29 +1022,18 @@ We create a benchmark configuration file, which contains all the information abo
             repetitions: 1
 \end{lstlisting}
 
-After the benchmark configuration file, we define the input file for the Alchemist simulation:
+After the benchmark configuration file, we define the input file for the Alchemist simulation.
+This file contains the environment configuration along with the export definition and the termination condition.
 
-\begin{lstlisting}[language=yaml, caption={Case of study: Alchemist input file}]
+\begin{lstlisting}[language=yaml, caption={Case of study: Alchemist input file.}]
 incarnation: sapere
+
 launcher:
   type: HeadlessSimulationLauncher
-seeds:
-  scenario: 1
-  simulation: 1
+
 network-model:
   type: ConnectWithinDistance
   parameters: [0.35]
-
-  _send: &id001
-  - {time-distribution: 0.1, program: '{source} --> {source} {gradient, 0}'}
-  - {time-distribution: 1, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
-  - program: >
-      {gradient, N}{gradient, def: N2>=N} --> {gradient, N}
-  - time-distribution: 0.1
-    program: >
-      {gradient, N} --> {gradient, N + 1}
-  - program: >
-      {gradient, def: N > 30} -->
 
 deployments:
   type: Grid
@@ -1039,7 +1043,7 @@ deployments:
       type: Rectangle
       parameters: [-0.5, -0.5, 1, 1]
     molecule: source
-  programs: *id001
+  programs: *grad
   
 export:
   - type: CSVExporter
@@ -1050,16 +1054,33 @@ export:
       property: value
       aggregators: [mean]
       value-filter: onlyfinite
+
 terminate:
   - type: afterTime
     parameters: 100
 \end{lstlisting}
 
+The only thing missing is the definition of the program that will be executed by the simulator.
+We define the \emph{gradient} program as follows:
+
+\begin{lstlisting}[language=yaml, caption={Case of study: gradient program A.}]
+_send: &grad
+  - {time-distribution: 0.1, program: '{source} --> {source} {gradient, 0}'}
+  - {time-distribution: 1, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
+  - program: >
+      {gradient, N}{gradient, def: N2>=N} --> {gradient, N}
+  - time-distribution: 0.1
+    program: >
+      {gradient, N} --> {gradient, N + 1}
+  - program: >
+      {gradient, def: N > 30} -->
+    \end{lstlisting}
+
 Now we define the processing function which will be in charge of aggregating the data and returning the result.
 The function is implemented without the use of any external library, using pure Kotlin.
 It is not recommended to do so, as Kotlin is not a data analysis language and the code itself is not very readable.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Case of study: Output processing function.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Case of study: output processing function.}]
   val timeValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["time"]
   val gradientValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["value[mean]"]
   val timeToStabilize = gradientValues.reversed().foldRight(Triple(0.00, 0, 0)) { value, acc ->
@@ -1091,7 +1112,7 @@ In \Cref{fig:result-A} we can observe the result of the benchmark execution, alo
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/result-A.png}
-  \caption{Case of study: Benchmark result A}
+  \caption{Case of study: Benchmark result A.}
   \label{fig:result-A}
 \end{figure}
 
@@ -1103,7 +1124,7 @@ develop our own solution and run the benchmark to get the result.
 
 To define the solution we take the Alchemist input file and change the time distribution of the reactions.
 
-\begin{lstlisting}[language=yaml, caption={Case of study: benchmark configuration file}]
+\begin{lstlisting}[language=yaml, caption={Case of study: gradient program B.}]
   _send: &id001
   - {time-distribution: 1, program: '{source} --> {source} {gradient, 0}'}
   - {time-distribution: 2, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
@@ -1122,7 +1143,7 @@ It is now possible to compare them against the reference solution.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/result-B.png}
-  \caption{Case of study: Benchmark result B}
+  \caption{Case of study: Benchmark result B.}
   \label{fig:result-B}
 \end{figure}
 
