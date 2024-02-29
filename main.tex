@@ -113,7 +113,7 @@ This implies that, at some point, two different solutions must be compared.
 To define which one performs better, either overall or in specific aspects, it is necessary to employ a clear and objective metric. 
 Additionally, it is essential to use a widely adopted, standard test protocol that executes two different algorithms on the same problem, under the same conditions, with the possibility of reproducing experiments. 
 The lack of such a protocol raises concerns regarding the reproducibility of scientific publications, as happened in some fields of Computer Science \cite{DBLP:journals/cacm/CollbergP16, DBLP:conf/aaai/GundersenK18}.
-Therefore, the creation of a benchmarking and testing framework becomes necessary to set a standard for the comparison of different solutions. \\
+Therefore, the creation of a benchmarking and testing framework becomes necessary to set a standard for the comparison of different solutions.
 
 In some application domains, such as security \cite{DBLP:conf/bdet/Es-SamaaliOBMK21}, IoT \cite{DBLP:conf/IEEEares/RuckGWLN23}, and many more \cite{DBLP:journals/ral/CollinsRYSJP24, DBLP:journals/corr/abs-2401-01275}, tools have been developed for benchmarking. 
 In other fields, like Autonomic, Organic Computing, and \ac*{CAS}, such frameworks have not been created yet \cite{DBLP:conf/icac/BrownHHLLSY04, DBLP:conf/autonomics/EtcheversCV09}.
@@ -168,13 +168,13 @@ wearable devices to manage crowd congestion during a public event (represented i
 The spread of these systems has led to a shift in computation, which is now divided and distributed across various devices in the network, introducing an additional level of complexity in programming these systems.
 Developers must consider issues such as communication between devices, concurrency, or failures. 
 Furthermore, as these systems grow in complexity, it becomes challenging to create solutions that are extensible, modular, and easily testable \cite{DBLP:conf/ecoop/CasadeiV16}.
-Several approaches have been identified over the years for programming \ac*{CAS}, or more generally, adaptive distributed systems. \\
+Several approaches have been identified over the years for programming \ac*{CAS}, or more generally, adaptive distributed systems.
 
 Agent-based models \cite{MacalN10} associate each device with the behavior of an agent \cite{RussellN95}, which has sensors and actuators to interact with the environment and the ability to communicate with other agents. 
 This is the paradigm used in the NetLogo simulator. \\
 
 The SCEL language \cite{NicolaLPT14}, the first to use the paradigm defined as attribute-based programming, establishes a formal approach to the interaction between devices. 
-This paradigm defines the system as a series of devices, each with a set of attributes representing the properties of the component. \\
+This paradigm defines the system as a series of devices, each with a set of attributes representing the properties of the component.
 
 Aggregate programming is a new approach to developing complex distributed systems that abstract from individual devices, focusing on programming the collective.
 Through a layer that handles and hides some problematic aspects of these networks, such as communication between devices and details of individual entities,
@@ -188,22 +188,22 @@ Other notable approaches exist, including SOTA \cite{AbeywickramaBMZ20} and TOTA
 In every field of engineering, testing is a fundamental part of the development process. 
 It refers to the process carried out to verify and validate a system, according to its requirements \cite{Spillner2011}.
 Testing is important to evaluate the behavior of newly developed algorithms against state-of-the-art solutions.
-This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario. \\
+This allows us to understand whether a newly developed solution is better than an existing one in a certain scenario.
 
 Adaptive systems testing introduces a series of challenges and difficulties, many of which stem from the intrinsic nature of these systems.
 Given their complexity, the use of a single simulator is not sufficient to test all their features.
 In fact, it is often necessary to employ multiple simulators and combine the results obtained to understand the system's behavior.
 This technique is termed co-simulation and introduces various issues, such as communication delays, approximations, and difficulties in synchronizing simulators \cite{DBLP:journals/simpra/ThuleLGML19}.
 Since these systems are adaptive and react to mutations in their environment, it is natural to want to support the injection of changes \cite{DBLP:conf/icac/BrownHHLLSY04}.
-Therefore, a complete testbed must be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety. \\
+Therefore, a complete testbed must be able to command different existing tools, support various execution environments, and allow the user to test the system in its entirety.
 
 In Computer Science, the simulation is the process of executing software in a controlled environment to evaluate its behavior.
 Simulations can be used to test the correctness of a program, evaluate its performance, or understand its behavior in a specific scenario.
 The key point of a simulation is to execute the software under controlled and repeatable conditions to compare different executions  \cite{DBLP:journals/cacm/CollbergP16}.
-This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation  \cite{argun2021simulation, bagrodia1998parsec}. \\
+This cannot be done without a simulator, which provides the user with all the tools needed to run the simulation  \cite{argun2021simulation, bagrodia1998parsec}.
 The importance of simulators becomes clear when testing \ac{CAS}.
 Creating a real environment to test a program, such as a network of 100 drones or a crowd of 1000 people, is not feasible.
-Simulators allow us to deploy a virtual environment where we can run the program and evaluate its behavior. \\
+Simulators allow us to deploy a virtual environment where we can run the program and evaluate its behavior.
 
 Within the domain of \ac*{CAS}, numerous simulators provide an environment for testing these systems, either in some aspects or in their entirety.
 This is the case for ns-3 \footnote{https://www.nsnam.org/}, a discrete-event network simulator, the Repast suite \cite{North2013}, a family of agent-base modeling platforms, and OMNeT++ \footnote{https://omnetpp.org/}, a modular, component-base C++ simulation library.
@@ -212,7 +212,7 @@ Given their central role in this study, the subsequent paragraphs will extensive
 \paragraph*{Alchemist}
 
 Alchemist \cite{Pianini_2013} is an open-source tool for simulating complex distributed systems. It is termed a meta-simulator because it is based on generic abstractions.
-The meta-model of Alchemist, as \Cref{fig:alchemist-meta-model, fig:alchemist-reaction} show, is inspired by biochemistry and consists of various entities \footnote{https://alchemistsimulator.github.io/}:
+The meta-model of Alchemist, as \Cref{fig:alchemist-meta-model} and \Cref{fig:alchemist-reaction} show, is inspired by biochemistry and consists of various entities \footnote{https://alchemistsimulator.github.io/}:
 \begin{itemize}
   \item \textbf{Molecule} The name of a data item.
   \item \textbf{Concentration} The value associated with a molecule.
@@ -575,7 +575,7 @@ It matches the structure of the input file to allow easy parsing, as shown in \C
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{figures/benchmark-model.png}
+  \includegraphics[width=0.8\textwidth]{figures/benchmark-model.png}
   \caption{Benchmark Model.}
   \label{fig:benchmark-model}
 \end{figure}
@@ -765,7 +765,7 @@ The work is hosted on GitHub\footnote{https://www.github.com/} and uses Git\foot
 A DVCS is a version control system that allows multiple users to work on the same codebase at the same time and keeps track of every change made.
 The project was developed following a customized version of Git Flow, depicted in \Cref{fig:git-flow}. 
 
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/gitflow.png}
   \caption{Git Flow.}
@@ -1060,8 +1060,7 @@ terminate:
     parameters: 100
 \end{lstlisting}
 
-The only thing missing is the definition of the program that will be executed by the simulator.
-We define the \emph{gradient} program as follows:
+We proceed to implement a first version of the \emph{gradient} program as follows:
 
 \begin{lstlisting}[language=yaml, caption={Case of study: gradient program A.}]
 _send: &grad
