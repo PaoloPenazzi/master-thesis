@@ -1,3 +1,10 @@
+## [5.2.3](https://github.com/PaoloPenazzi/master-thesis/compare/5.2.2...5.2.3) (2024-02-29)
+
+
+### Bug Fixes
+
+* change figure size ([cac254d](https://github.com/PaoloPenazzi/master-thesis/commit/cac254d00721e411ca9ac42c99814e55c01b6978))
+
 ## [5.2.2](https://github.com/PaoloPenazzi/master-thesis/compare/5.2.1...5.2.2) (2024-02-29)
 
 
