@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/PaoloPenazzi/master-thesis/compare/6.0.1...6.0.2) (2024-03-04)
+
+
+### Bug Fixes
+
+* update graduation session number ([9210070](https://github.com/PaoloPenazzi/master-thesis/commit/9210070bb0dd435c8e98c1d7e12c2c315973c14e))
+
 ## [6.0.1](https://github.com/PaoloPenazzi/master-thesis/compare/6.0.0...6.0.1) (2024-02-29)
 
 
