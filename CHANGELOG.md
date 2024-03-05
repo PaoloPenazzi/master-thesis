@@ -1,3 +1,10 @@
+## [6.1.1](https://github.com/PaoloPenazzi/master-thesis/compare/6.1.0...6.1.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* fix a typo in acknowledgements ([307d010](https://github.com/PaoloPenazzi/master-thesis/commit/307d0104a7fb972d63c15a734ab5ea355cc7d524))
+
 ## [6.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/6.0.2...6.1.0) (2024-03-05)
 
 
