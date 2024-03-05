@@ -626,10 +626,9 @@ This forces the user to extend each component of the system to support the new s
 
 \paragraph*{Parser}
 The parser is the component responsible for translating the user-written specifications in YAML into a data structure that represents the benchmark model.
-The library \emph{"com.charleskorn.kaml:kaml"} is used to parse the input file.
-This allows an easy and clean way to parse the input file as shown in the following code.
+The library \emph{"com.charleskorn.kaml:kaml"} is used to provide an easy and clean way to parse the input file as shown in \Cref{lst:yaml-parsing}.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parsing of the input file.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:yaml-parsing}, caption={Parsing of the input file.}]
   val inputFile = File(path)
   val benchmark = Yaml.default.decodeFromString(Benchmark.serializer(), inputFile.readText())
 \end{lstlisting}
@@ -637,8 +636,8 @@ This allows an easy and clean way to parse the input file as shown in the follow
 In certain scenarios, the configuration file for a scenario must be modified before being returned to the controller.
 This is the case for the \emph{duration} parameter, which can be specified in the benchmark specification file.
 This parameter may change the duration of the execution of a scenario, overriding the simulator's input file. 
-To achieve this, a \emph{ConfigFileHandler} interface was created, which is implemented by each simulator-specific component.
-This interface contains a single method, \emph{handle}, which takes as input the scenario configuration.
+To achieve this, a \emph{ConfigFileHandler} interface, which is implemented by each simulator-specific component, was created.
+This interface contains a single method, \emph{handle}, which takes the scenario configuration as an input.
 
 \begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={ConfigFileHandler interface.}]
   interface ConfigFileHandler {
@@ -689,7 +688,7 @@ override fun clearCSV(path: String) {
 The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as \emph{type alias} in Kotlin, which is a way to define a new type without creating a new class.
 The concept of \emph{Scenario Result} is implemented as a data class.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark output and result model.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark output and result implementation.}]
   typealias ScenarioOutput = Map<String, List<Any>>
   typealias BenchmarkOutput = Map<String, ScenarioOutput>
   typealias BenchmarkResult = List<ScenarioResult>
@@ -706,7 +705,7 @@ This is done to ensure compatibility with any simulator that might be added in t
 
 \paragraph*{Controller}
 
-After parsing the benchmark configuration file the \emph{Controller} begins to execute every Scenario in the order specified by the user.
+After parsing the benchmark configuration file, the \emph{Controller} begins to execute every Scenario in the order specified by the user.
 It creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 
 \begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Controller implementation.}]
@@ -746,15 +745,15 @@ All the results are saved in a data structure that will be displayed to the user
 Kotlin\footnote{https://kotlinlang.org/} is a cross-platform, strong statically typed, general-purpose high-level programming language with type inference.
 It took inspiration from several programming languages including Java, Scala and others.
 Born as an object-oriented programming language, it includes a lot of functional programming elements such as first-class support for higher-order functions and lambda literals.
-The rise of Kotlin is testified by the fact that Google chose it as the official language for Android development, replacing Java.
+The rise of Kotlin is testified by Google's choice to adopt it as the official language for Android development, replacing Java.
 
-In the beginning, Kotlin was developed as a JVM language, and support for multi-platform development was added recently. 
-It has great advantages as it reduces time spent writing and maintaining the same code for different platforms while retaining the flexibility and benefits of native programming.
+Originally, Kotlin was developed as a JVM language. The support for multi-platform development was added recently. 
+This has great advantages as it reduces the time spent writing and maintaining the same code for different platforms while retaining the flexibility and benefits of native programming.
 
 \paragraph*{YAML}
 To provide the user with the ability to write a benchmark configuration file, various options were considered, such as using JSON, YAML, Google Protobuf or even developing a DSL. 
 The choice fell on YAML\footnote{https://yaml.org/}, a human-readable data serialization language. It is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
-YAML is commonly used in applications where data needs to be represented in a format that is easy for both humans to read and write, as well as for machines to parse and generate.
+YAML is commonly used in applications where data needs to be represented in a format that is easy for humans to read and write, as well as for machines to parse and generate.
 It is used as a configuration language in different projects, such as Kubernetes, Docker, GitHub Actions, and many more.
 
 \subsection{DevOps technologies}
@@ -775,20 +774,21 @@ The project was developed following a customized version of Git Flow, depicted i
 \end{figure}
 
 The repository consists of a master branch and several feature branches.
-The master branch is the development reference: all feature branches originate from it, and at the end of their existence, they are merged into the master branch.
+The master branch is the development reference, meaning that all the feature branches originate from it, and at the end of their existence, they are merged into the master branch.
 The feature branches are related to the developed features. 
 For each feature to be implemented, a feature branch was created, and at the end of the development, a pull request was made to merge the content into the master branch.
-All feature branches followed this naming convention: \textit{feature/{feature-name}}
+All feature branches followed the following naming convention: \textit{feature/{feature-name}}
 
 \paragraph*{Build automation}
-Build Automation refers to the automation of the build lifecycle of a project, the process from source code to product release and distribution. 
+Build Automation refers to the automation of the build lifecycle of a project, which is the process from source code to product release and distribution. 
 This allows automating operations that were previously done manually, making software deployment more efficient and less error-prone.
-In this work, Gradle\footnote{https://gradle.org/}, one of the most famous and widely used build systems, is used. 
+In this work, Gradle\footnote{https://gradle.org/}, one of the most famous and widely used build systems, was used. 
 Gradle is primarily used to manage dependencies with external libraries used in the project (e.g., the library for parsing YAML files).
 With Gradle, it is possible to define custom tasks, which are essentially atomic operations on the project that have input and output files and can depend on other tasks. 
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
+\Cref{lst:custom-task} shows the implementation of the custom task to generate the JAR file.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Custom task to generate the JAR file.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:custom-task} caption={Custom task to generate the JAR file.}]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -835,7 +835,7 @@ jobs:
 \end{lstlisting}
 
 \Cref{lst:ci-build} depicts the release job of the CI/CD workflow.
-It states that need the \emph{build} job to be completed before running. This ensure that the tests are passed before releasing the software.
+To run this step, the \emph{build} job must be completed successfully. This ensures that the tests are passed before releasing the software.
 Then it proceeds to install Node, which is required to run the semantic release tool, and finally runs the npm release command.
 
 \begin{lstlisting}[language=yaml, label={lst:ci-release}, caption={CI/CD workflow: release job.}]
@@ -874,7 +874,7 @@ Then it proceeds to install Node, which is required to run the semantic release 
   \end{lstlisting}
 
 \paragraph*{Versioning and Releasing}
-For commits, Conventional Commits\footnote{https://www.conventionalcommits.org/en/v1.0.0/} are used, a convention that provides a set of possible commits, 
+For commits, Conventional Commits\footnote{https://www.conventionalcommits.org/en/v1.0.0/} is used, a convention that provides a set of possible commits, 
 each with a different semantic, allowing the definition of the software version number based on the commit history.
 
 The following set of commits is used:
@@ -919,14 +919,15 @@ The version number is defined in the format \emph{X.Y.Z} where X is a major vers
 
 \subsection{Unit Testing}
 Unit testing is a software testing method to test individual units or components of software.
-In this work, we use it to test the behavior of the various components of the framework.
+In this work, we used it to test the behavior of the various components of the framework.
 
 Given the nature of the work, most components require human judgment to be tested. 
 This is the case for the \emph{Executor} and \emph{Listener} components, which are responsible for starting the simulator and reading its output, respectively.
 The tests on this component were conducted by repeatedly running the framework with different scenarios and checking the output manually.
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
+\Cref{lst:parser-tests} shows the tests made on the parser.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Parser tests.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:parser-tests} caption={Parser tests.}]
   class ParserTest: FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
@@ -955,14 +956,14 @@ The \emph{Parser} component, on the other hand, was tested automatically, to che
 \subsection{Integration Testing}
 
 Integration testing is a software testing method to test the behavior of the various components of the software when integrated.
-In this work, we use it to test the behavior of the simulators supported by the framework.
+In this work, we used it to test the behavior of the simulators supported by the framework.
 
 Checking if a simulator is running a scenario in the right way is not an easy task to do automatically, as it requires human judgment.
-Therefore the integration tests are performed manually.
+Therefore, the integration tests are performed manually.
 
 \paragraph*{NetLogo}
 
-NetLogo was tested by running one of the bundled models, the Wolf Sheep Predation model.
+NetLogo was tested by running one of the bundled models, namely the Wolf Sheep Predation model.
 
 The first time, the simulation was launched through the framework in headless mode, without a graphical interface.
 Several logs were added to monitor the benchmark execution, and everything went as expected:
@@ -973,7 +974,7 @@ This CSV file was then transformed into a data structure within the framework co
 The second execution was launched again through the framework, but this time with the graphical interface activated, as \Cref{fig:netlogo-sim} shows. 
 The same steps as before were observed, with the addition of the simulation being visually displayed.
 
-Comparing the two executions and conducting further ones, no differences were noticed. 
+After comparing the two executions and conducting further ones, no differences were noticed. 
 We can therefore say that NetLogo has been integrated correctly into the framework.
 
 \begin{figure}[h!]
@@ -986,10 +987,9 @@ We can therefore say that NetLogo has been integrated correctly into the framewo
 \paragraph*{Alchemist}
 The same process was applied to test the integration with the Alchemist simulator.
 
-To test the behavior of Alchemist, a program that computes the gradient, a typical problem known in the literature, was chosen. 
-The first execution was done with the graphical interface activated, which allowed verifying the correct execution of the simulation, thanks to the graphical effects applied to the nodes.
-This run is depicted in \Cref{fig:alchemist-sim}.
-The second execution was done headless and provided the same results as the first. This process was repeated for both incarnations supported by the framework, namely Protelis and Sapere.
+To test the behavior of Alchemist, a program that computes the gradient, a typical problem known in the literature was chosen. 
+The first execution was done with the graphical interface activated, which allowed verifying the correct execution of the simulation thanks to the graphical effects applied to the nodes.
+This run is depicted in \Cref{fig:alchemist-sim}. The second execution was done headless and provided the same results as the first. This process was repeated for both incarnations supported by the framework, namely Protelis and Sapere.
 
 \begin{figure}[h!]
   \centering
@@ -1005,12 +1005,12 @@ In this section, we will provide an example of how the framework can be used to 
 \paragraph*{Definition and execution of a benchmark}
 
 We start by defining a problem, which is the computation of the gradient in a grid of nodes.
-This is a known scenario in the literature, it consists of computing the distance of each node in the grid from a source node.
+This is a known scenario in the literature and consists of computing the distance of each node in the grid from a source node.
 The solution to be tested is an implementation of the gradient computation in the Sapere incarnation of Alchemist.
 
-We create a benchmark configuration file, which contains all the information about the benchmark to be executed.
+We create a benchmark configuration file, \Cref{lst:cos-benchmark-conf}, which contains all the information about the benchmark to be executed.
 
-\begin{lstlisting}[language=yaml, caption={Case of study: benchmark configuration file.}]
+\begin{lstlisting}[language=yaml, label={lst:cos-benchmark-conf}, caption={Case of study: benchmark configuration file.}]
     strategy:
       executionOrder:
         - Alchemist-SAPERE-gradient
@@ -1026,9 +1026,9 @@ We create a benchmark configuration file, which contains all the information abo
 \end{lstlisting}
 
 After the benchmark configuration file, we define the input file for the Alchemist simulation.
-This file contains the environment configuration along with the export definition and the termination condition.
+This file, as \Cref{lst:cos-alchem-conf} shows, contains the environment configuration along with the export definition and the termination condition.
 
-\begin{lstlisting}[language=yaml, caption={Case of study: Alchemist input file.}]
+\begin{lstlisting}[language=yaml, label={lst:cos-alchem-conf}, caption={Case of study: Alchemist input file.}]
 incarnation: sapere
 
 launcher:
@@ -1063,9 +1063,9 @@ terminate:
     parameters: 100
 \end{lstlisting}
 
-We proceed to implement a first version of the \emph{gradient} program as follows:
+We proceed to implement a first version of the \emph{gradient} program as \Cref{lst:cos-alchem-solA} shows.
 
-\begin{lstlisting}[language=yaml, caption={Case of study: gradient program A.}]
+\begin{lstlisting}[language=yaml, label={lst:cos-alchem-solA}, caption={Case of study: gradient program A.}]
 _send: &grad
   - {time-distribution: 0.1, program: '{source} --> {source} {gradient, 0}'}
   - {time-distribution: 1, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
@@ -1078,11 +1078,11 @@ _send: &grad
       {gradient, def: N > 30} -->
     \end{lstlisting}
 
-Now we define the processing function which will be in charge of aggregating the data and returning the result.
+Now we define the processing function, as \Cref{lst:cos-postproc} depicts, which will be in charge of aggregating the data and returning the result.
 The function is implemented without the use of any external library, using pure Kotlin.
 It is not recommended to do so, as Kotlin is not a data analysis language and the code itself is not very readable.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Case of study: output processing function.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:cos-postproc}, caption={Case of study: output processing function.}]
   val timeValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["time"]
   val gradientValues = benchmarkOutput["Alchemist-SAPERE-gradient-1"]!!["value[mean]"]
   val timeToStabilize = gradientValues.reversed().foldRight(Triple(0.00, 0, 0)) { value, acc ->
@@ -1109,7 +1109,7 @@ The function looks at the gradient value and returns the time at which the gradi
 A stable gradient is defined as two consecutive values that are the same and different from zero.
 To make the comparison values of type \textit{Double} are used, with a precision of two decimal places.
 
-In \Cref{fig:result-A} we can observe the result of the benchmark execution, along with the output data of the simulator.
+In \Cref{fig:result-A} we can observe the results of the benchmark execution, along with the output data of the simulator.
 
 \begin{figure}[h!]
   \centering
@@ -1124,9 +1124,9 @@ We want to create a new solution for the gradient computation problem and compar
 To do so, we can use the benchmark configuration file and the processing function used for the reference solution,
 develop our own solution and run the benchmark to get the result.
 
-To define the solution we take the Alchemist input file and change the time distribution of the reactions.
+To define the solution we take the Alchemist input file and change the time distribution of the reactions, as shown in \Cref{lst:cos-alchem-solB}.
 
-\begin{lstlisting}[language=yaml, caption={Case of study: gradient program B.}]
+\begin{lstlisting}[language=yaml, label={lst:cos-alchem-solB}, caption={Case of study: gradient program B.}]
   _send: &id001
   - {time-distribution: 1, program: '{source} --> {source} {gradient, 0}'}
   - {time-distribution: 2, program: '{gradient, N} --> {gradient, N} *{gradient, N+#D}'}
@@ -1139,7 +1139,7 @@ To define the solution we take the Alchemist input file and change the time dist
       {gradient, def: N > 30} -->
 \end{lstlisting}
 
-\Cref{fig:result-B} shows the result of the benchmark execution.
+\Cref{fig:result-B} shows the results of the benchmark execution.
 It is now possible to compare them against the reference solution.
 
 \begin{figure}[H]
