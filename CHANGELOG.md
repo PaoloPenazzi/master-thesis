@@ -1,3 +1,14 @@
+## [7.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/6.1.1...7.0.0) (2024-03-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* add some missing ref
+
+### Features
+
+* add some missing ref ([75d1115](https://github.com/PaoloPenazzi/master-thesis/commit/75d1115085c4669cc11d37100543d554d6e9f68a))
+
 ## [6.1.1](https://github.com/PaoloPenazzi/master-thesis/compare/6.1.0...6.1.1) (2024-03-05)
 
 
