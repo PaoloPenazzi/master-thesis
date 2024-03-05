@@ -1,3 +1,10 @@
+## [6.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/6.0.2...6.1.0) (2024-03-05)
+
+
+### Features
+
+* add aacknowledgements ([ca85c43](https://github.com/PaoloPenazzi/master-thesis/commit/ca85c436ff2406ea3947b538db47859d0a083bd5))
+
 ## [6.0.2](https://github.com/PaoloPenazzi/master-thesis/compare/6.0.1...6.0.2) (2024-03-04)
 
 
