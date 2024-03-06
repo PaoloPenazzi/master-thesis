@@ -654,7 +654,7 @@ This is the case for the \emph{duration} parameter, which can be specified in th
 This parameter may change the duration of the execution of a scenario, overriding the simulator's input file. 
 To achieve this, a \emph{ConfigFileHandler} interface, which is implemented by each simulator-specific component, was created.
 This interface contains a single method, \emph{handle}, which takes the scenario configuration as an input.
-\Cref{lst:lst:configfilehandler} shows the \emph{ConfigFileHandler} interface.
+\Cref{lst:configfilehandler} shows the \emph{ConfigFileHandler} interface.
 
 \begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:configfilehandler}, caption={ConfigFileHandler interface.}]
   interface ConfigFileHandler {
