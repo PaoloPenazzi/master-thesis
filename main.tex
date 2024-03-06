@@ -764,7 +764,7 @@ After parsing the benchmark configuration file, the \emph{Controller} begins to 
   }
 \end{lstlisting}
 
-As \Cref{lst:ctrl-lst:ctrl-executor} shows, the \emph{Controller} creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
+As \Cref{lst:ctrl} shows, the \emph{Controller} creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 It is important to note that each scenario execution is strictly sequential. A scenario is launched, the controller waits for the execution to finish, creates the Listener to read the results and only then moves on to the next scenario.
 All the results are saved in a data structure that will be displayed to the user by the \emph{View}.
 
@@ -1102,9 +1102,9 @@ We start by defining a problem, which is the computation of the gradient in a gr
 This is a known scenario in the literature and consists of computing the distance of each node in the grid from a source node.
 The solution to be tested is an implementation of the gradient computation in the Sapere incarnation of Alchemist.
 
-We create a benchmark configuration file, \Cref{lst:cos-benchmark-conf}, which contains all the information about the benchmark to be executed.
+We create a benchmark configuration file, \Cref{lst:cosBenchmarkConfig}, which contains all the information about the benchmark to be executed.
 
-\begin{lstlisting}[language=yaml, label={lst:cos-benchmark-conf}, caption={Case of study: benchmark configuration file.}]
+\begin{lstlisting}[language=yaml, label={lst:cosBenchmarkConfig}, caption={Case of study: benchmark configuration file.}]
     strategy:
       executionOrder:
         - Alchemist-SAPERE-gradient
