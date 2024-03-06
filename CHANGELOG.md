@@ -1,3 +1,10 @@
+## [8.0.1](https://github.com/PaoloPenazzi/master-thesis/compare/8.0.0...8.0.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* fixed typo in listing ref ([11ebf6d](https://github.com/PaoloPenazzi/master-thesis/commit/11ebf6d6f30dcb426fa51ce01e924f376a9b535e))
+
 ## [8.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/7.1.0...8.0.0) (2024-03-06)
 
 
