@@ -1,3 +1,10 @@
+## [7.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/7.0.0...7.1.0) (2024-03-06)
+
+
+### Features
+
+* extend a few sections ([73b85db](https://github.com/PaoloPenazzi/master-thesis/commit/73b85db42ab47c529749736eeb4f32849bb7cb36))
+
 ## [7.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/6.1.1...7.0.0) (2024-03-05)
 
 
