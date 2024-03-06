@@ -1,3 +1,15 @@
+## [8.0.0](https://github.com/PaoloPenazzi/master-thesis/compare/7.1.0...8.0.0) (2024-03-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* update listing labels
+
+### Bug Fixes
+
+* fix a broken ref ([23b50b3](https://github.com/PaoloPenazzi/master-thesis/commit/23b50b39aa7e2ae2dcb325677ed997c8dd245ec4))
+* update listing labels ([5eb9d18](https://github.com/PaoloPenazzi/master-thesis/commit/5eb9d1853bf0e83b5b98a7ab8f104664b9edbabd))
+
 ## [7.1.0](https://github.com/PaoloPenazzi/master-thesis/compare/7.0.0...7.1.0) (2024-03-06)
 
 
