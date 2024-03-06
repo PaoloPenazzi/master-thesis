@@ -704,7 +704,7 @@ override fun clearCSV(path: String) {
 The concept of \emph{Scenario Output} is implemented as a map that associates each metric with its value.
 The metric is represented as a \textit{String}, while the value is represented as a list of \textit{Any}.
 An instance of \emph{ScenarioOutput} is shown in \Cref{lst:scenario-output-impl}.
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:scenario-output-impl} caption={ScenarioOutput implementation.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:scenario-output-impl}, caption={ScenarioOutput implementation.}]
   typealias ScenarioOutput = Map<String, List<Any>>
   // "timeSteps" -> [10, 20, 30, 40]
   // "meanError" -> [0.54, 0.32, 0.12, 0.05]
@@ -713,7 +713,7 @@ An instance of \emph{ScenarioOutput} is shown in \Cref{lst:scenario-output-impl}
 The \emph{BenchmarkOutput} is implemented as a map that associates each scenario with its \emph{Scenario Output}.
 The scenario is represented as a \textit{String}, generated using the pattern \textit{{scenarioName}-{runNumber}}.
 \Cref{lst:benchmark-output-impl} shows an instance of \emph{BenchmarkOutput}.
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:benchmark-output-impl} caption={BenchmarkOutput implementation.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:benchmark-output-impl}, caption={BenchmarkOutput implementation.}]
   typealias ScenarioOutput = Map<String, List<Any>>
   // "NetLogo-Tutorial-1" -> ScenarioOutput(...)
   // "NetLogo-Tutorial-2" -> ScenarioOutput(...)
