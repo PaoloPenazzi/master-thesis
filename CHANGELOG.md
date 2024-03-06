@@ -1,3 +1,10 @@
+## [8.0.2](https://github.com/PaoloPenazzi/master-thesis/compare/8.0.1...8.0.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* typo in configFileHandler ref ([8f86ce0](https://github.com/PaoloPenazzi/master-thesis/commit/8f86ce01e68adbc57fcef992bc3dd73547df8aee))
+
 ## [8.0.1](https://github.com/PaoloPenazzi/master-thesis/compare/8.0.0...8.0.1) (2024-03-06)
 
 
