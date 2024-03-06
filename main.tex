@@ -445,7 +445,7 @@ Additional strategy parameters could be added in the future to support other fea
 
 \Cref{lst:benchmark-configuration-strategy} shows a possibile definition of the \emph{Strategy} section in a benchmark configuration file.
 
-\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-strategy} ,caption={Benchmark configuration file structure: Strategy section.}]
+\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-strategy}, caption={Benchmark configuration file structure: Strategy section.}]
   strategy:
     executionOrder:
       - Alchemist-sapere-tutorial
@@ -474,7 +474,7 @@ This section contains:
 
 \Cref{lst:benchmark-configuration-sim1} shows a possible definition of the \emph{Simulators} section in a benchmark configuration file using NetLogo as a simulator.
 
-\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim1} ,caption={Benchmark configuration file structure: NetLogo simulator section.}]
+\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim1}, caption={Benchmark configuration file structure: NetLogo simulator section.}]
 simulators:
   - name: NETLOGO
     simulatorPath: "./NetLogo 6.4.0/"
@@ -490,7 +490,7 @@ simulators:
 
 \Cref{lst:benchmark-configuration-sim2} depicts the configuration of two scenarios run by the Alchemist simulator.
 
-\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim2} ,caption={Benchmark configuration file structure: Alchemist simulator section.}]
+\begin{lstlisting}[language=yaml, label={lst:benchmark-configuration-sim2}, caption={Benchmark configuration file structure: Alchemist simulator section.}]
   simulators:
     - name: Alchemist
       simulatorPath: "./"
@@ -601,7 +601,7 @@ The \emph{Serializable} annotation is used to allow the model to be serialized a
 This annotation is provided by the \emph{"org.jetbrains.kotlinx:kotlinx-serialization-json"} library.
 \Cref{lst:model-impl} shows the implementation of the benchmark model.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:model-impl} caption={Benchmark model.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:model-impl}, caption={Benchmark model.}]
 @Serializable
 data class Benchmark(
     val strategy: Strategy,
@@ -630,14 +630,14 @@ data class Scenario(
 
 To account for the possibility of adding new simulators, the \emph{SupportedSimulator} enum was created.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={SupportedSimulator enum.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:supportedSim}, caption={SupportedSimulator enum.}]
   enum class SupportedSimulator {
     ALCHEMIST,
     NETLOGO,
 }
 \end{lstlisting}
 
-This enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
+As \Cref{lst:supportedSim} shows, the enum contains all the simulators supported by the framework. When a new simulator is added, it must be added to this enum.
 This forces the user to extend each component of the system to support the new simulator.
 
 \paragraph*{Parser}
@@ -671,7 +671,7 @@ In case it is not available as an option, the listener interface can be extended
 The logic for reading from a CSV file is implemented directly in the Listener interface, while the \emph{clearCSV} method is not implemented and must be handled by the specific simulator's listener. 
 In general, the \emph{clearCSV} function should clean the file from all unnecessary information, leaving the CSV file only with headers and values; otherwise, the reading will not be performed.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:listener-interface} caption={Listener interface.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:listener-interface}, caption={Listener interface.}]
   interface Listener {
     fun read(path: String = ""): ScenarioOutput
     fun clearCSV(path: String)
@@ -703,8 +703,8 @@ override fun clearCSV(path: String) {
 \paragraph*{Output and Result}
 The concept of \emph{Scenario Output} is implemented as a map that associates each metric with its value.
 The metric is represented as a \textit{String}, while the value is represented as a list of \textit{Any}.
-An instance of \emph{ScenarioOutput} is shown in \Cref{lst:scenario-output-impl}.
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:scenario-output-impl}, caption={ScenarioOutput implementation.}]
+An instance of \emph{ScenarioOutput} is shown in \Cref{lst:scenario-output-implementation}.
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:scenario-output-implementation}, caption={ScenarioOutput implementation.}]
   typealias ScenarioOutput = Map<String, List<Any>>
   // "timeSteps" -> [10, 20, 30, 40]
   // "meanError" -> [0.54, 0.32, 0.12, 0.05]
@@ -764,11 +764,11 @@ After parsing the benchmark configuration file, the \emph{Controller} begins to 
   }
 \end{lstlisting}
 
-As \Cref{lst:ctrl} shows, the \emph{Controller} creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
+As \Cref{lst:ctrl-lst:ctrl-executor} shows, the \emph{Controller} creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 It is important to note that each scenario execution is strictly sequential. A scenario is launched, the controller waits for the execution to finish, creates the Listener to read the results and only then moves on to the next scenario.
 All the results are saved in a data structure that will be displayed to the user by the \emph{View}.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:ctrl-executor}, caption={Controller: createExecutor() method.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:ctrl-executor}, caption={Controller: createExecutor method.}]
   private fun createExecutor(simulator: SupportedSimulator, simulatorPath: String, scenario: Scenario) {
       val executor: Executor = when (simulator) {
           SupportedSimulator.ALCHEMIST -> executors.AlchemistExecutor()
@@ -882,7 +882,7 @@ With Gradle, it is possible to define custom tasks, which are essentially atomic
 This functionality has been leveraged to define the task that creates the framework's JAR file, which is then uploaded to GitHub during the release phase.
 \Cref{lst:custom-task} shows the implementation of the custom task to generate the JAR file.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:custom-task} caption={Custom task to generate the JAR file.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:custom-task}, caption={Custom task to generate the JAR file.}]
   tasks.withType<ShadowJar> {
     archiveFileName.set("testbed.jar")
     manifest {
@@ -1021,7 +1021,7 @@ The tests on this component were conducted by repeatedly running the framework w
 The \emph{Parser} component, on the other hand, was tested automatically, to check if the parser correctly translates the input file into the benchmark model.
 \Cref{lst:parser-tests} shows the tests made on the parser.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:parser-tests} caption={Parser tests.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:parser-tests}, caption={Parser tests.}]
   class ParserTest: FreeSpec({
     "The parser" - {
         val parser: Parser = ParserImpl()
