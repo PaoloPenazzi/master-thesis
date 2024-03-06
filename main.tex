@@ -284,6 +284,9 @@ Finally, in \Cref{ch:conclusion}, we analyze the work done and explore potential
 \section{Domain Analysis}
 
 A domain-driven approach was employed in the development of this work.
+
+\subsection{Ubiquitous Language}
+
 To better understand the problem domain and to avoid confusion, a ubiquitous language was defined.
 These concepts were then utilized in the framework development and can be found in the work.
 
@@ -302,6 +305,7 @@ These concepts were then utilized in the framework development and can be found 
   \caption{Domain Ubiquitous Language}
 \end{table}
 
+\subsection{User Stories}
 User Stories were also defined to clarify the users' needs and thus what features the framework should support.
 
 \begin{table}[H]
@@ -378,13 +382,23 @@ The execution of the benchmark is then handled by the testbed, which takes care 
   \label{fig:high-level-architecture}
 \end{figure}
 
+The typical user interaction with the testbed is shown in \Cref{fig:high-level-execution}.
+The user starts the testbed, which executes all the scenarios specified in the benchmark configuration file, and then displays the results to the user.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figures/execution-high-level.png}
+  \caption{Abstract execution of a benchmark.}
+  \label{fig:high-level-execution}
+\end{figure}
+
 Diving deeper into the architecture, we can see that the testbed consists of different components, each with a specific role.
 \Cref{fig:detailed-architecture} is a more detailed image of the system's architecture.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{figures/testbed-architecture.pdf}
-  \caption{Architecture of the system.}
+  \caption{Detailed architecture of the system.}
   \label{fig:detailed-architecture}
 \end{figure}
 
@@ -400,8 +414,8 @@ To better understand the testbed's functioning, it is useful to analyze the exec
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{figures/execution-sequence-diagram.png}
-  \caption{Benchmark execution sequence diagram.}
+  \includegraphics[width=\textwidth]{figures/execution-sequence.png}
+  \caption{Detailed benchmark execution.}
   \label{fig:benchmark-sequence-diagram}
 \end{figure}
 
@@ -416,7 +430,7 @@ Once it is done, the framework reads the results returned in output by the simul
 When the data from all scenarios has been collected, a user-defined transformation is applied to extract results of interest.
 The latter are finally displayed to the user, either through the console or in a GUI.
 
-\section{Benchmark Configuration}
+\subsection{Benchmark Configuration}
 
 The design of the input file system is a crucial aspect of the framework.
 It should enable the user to define a benchmark simply and intuitively, without limiting the user in any way.
@@ -493,7 +507,7 @@ simulators:
           duration: 100
   \end{lstlisting}
 
-\section{Benchmark Results}
+\subsection{Benchmark Results}
 
 A critical part of the framework design is related to what is presented to the user at the end of the benchmark execution.
 
@@ -585,8 +599,9 @@ It matches the structure of the input file to allow easy parsing, as shown in \C
 Each concept of the model is implemented as a data class in Kotlin, which is a class that only contains data and does not have any functionality.
 The \emph{Serializable} annotation is used to allow the model to be serialized and deserialized from YAML.
 This annotation is provided by the \emph{"org.jetbrains.kotlinx:kotlinx-serialization-json"} library.
+\Cref{lst:model-impl} shows the implementation of the benchmark model.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark model.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:model-impl} caption={Benchmark model.}]
 @Serializable
 data class Benchmark(
     val strategy: Strategy,
@@ -607,6 +622,7 @@ data class Scenario(
     val name: String,
     val description: String = "",
     val input: List<String> = listOf(),
+    val postProcessing: String = "",
     val repetitions: Int = 1,
     val duration: Int = 0,
 )
@@ -638,8 +654,9 @@ This is the case for the \emph{duration} parameter, which can be specified in th
 This parameter may change the duration of the execution of a scenario, overriding the simulator's input file. 
 To achieve this, a \emph{ConfigFileHandler} interface, which is implemented by each simulator-specific component, was created.
 This interface contains a single method, \emph{handle}, which takes the scenario configuration as an input.
+\Cref{lst:lst:configfilehandler} shows the \emph{ConfigFileHandler} interface.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={ConfigFileHandler interface.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:configfilehandler}, caption={ConfigFileHandler interface.}]
   interface ConfigFileHandler {
     fun editConfigurationFile(scenario: Scenario)
 }
@@ -648,22 +665,22 @@ This interface contains a single method, \emph{handle}, which takes the scenario
 For example, the Alchemist implementation of the \emph{ConfigFileHandler} interface reads the \emph{duration} parameter from the scenario configuration and injects it to the Alchemist input file, overriding it.
 
 \paragraph*{Listener}
-The listener is implemented as an interface with a \emph{read} method, which takes the path to the CSV file as input and returns a ScenarioOutput. 
+The listener is implemented as an interface with a \emph{read} method, as \Cref{lst:listener-interface} shows, which takes the path to the CSV file as input and returns a ScenarioOutput. 
 Saving simulation results in a CSV file is a standard and widely used approach, which is why this is the preferred method to read the simulator's output. 
 In case it is not available as an option, the listener interface can be extended to implement a custom read function. 
 The logic for reading from a CSV file is implemented directly in the Listener interface, while the \emph{clearCSV} method is not implemented and must be handled by the specific simulator's listener. 
 In general, the \emph{clearCSV} function should clean the file from all unnecessary information, leaving the CSV file only with headers and values; otherwise, the reading will not be performed.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Listener interface.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:listener-interface} caption={Listener interface.}]
   interface Listener {
     fun read(path: String = ""): ScenarioOutput
     fun clearCSV(path: String)
   }
 \end{lstlisting}
 
-The Alchemist implementation for the \emph{ClearCSV} method is:
+The Alchemist implementation for the \emph{ClearCSV} method is depicted in \Cref{lst:alchemist-list}
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={CSV file cleaning in Alchemist.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:alchemist-list}, caption={CSV file cleaning in Alchemist.}]
 override fun clearCSV(path: String) {
     val lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8)
     val regexPatterns = listOf(
@@ -684,31 +701,48 @@ override fun clearCSV(path: String) {
 \end{lstlisting}
 
 \paragraph*{Output and Result}
-
-The concepts of \emph{Scenario Output}, \emph{Benchmark Output} and \emph{Benchmark Result} are implemented as \emph{type alias} in Kotlin, which is a way to define a new type without creating a new class.
-The concept of \emph{Scenario Result} is implemented as a data class.
-
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Benchmark output and result implementation.}]
+The concept of \emph{Scenario Output} is implemented as a map that associates each metric with its value.
+The metric is represented as a \textit{String}, while the value is represented as a list of \textit{Any}.
+An instance of \emph{ScenarioOutput} is shown in \Cref{lst:scenario-output-impl}.
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:scenario-output-impl} caption={ScenarioOutput implementation.}]
   typealias ScenarioOutput = Map<String, List<Any>>
-  typealias BenchmarkOutput = Map<String, ScenarioOutput>
-  typealias BenchmarkResult = List<ScenarioResult>
-
-  data class ScenarioResult(
-    val description: String,
-    val value: List<Any>,
-    val visualisationType: VisualisationType,
-)
+  // "timeSteps" -> [10, 20, 30, 40]
+  // "meanError" -> [0.54, 0.32, 0.12, 0.05]
 \end{lstlisting}
 
-Both the \textit{ScenarioOutput} and the \textit{ScenarioResult} use a list of \emph{Any} to represent the value.
-This is done to ensure compatibility with any simulator that might be added in the future.
+The \emph{BenchmarkOutput} is implemented as a map that associates each scenario with its \emph{Scenario Output}.
+The scenario is represented as a \textit{String}, generated using the pattern \textit{{scenarioName}-{runNumber}}.
+\Cref{lst:benchmark-output-impl} shows an instance of \emph{BenchmarkOutput}.
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:benchmark-output-impl} caption={BenchmarkOutput implementation.}]
+  typealias ScenarioOutput = Map<String, List<Any>>
+  // "NetLogo-Tutorial-1" -> ScenarioOutput(...)
+  // "NetLogo-Tutorial-2" -> ScenarioOutput(...)
+  // "Alchemist-Protelis-1" -> ScenarioOutput(...)
+\end{lstlisting}
+
+The \emph{Scenario Result} is implemented as a data class, which contains a description of the result, its values, and the type of visualization to be used to show the data.
+The \emph{Benchmark Result} is implemented as a list of \emph{Scenario Result}.
+\Cref{lst:benchmark-result-impl} shows the implementation of the \emph{ScenarioResult} along an instance of it and the \emph{BenchmarkResult}.
+
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:benchmark-result-impl}, caption={BenchmarkResult and ScenarioResult implementation.}]
+data class ScenarioResult(
+  val description: String,
+  val value: List<Any>,
+  val visualisationType: VisualisationType,
+)
+typealias BenchmarkResult = List<ScenarioResult>
+\end{lstlisting}
+
+Data types as generic as possible are employed to support the widest range of data types. 
+To enhance code quality and readability, the discussed data structures are defined using type aliases. 
+These allow one to define a custom name for a data type and use it anywhere in the project, instead of the original definition.
+In addition, this allows application domain concepts to be tied into the code.
 
 \paragraph*{Controller}
 
 After parsing the benchmark configuration file, the \emph{Controller} begins to execute every Scenario in the order specified by the user.
-It creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 
-\begin{lstlisting}[style=my-kotlin, language=my-kotlin, caption={Controller implementation.}]
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:ctrl}, caption={Controller implementation.}]
   val scenarioNameOrder: List<String> = benchmark.strategy.executionOrder
   val scenarioMap: Map<String, Triple<Simulator, Scenario, Int>> = benchmark.simulators
       .flatMap { simulator ->
@@ -724,17 +758,77 @@ It creates a map containing all the scenarios and their respective simulators, a
           runBlocking {
               println("[TESTBED] Running scenario $scenarioName in ${simulator.name} simulator. Run number $i")
               createExecutor(simulator.name, simulator.simulatorPath, scenario)
-              val reader = createReader(simulator.name)
-              val runName = "$scenarioName-$i"
-              val metric = reader.read(simulator.simulatorPath + "export.csv")
-              benchmarkOutput = benchmarkOutput + mapOf(runName to metric)
+              readSimulatorOutput(simulator, scenario, i)
           }
       }
   }
 \end{lstlisting}
 
+As \Cref{lst:ctrl} shows, the \emph{Controller} creates a map containing all the scenarios and their respective simulators, and then iterates over the map, executing each scenario.
 It is important to note that each scenario execution is strictly sequential. A scenario is launched, the controller waits for the execution to finish, creates the Listener to read the results and only then moves on to the next scenario.
 All the results are saved in a data structure that will be displayed to the user by the \emph{View}.
+
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:ctrl-executor}, caption={Controller: createExecutor() method.}]
+  private fun createExecutor(simulator: SupportedSimulator, simulatorPath: String, scenario: Scenario) {
+      val executor: Executor = when (simulator) {
+          SupportedSimulator.ALCHEMIST -> executors.AlchemistExecutor()
+          SupportedSimulator.NETLOGO -> executors.NetLogoExecutor()
+      }
+      executor.run(simulatorPath, scenario)
+  }
+\end{lstlisting}
+
+\Cref{lst:ctrl-executor} shows the implementation of the \emph{createExecutor} method.
+This function is responsible for creating the correct executor for the simulator.
+This is one of the cases where the framework's extensibility is evident. 
+There must be an executor for each supported simulator, therefore, this method must be updated every time a new simulator is added.
+
+\paragraph*{Executor}
+
+The \emph{Executor} component is implemented as an interface, which is extended by each specific simulator's executor.
+To launch a simulator, a command must be generated and executed.
+As shown in \Cref{lst:executor-interface}, the generation and the execution of the command are split into two methods, namely \emph{getCommand} and \emph{run}.
+The execution of the command does not depend on the simulator, therefore it is implemented in the \emph{Executor} interface.
+The generation of the command, on the other hand, is specific to each simulator. 
+It is delegated to the classes that extend the \emph{Executor} interface, which are specific to each simulator.
+
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:executor-interface}, caption={Executor interface.}]
+  interface Executor {
+    fun run(simulatorPath: String, scenario: Scenario) {
+      val processBuilder = getCommand(simulatorPath, scenario)
+      val process = processBuilder.start()
+      val reader = BufferedReader(InputStreamReader(process.inputStream))
+      var line: String?
+      while (reader.readLine().also { line = it } != null) {
+          println(line)
+      }
+      process.waitFor()
+    }
+
+    fun getCommand(simulatorPath: String, scenario: Scenario): ProcessBuilder
+  }
+\end{lstlisting}
+
+\Cref{lst:netlogo-executor} shows the implementation of the \emph{getCommand} method for the NetLogo simulator.
+
+\begin{lstlisting}[style=my-kotlin, language=my-kotlin, label={lst:netlogo-executor}, caption={NetlogoExecutor class.}]
+class NetLogoExecutor : Executor {
+  override fun getCommand(simulatorPath: String, scenario: Scenario): ProcessBuilder {
+      return ProcessBuilder(
+          "./NetLogo_Console",
+          "--headless",
+          "--model",
+          scenario.input[1],
+          "--setup-file",
+          scenario.input[0],
+          "--table",
+          "./export.csv",
+        )
+          .directory(File(simulatorPath))
+          .redirectErrorStream(true)
+    }
+}
+\end{lstlisting}
 
 \section{Technologies}
 
