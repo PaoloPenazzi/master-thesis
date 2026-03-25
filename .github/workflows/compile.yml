@@ -25,7 +25,7 @@ jobs:
         run: mv main.pdf report.pdf
       - uses: actions/setup-node@v4
         with:
-          node-version: '20.11.0'
+          node-version: '20.20.2'
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
